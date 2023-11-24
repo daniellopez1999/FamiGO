@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser, getUserByEmail } from '../models/users';
+import { createUser, getUserByEmail, getUserByUserName } from '../models/users';
 import { random, authentication } from '../helpers';
 
 export const register = async (req: express.Request, res: express.Response) => {
@@ -10,9 +10,10 @@ export const register = async (req: express.Request, res: express.Response) => {
       return res.sendStatus(400);
     }
 
-    const existingUser = await getUserByEmail(email);
+    const existingUserEmail = await getUserByEmail(email);
+    const existingUserName = await getUserByUserName(username);
 
-    if (existingUser) {
+    if (existingUserEmail || existingUserName) {
       return res.sendStatus(400);
     }
 
