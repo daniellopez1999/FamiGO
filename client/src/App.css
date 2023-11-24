@@ -12,18 +12,16 @@ input:focus {
   outline: none;
 }
 
-.app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* background colors are set temporarily to make visualization easier */
+:root {
+  background-color: olivedrab;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app {
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  max-width: 430px;
+  margin: 0 auto;
+  text-align: center;
 }
