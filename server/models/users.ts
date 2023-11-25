@@ -39,7 +39,8 @@ const userSchema = new Schema({
   },
   avatar: {
     type: String,
-    required: false,
+    default: 'default-avatar.jpg',
+    required: true,
   },
   followers: {
     type: [String],
