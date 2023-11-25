@@ -1,0 +1,18 @@
+.nav {
+  background-color: lightblue;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  max-width: 430px;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.nav-item {
+  background-color: whitesmoke;
+  height: 60%;
+  padding: 0.5rem;
+}

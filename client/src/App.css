@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* background colors are set temporarily to make visualization easier */
+:root {
+  background-color: olivedrab;
+}
+
+.app {
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  max-width: 430px;
+  margin: 0 auto;
+  text-align: center;
+}
