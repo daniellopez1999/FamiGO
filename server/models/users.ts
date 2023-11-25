@@ -32,7 +32,7 @@ const userSchema = new Schema({
       type: String,
       select: false,
     },
-    sessioToken: {
+    sessionToken: {
       type: String,
       select: false,
     },
