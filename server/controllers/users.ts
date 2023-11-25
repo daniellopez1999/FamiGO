@@ -33,14 +33,3 @@ export const register = async (req: express.Request, res: express.Response) => {
     return res.sendStatus(400);
   }
 };
-
-// export const userGetInfo = async (_req, res) => {
-//   res.send('User Received');
-// };
-
-// const usersExport = {
-//   register,
-//   //userGetInfo,
-// };
-
-// export default usersExport;
