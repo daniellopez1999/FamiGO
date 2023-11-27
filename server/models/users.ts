@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-//import { IUser } from "../types";
+
 const Schema = mongoose.Schema;
 
 const url = 'mongodb://127.0.0.1:27017/FamiGO';
@@ -17,10 +17,12 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   authentication: {
     password: {
@@ -37,22 +39,24 @@ const userSchema = new Schema({
       select: false,
     },
   },
+  statistics: {
+    followers: {
+      type: [String],
+      required: false,
+    },
+    following: {
+      type: [String],
+      required: false,
+    },
+    posts: {
+      type: [String],
+      required: false,
+    },
+  },
   avatar: {
     type: String,
     default: 'default-avatar.jpg',
     required: true,
-  },
-  followers: {
-    type: [String],
-    required: false,
-  },
-  following: {
-    type: [String],
-    required: false,
-  },
-  posts: {
-    type: [String],
-    required: false,
   },
   savedPosts: {
     type: [String],

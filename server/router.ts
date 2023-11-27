@@ -14,8 +14,11 @@ import {
 import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
+import { getPosts, publishActivity } from './controllers/activity';
+
 const router = Router();
 
+//Users
 router.post('/register', register);
 router.post('/login', login);
 router.get('/users', isAuthenticated, getAllUsers);
@@ -32,6 +35,10 @@ router.put(
   isOwner,
   updatePassword
 );
+
+router.get('/profile/:id', isAuthenticated, getPosts);
+//Activities
+router.post('/publish-activity', isAuthenticated, publishActivity);
 
 const upload = multer();
 router.post('/image', upload.any(), uploadToCloudinary);
