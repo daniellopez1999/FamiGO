@@ -37,5 +37,4 @@ router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
 //Activities
 router.post('/publish-activity', isAuthenticated, publishActivity);
 //Get Activities from specific user
-router.get('/profile/:id', isAuthenticated, getUserData);
 export default router;
