@@ -11,6 +11,11 @@ interface IFormInput {
   Duration: {};
 }
 
+type Options = {
+  value: String;
+  label: String;
+};
+
 const GenerateForm: React.FC = () => {
   const topicOptions = [
     { value: 'Nature', label: 'Nature' },
@@ -66,7 +71,11 @@ const GenerateForm: React.FC = () => {
     },
   });
 
-  const handleSelect = (field: any, options: any, placeholder: any) => {
+  const handleSelect = (
+    field: Object,
+    options: Options[],
+    placeholder: String
+  ) => {
     return <Select {...field} options={options} placeholder={placeholder} />;
   };
 
