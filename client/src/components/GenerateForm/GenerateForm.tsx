@@ -11,7 +11,7 @@ interface IFormInput {
   Duration: {};
 }
 
-const Form: React.FC = () => {
+const GenerateForm: React.FC = () => {
   const topicOptions = [
     { value: 'Nature', label: 'Nature' },
     { value: 'Art', label: 'Art' },
@@ -66,6 +66,10 @@ const Form: React.FC = () => {
     },
   });
 
+  const handleSelect = (field: any, options: any, placeholder: any) => {
+    return <Select {...field} options={options} placeholder={placeholder} />;
+  };
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     // Todo: Send selected options
     console.log(data);
@@ -77,71 +81,51 @@ const Form: React.FC = () => {
       <Controller
         name="Topic"
         control={control}
-        render={({ field }) => (
-          <Select {...field} options={topicOptions} placeholder={'Topic...'} />
-        )}
+        render={({ field }) => handleSelect(field, topicOptions, 'Topic...')}
       />
       <br />
       <Controller
         name="KidsNumber"
         control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            options={kidsOptions}
-            placeholder={'Number of kids...'}
-          />
-        )}
+        render={({ field }) =>
+          handleSelect(field, kidsOptions, 'Number of kids...')
+        }
       />
       <br />
 
       <Controller
         name="AgeRange"
         control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            options={ageRangeOptions}
-            placeholder={'Age range...'}
-          />
-        )}
+        render={({ field }) =>
+          handleSelect(field, ageRangeOptions, 'Age range...')
+        }
       />
 
       <br />
       <Controller
         name="Difficulty"
         control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            options={difficultyOptions}
-            placeholder={'Difficulty...'}
-          />
-        )}
+        render={({ field }) =>
+          handleSelect(field, difficultyOptions, 'Difficulty...')
+        }
       />
       <br />
       <Controller
         name="Place"
         control={control}
-        render={({ field }) => (
-          <Select {...field} options={placeOptions} placeholder={'Place...'} />
-        )}
+        render={({ field }) => handleSelect(field, placeOptions, 'Place...')}
       />
       <br />
       <Controller
         name="Duration"
         control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            options={durationOptions}
-            placeholder={'Duration...'}
-          />
-        )}
+        render={({ field }) =>
+          handleSelect(field, durationOptions, 'Duration...')
+        }
       />
       <input type="submit" value="Generate" />
     </form>
   );
 };
 
-export default Form;
+export default GenerateForm;
