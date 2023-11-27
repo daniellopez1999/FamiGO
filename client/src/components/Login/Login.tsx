@@ -14,7 +14,12 @@ const Login = () => {
           placeholder="Password"
           required
         />
+        <button type="submit">LOG IN</button>
       </form>
+      <div>
+        <span>Don't have an account?</span>
+        <button>SIGN UP</button>
+      </div>
     </div>
   );
 };
