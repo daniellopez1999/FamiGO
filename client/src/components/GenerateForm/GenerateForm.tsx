@@ -80,8 +80,25 @@ const GenerateForm: React.FC = () => {
   };
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    // Todo: Send selected options
-    console.log(data);
+    const apiEndpoint = 'http://localhost:3000/generator';
+    console.log('data', data);
+    fetch(apiEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        console.log('response', response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
