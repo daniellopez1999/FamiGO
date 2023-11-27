@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { User } from '../types/user';
+import { register } from '../services/auth';
 
 const RegisterPage = () => {
   interface FormState {
@@ -21,12 +22,16 @@ const RegisterPage = () => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault;
+    e.preventDefault();
 
     if (inputValues.password != inputValues.confirmPassword) {
-      console.error('Password is different than Confirm Password');
+      console.log('Password is different than Confirm Password');
     } else {
-      registerUser(inputValues).then(() => {
+      register(
+        inputValues.username,
+        inputValues.email,
+        inputValues.password
+      ).then(() => {
         setInputValues({
           username: '',
           email: '',
@@ -38,9 +43,56 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <div>RegisterPage</div>
-    </div>
+    <>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <div>
+            <input
+              type="text"
+              required={true}
+              placeholder="Name"
+              value={inputValues.username}
+              onChange={handleChange}
+              name="username"
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              required={true}
+              placeholder="Email"
+              value={inputValues.email}
+              onChange={handleChange}
+              name="email"
+            />
+          </div>
+
+          <div>
+            <input
+              type="password"
+              required={true}
+              placeholder="Password"
+              value={inputValues.password}
+              onChange={handleChange}
+              name="password"
+            />
+          </div>
+
+          <div>
+            <input
+              type="password"
+              required={true}
+              placeholder="Confirm password"
+              value={inputValues.confirmPassword}
+              onChange={handleChange}
+              name="confirmPassword"
+            />
+          </div>
+        </div>
+        <input type="submit" value="SIGN UP" />
+      </form>
+    </>
   );
 };
 export default RegisterPage;
