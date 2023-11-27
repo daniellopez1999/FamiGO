@@ -9,8 +9,11 @@ import {
 import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
+import { publishActivity } from './controllers/activity';
+
 const router = Router();
 
+//Users
 router.post('/register', register);
 router.post('/login', login);
 router.get('/users', isAuthenticated, getAllUsers);
@@ -28,4 +31,7 @@ router.put(
   updatePassword
 );
 
+//Activities
+
+router.post('/publish-activity', isAuthenticated, publishActivity);
 export default router;

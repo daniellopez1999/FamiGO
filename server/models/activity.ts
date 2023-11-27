@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+//import { UserModel } from './users';
 
 const Schema = mongoose.Schema;
 
@@ -16,10 +17,6 @@ mongoose
 const activitySchema = new Schema({
   userInfo: {
     username: {
-      type: String,
-      required: true,
-    },
-    avatar: {
       type: String,
       required: true,
     },
@@ -72,9 +69,11 @@ const activitySchema = new Schema({
   comments: {
     username: {
       type: String,
+      required: false,
     },
     text: {
       type: String,
+      required: false,
     },
   },
   type: {
@@ -84,4 +83,9 @@ const activitySchema = new Schema({
 });
 
 //Model
-export const UserModel = mongoose.model('Activity', activitySchema);
+export const ActivityModel = mongoose.model('Activity', activitySchema);
+
+export const getActivities = () => ActivityModel.find();
+// export const createActivity = (values: Record<string, any>) => {
+//   new ActivityModel(values).save().then((user) => user.toObject());
+// };
