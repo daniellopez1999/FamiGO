@@ -40,6 +40,13 @@ export const login = async (req: Request, res: Response) => {
     res.cookie('CookieFamiGO', user.authentication!.sessionToken, {
       domain: 'localhost',
       path: '/',
+      httpOnly: true,
+    });
+
+    res.cookie('username', user.username, {
+      domain: 'localhost',
+      path: '/',
+      httpOnly: true,
     });
 
     return res.status(200).json(user).end();
