@@ -7,7 +7,10 @@ import {
   updateUsername,
   updatePassword,
 } from './controllers/users';
-import { uploadToCloudinary } from './controllers/cloudinary';
+import {
+  uploadToCloudinary,
+  deleteFromCloudinary,
+} from './controllers/cloudinary';
 import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
@@ -32,5 +35,6 @@ router.put(
 
 const upload = multer();
 router.post('/image', upload.any(), uploadToCloudinary);
+router.delete('/image/:publicId', deleteFromCloudinary);
 
 export default router;

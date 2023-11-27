@@ -51,3 +51,21 @@ export const uploadToCloudinary = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
+
+export const deleteFromCloudinary = async (req: Request, res: Response) => {
+  try {
+    const {
+      params: { publicId },
+    } = req;
+
+    await cloudinary.api.delete_resources([publicId], {
+      type: 'upload',
+      resource_type: 'image',
+    });
+
+    res.status(200).end();
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+};
