@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { UserModel } from './users';
 //import { UserModel } from './users';
 
 const Schema = mongoose.Schema;
@@ -97,6 +98,9 @@ const activitySchema = new Schema({
 export const ActivityModel = mongoose.model('Activity', activitySchema);
 
 export const getActivities = () => ActivityModel.find();
+export const getActivitiesByID = (id: string) => ActivityModel.findById(id);
+export const getActivitiesFromUser = (username: string) =>
+  UserModel.findOne({ username: username });
 // export const createActivity = (values: Record<string, any>) => {
 //   new ActivityModel(values).save().then((user) => user.toObject());
 // };
