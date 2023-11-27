@@ -15,6 +15,7 @@
   gap: 0.5rem;
 
   & .file-container {
+    position: relative;
     width: 80%;
     height: 80%;
     text-align: center;
@@ -27,6 +28,25 @@
 
     & .spinner {
       opacity: 0.5;
+    }
+
+    .btn-delete-img {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2rem;
+      height: 2rem;
+      border: none;
+      border-radius: 2rem;
+      background-color: var(--primary-color);
+      opacity: 0.6;
+
+      & img {
+        margin: 10% auto;
+        width: 80%;
+        height: 80%;
+        border-radius: 2rem;
+      }
     }
   }
 

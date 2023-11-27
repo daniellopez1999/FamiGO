@@ -4,6 +4,7 @@ import {
   deleteFileFromCloudinary,
 } from '../../services/apiCloudinary';
 
+import DeleteIcon from '../../assets/close-white.png';
 import Logo from '../../assets/logo.png';
 import './ActivityForm.css';
 
@@ -52,9 +53,11 @@ const ActivityForm = () => {
           {isFileLoading ? (
             <img className="spinner" src={tempImg} alt="spinner" />
           ) : (
-            <img src={fileInfo.secureUrl || tempImg} alt="uploaded image" />
+            <img src={fileInfo.secureUrl || tempImg} alt="uploaded image"></img>
           )}
-          <button onClick={handleFileDelete}>delete</button>
+          <button className="btn-delete-img" onClick={handleFileDelete}>
+            <img src={DeleteIcon} alt="delete icon" />
+          </button>
         </div>
         <div className="file-input-container">
           <input type="file" onChange={handleFileChange} />
