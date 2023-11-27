@@ -22,6 +22,16 @@ const activitySchema = new Schema({
     },
   },
 
+  title: {
+    type: String,
+    required: true,
+  },
+
+  material: {
+    type: String,
+    required: true,
+  },
+
   image: {
     type: String,
     required: true,
@@ -78,6 +88,7 @@ const activitySchema = new Schema({
   },
   type: {
     type: String,
+    default: 'published',
     required: true,
   },
 });
