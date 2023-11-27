@@ -32,23 +32,31 @@ export const publishActivity = async (req: Request, res: Response) => {
   }
 };
 
-export const getPosts = async (req: Request, res: Response) => {
-  const username = req.params.id;
+export const getUserData = async (_req: Request, res: Response) => {
+  try {
+    const user = res.locals.user;
 
-  const activitiesFromUser = await getActivitiesFromUser(username);
+    const username = user?.username;
 
-  const arrayToName: { [key: string]: any }[] = [];
+    const activitiesFromUser = await getActivitiesFromUser(username);
 
-  async function iterateActivities(activities: string[]) {
-    for (const activityId of activities) {
-      const activitiy = await getActivitiesByID(activityId);
+    const arrayToName: { [key: string]: any }[] = [];
 
-      if (activitiy !== null) {
-        arrayToName.push({ [activityId]: activitiy });
+    async function iterateActivities(activities: string[]) {
+      for (const activityId of activities) {
+        const activity = await getActivitiesByID(activityId);
+
+        if (activity !== null) {
+          arrayToName.push({ [activityId]: activity });
+        }
       }
     }
-  }
 
-  await iterateActivities(activitiesFromUser!.statistics!.posts!);
-  res.json({ activities: arrayToName }).status(200);
+    await iterateActivities(activitiesFromUser!.statistics!.posts!);
+    res.json({ user: user, activities: arrayToName }).status(200);
+    return;
+  } catch (error) {
+    console.error(error);
+    return res.sendStatus(500);
+  }
 };

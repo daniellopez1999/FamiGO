@@ -5,11 +5,12 @@ import {
   updateUserAvatar,
   updateUsername,
   updatePassword,
+  getUserInfo,
 } from './controllers/users';
 import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
-import { getPosts, publishActivity } from './controllers/activity';
+import { getUserData, publishActivity } from './controllers/activity';
 
 const router = Router();
 
@@ -31,8 +32,9 @@ router.put(
   updatePassword
 );
 
-router.get('/profile/:id', isAuthenticated, getPosts);
-//Activities
+router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
 
+//Activities
 router.post('/publish-activity', isAuthenticated, publishActivity);
+//Get Activities from specific user
 export default router;

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import {
   createUser,
   getUserByEmail,
@@ -143,6 +143,25 @@ export const updateUserAvatar = async (req: Request, res: Response) => {
 
     return res.status(200).json(user).end();
   } catch (error) {
+    return res.sendStatus(400);
+  }
+};
+
+export const getUserInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const username = req.params.id;
+
+    const user = await getUserByUserName(username);
+
+    res.locals.user = user;
+    next();
+    return;
+  } catch (error) {
+    console.error(error);
     return res.sendStatus(400);
   }
 };
