@@ -42,7 +42,7 @@ const Login = () => {
           LOG IN
         </button>
       </form>
-      <div>
+      <div className="signup-section">
         <span>Don't have an account?</span>
         <Link to="/register" className="signup-btn">
           SIGN UP
