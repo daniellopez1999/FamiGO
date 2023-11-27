@@ -7,8 +7,7 @@ import './ActivityForm.css';
 const tempImg = Logo;
 
 type FileInfo = {
-  fileUrl: string;
-  signature: string;
+  secureUrl: string;
   publicId: string;
 };
 
@@ -41,7 +40,7 @@ const ActivityForm = () => {
           {isFileUploading ? (
             <img className="spinner" src={tempImg} alt="spinner" />
           ) : (
-            <img src={fileInfo.fileUrl || tempImg} alt="uploaded image" />
+            <img src={fileInfo.secureUrl || tempImg} alt="uploaded image" />
           )}
         </div>
         <div className="file-input-container">
@@ -52,4 +51,5 @@ const ActivityForm = () => {
     </div>
   );
 };
+
 export default ActivityForm;
