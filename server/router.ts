@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import multer from 'multer';
 import {
   login,
   register,
@@ -6,6 +7,7 @@ import {
   updateUsername,
   updatePassword,
 } from './controllers/users';
+import { uploadToCloudinary } from './controllers/cloudinary';
 import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
@@ -27,5 +29,8 @@ router.put(
   isOwner,
   updatePassword
 );
+
+const upload = multer();
+router.post('/image', upload.any(), uploadToCloudinary);
 
 export default router;
