@@ -9,7 +9,7 @@ import {
 import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
-import { publishActivity } from './controllers/activity';
+import { getPosts, publishActivity } from './controllers/activity';
 
 const router = Router();
 
@@ -31,6 +31,7 @@ router.put(
   updatePassword
 );
 
+router.get('/profile/:id', isAuthenticated, getPosts);
 //Activities
 
 router.post('/publish-activity', isAuthenticated, publishActivity);
