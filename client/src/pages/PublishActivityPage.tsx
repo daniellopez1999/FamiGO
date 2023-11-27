@@ -1,4 +1,11 @@
+import ActivityForm from '../components/ActivityForm/ActivityForm';
+
 const PublishActivityPage = () => {
-  return <div>PublishIdeaPage</div>;
+  return (
+    <>
+      <ActivityForm />
+    </>
+  );
 };
+
 export default PublishActivityPage;
