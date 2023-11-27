@@ -2,17 +2,6 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const url = 'mongodb://127.0.0.1:27017/FamiGO';
-
-mongoose
-  .connect(url)
-  .then(() => {
-    console.log('Connected to the database using Mongoose');
-  })
-  .catch((err) => {
-    console.log('Error connecting to the database:', err);
-  });
-
 const userSchema = new Schema({
   username: {
     type: String,
