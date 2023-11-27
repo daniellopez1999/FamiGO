@@ -1,14 +1,27 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { login } from '../../services/auth';
 import './Login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const user = await login(email, password);
+      navigate('/'); // después de login va al FeedPage
+      console.log('Logged', user);
+    } catch (error) {
+      console.error('Login failed');
+    }
+  };
 
   return (
     <div className="login-container">
-      <form action="">
+      <form onSubmit={handleLogin}>
         <input
           type="email"
           value={email}
