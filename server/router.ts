@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import multer from 'multer';
 import {
   login,
   register,
@@ -7,6 +8,10 @@ import {
   updatePassword,
   getUserInfo,
 } from './controllers/users';
+import {
+  uploadToCloudinary,
+  deleteFromCloudinary,
+} from './controllers/cloudinary';
 import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
@@ -34,7 +39,10 @@ router.put(
 
 router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
 
-//Activities
 router.post('/publish-activity', isAuthenticated, publishActivity);
-//Get Activities from specific user
+
+const upload = multer();
+router.post('/image', upload.any(), uploadToCloudinary);
+router.delete('/image/:publicId', deleteFromCloudinary);
+
 export default router;
