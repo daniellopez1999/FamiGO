@@ -28,8 +28,9 @@ export const deleteFileFromCloudinary = async (publicId: string) => {
       method: 'DELETE',
     };
 
-    const res = await fetch(url, options);
-    console.log(res.json());
+    await fetch(url, options);
+
+    return;
   } catch (error) {
     console.log('eer-->', error);
     throw error;
