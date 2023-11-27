@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -7,14 +8,23 @@ const Login = () => {
   return (
     <div className="login-container">
       <form action="">
-        <input type="email" value={email} placeholder="Email" required />
+        <input
+          type="email"
+          value={email}
+          className="auth"
+          placeholder="Email"
+          required
+        />
         <input
           type="password"
           value={password}
+          className="auth"
           placeholder="Password"
           required
         />
-        <button type="submit">LOG IN</button>
+        <button type="submit" className="submit-btn">
+          LOG IN
+        </button>
       </form>
       <div>
         <span>Don't have an account?</span>

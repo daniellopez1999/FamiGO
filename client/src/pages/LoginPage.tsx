@@ -1,4 +1,10 @@
+import Login from '../components/Login/Login';
+
 const LoginPage = () => {
-  return <div>Welcome Back</div>;
+  return (
+    <div>
+      <Login />
+    </div>
+  );
 };
 export default LoginPage;
