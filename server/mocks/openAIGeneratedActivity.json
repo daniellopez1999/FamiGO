@@ -1,0 +1,20 @@
+{
+  "content": {
+    "filters": {
+      "topic": "Nature",
+      "number_of_kids": "2",
+      "age_range": "3-5",
+      "difficulty": "Beginner",
+      "place": "Outside",
+      "duration": "< 1h"
+    },
+    "title": "Magical Nature Collage",
+    "materials": [
+      "Safety scissors",
+      "Glue",
+      "Cardboard",
+      "Nature items (like leaves, flowers, twigs)"
+    ],
+    "description": "In this activity, kids will explore their surroundings to gather nature items and use them to create a beautiful collage on a piece of cardboard. They can pick up leaves of different sizes, shapes and colors, flowers, twigs, etc. Once they've collected enough items, they can glue them onto the cardboard, producing a wonderful piece of art. This activity helps kids learn about colors, shapes, and the natural world around them. Remember, all the nature items should be collected safely and no living plants should be harmed."
+  }
+}
