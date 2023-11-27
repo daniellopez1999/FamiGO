@@ -15,7 +15,7 @@
   border-radius: 5px;
 }
 
-.submit-btn {
+.login-btn {
   width: 70%;
   padding: 10px;
   margin: 20px 0;
@@ -23,4 +23,9 @@
   border-radius: 5px;
   background-color: #f0ad4e;
   color: white;
+}
+
+.signup-btn {
+  text-decoration: none;
+  margin-left: 0.8rem;
 }
