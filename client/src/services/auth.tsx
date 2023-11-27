@@ -4,6 +4,8 @@ export const login = async (email: string, password: string) => {
   try {
     const response = await fetch(`${url}/login`, {
       method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
