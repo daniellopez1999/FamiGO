@@ -1,12 +1,12 @@
-import express from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { get, merge } from 'lodash';
 
 import { getUserBySessionToken } from '../models/users';
 
 export const isOwner = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => {
   try {
     const { id } = req.params;
@@ -32,9 +32,9 @@ export const isOwner = async (
 };
 
 export const isAuthenticated = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => {
   try {
     const sessionToken = req.cookies['CookieFamiGO'];

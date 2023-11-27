@@ -1,4 +1,4 @@
-import express from 'express';
+import { Request, Response } from 'express';
 import {
   createUser,
   getUserByEmail,
@@ -7,7 +7,7 @@ import {
 } from '../models/users';
 import { random, authentication } from '../helpers';
 
-export const login = async (req: express.Request, res: express.Response) => {
+export const login = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
 
@@ -48,7 +48,7 @@ export const login = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export const register = async (req: express.Request, res: express.Response) => {
+export const register = async (req: Request, res: Response) => {
   try {
     const { email, password, username } = req.body;
 
@@ -79,10 +79,7 @@ export const register = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export const updateUsername = async (
-  req: express.Request,
-  res: express.Response
-) => {
+export const updateUsername = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { username } = req.body;
@@ -98,10 +95,7 @@ export const updateUsername = async (
   }
 };
 
-export const updatePassword = async (
-  req: express.Request,
-  res: express.Response
-) => {
+export const updatePassword = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { password } = req.body;
@@ -130,10 +124,7 @@ export const updatePassword = async (
   }
 };
 
-export const updateUserAvatar = async (
-  req: express.Request,
-  res: express.Response
-) => {
+export const updateUserAvatar = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { avatar } = req.body;

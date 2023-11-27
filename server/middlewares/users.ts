@@ -1,11 +1,8 @@
-import express from 'express';
+import { Request, Response } from 'express';
 
 import { getUsers } from '../models/users';
 
-export const getAllUsers = async (
-  _req: express.Request,
-  res: express.Response
-) => {
+export const getAllUsers = async (_req: Request, res: Response) => {
   try {
     const users = await getUsers();
 
