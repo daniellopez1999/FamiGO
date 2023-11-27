@@ -9,13 +9,13 @@ import { random, authentication } from '../helpers';
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!username || !password) {
+    if (!email || !password) {
       return res.sendStatus(400);
     }
 
-    const user = await getUserByUserName(username).select(
+    const user = await getUserByEmail(email).select(
       '+authentication.salt +authentication.password'
     );
 
