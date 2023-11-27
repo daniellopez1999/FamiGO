@@ -1,3 +1,4 @@
+// Use MOCK DATA:
 import openAIResponse from '../mocks/openAIGeneratedActivity.json';
 import { Request, Response } from 'express';
 
@@ -8,6 +9,8 @@ export const generateActivity = async (req: Request, res: Response) => {
   console.log('openAIResponse', openAIResponse);
   res.json({ openAIResponse });
 };
+
+//  Use OPENAI API:
 
 // import OpenAI from 'openai';
 // import { Request, Response } from 'express';
