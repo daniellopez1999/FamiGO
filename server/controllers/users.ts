@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { OAuth2Client } from 'google-auth-library';
 import {
   createUser,
   getUserByEmail,
@@ -50,6 +51,41 @@ export const login = async (req: Request, res: Response) => {
     });
 
     return res.status(200).json(user).end();
+  } catch (error) {
+    return res.status(400);
+  }
+};
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+export const googleLogin = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.body;
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload) {
+      return res.status(400).json({ message: 'Invalid token' });
+    }
+
+    let user = await getUserByEmail(payload.email as string);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const newSessionToken = authentication(
+      user.authentication!.salt!,
+      user._id.toString()
+    );
+    user.authentication!.sessionToken = newSessionToken;
+    await user.save();
+
+    return res.status(200).json({ user: user, token: newSessionToken });
   } catch (error) {
     return res.status(400);
   }
