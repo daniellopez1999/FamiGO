@@ -1,7 +1,13 @@
 import { Request, Response } from 'express';
 import { getUserByUserName } from '../models/users';
-import { getActivitiesByID, getActivitiesFromUser } from '../models/activity';
+import { getActivitiesFromUser } from '../models/activity';
 import { ActivityModel } from '../models/activity';
+import {
+  iterateIDs,
+  getAllPostsIDs,
+  iterateActivities,
+  iterateActivitiesFromUser,
+} from '../helpers/activity';
 
 export const publishActivity = async (req: Request, res: Response) => {
   try {
@@ -12,8 +18,7 @@ export const publishActivity = async (req: Request, res: Response) => {
     activityBody.userInfo.username = user!.username;
 
     const activity = await new ActivityModel(activityBody).save();
-    console.log(user?.statistics?.posts);
-    console.log(activity);
+
     const activityID = await ActivityModel.findById(activity._id);
 
     if (user && activityID) {
@@ -40,24 +45,56 @@ export const getUserData = async (_req: Request, res: Response) => {
 
     const activitiesFromUser = await getActivitiesFromUser(username);
 
-    const arrayToName: { [key: string]: any }[] = [];
-
-    async function iterateActivities(activities: string[]) {
-      for (const activityId of activities) {
-        const activity = await getActivitiesByID(activityId);
-
-        if (activity !== null) {
-          arrayToName.push({ [activityId]: activity });
-        }
-      }
-    }
-
-    await iterateActivities(activitiesFromUser!.statistics!.posts!);
-    res.json({ user: user, activities: arrayToName }).status(200);
+    const listOfActivities = await iterateActivitiesFromUser(
+      activitiesFromUser!.statistics!.posts!
+    );
+    res.json({ user: user, activities: listOfActivities }).status(200);
     return;
   } catch (error) {
     console.error(error);
     return res.sendStatus(500);
+  }
+};
+
+export const getPostsForFeed = async (req: Request, res: Response) => {
+  try {
+    const username = req.cookies['username'];
+    const user = await getUserByUserName(username);
+    const followingUserIDs = user!.statistics!.following!;
+
+    if (followingUserIDs.length > 0) {
+      //get post info of each user following
+
+      const arrayWithUsers = await iterateIDs(followingUserIDs);
+
+      //arrayWithUsers contains all users following.
+      //iteratee over each object over postsIDs
+      const postsIDs = getAllPostsIDs(arrayWithUsers);
+
+      const arrayWithAllActivities = await iterateActivities(postsIDs);
+
+      //Sort by createdAt
+      const sortedArrayToName = arrayWithAllActivities.sort((a, b) => {
+        const createdAtA = new Date(Object.values(a)[0].createdAt).getTime();
+        const createdAtB = new Date(Object.values(b)[0].createdAt).getTime();
+
+        return createdAtB - createdAtA;
+      });
+
+      res.json({ sortedArrayToName });
+    }
+    //if not following any users goes to else
+    else {
+      let limit = 20; //will only get 20 posts
+      const randomActivities = await ActivityModel.aggregate([
+        { $sample: { size: limit } },
+      ]);
+
+      res.json({ randomActivities }).status(200);
+    }
+    return;
+  } catch (error) {
+    return res.sendStatus(400);
   }
 };
 

@@ -89,6 +89,3 @@ export const getActivities = () => ActivityModel.find();
 export const getActivitiesByID = (id: string) => ActivityModel.findById(id);
 export const getActivitiesFromUser = (username: string) =>
   UserModel.findOne({ username: username });
-// export const createActivity = (values: Record<string, any>) => {
-//   new ActivityModel(values).save().then((user) => user.toObject());
-// };

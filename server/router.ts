@@ -20,6 +20,7 @@ import {
   getUserData,
   publishActivity,
   saveActivity,
+  getPostsForFeed,
 } from './controllers/activity';
 import { generateActivity } from './controllers/generateActivity';
 
@@ -44,7 +45,11 @@ router.put(
   updatePassword
 );
 
+//get User Info (Posts and Stats)
 router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
+
+//get posts from feed
+router.get('/feed', isAuthenticated, getPostsForFeed);
 
 //Activities
 router.post('/save-activity', saveActivity);
