@@ -17,9 +17,10 @@ import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
 import {
-  getPostsFromFeed,
   getUserData,
   publishActivity,
+  saveActivity,
+  getPostsFromFeed,
 } from './controllers/activity';
 import { generateActivity } from './controllers/generateActivity';
 
@@ -50,6 +51,11 @@ router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
 //get posts from feed
 router.get('/feed', isAuthenticated, getPostsFromFeed);
 
+//get posts from feed
+router.get('/feed', isAuthenticated, getPostsFromFeed);
+
+//Activities
+router.post('/save-activity', saveActivity);
 router.post('/publish-activity', isAuthenticated, publishActivity);
 
 const upload = multer();
@@ -58,4 +64,5 @@ router.delete('/image/:publicId', deleteFromCloudinary);
 
 router.post('/generator', generateActivity);
 router.get('/generator', generateActivity);
+
 export default router;

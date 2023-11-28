@@ -9,12 +9,27 @@ interface IActivity {
 
 const GeneratedActivity: React.FC<IActivity> = ({ activity }) => {
   const handleSaveClick = () => {
+    const topic = activity.filters[0];
+    const numOfKids = activity.filters[1];
+    const age = activity.filters[2];
+    const difficulty = activity.filters[3];
+    const place = activity.filters[4];
+    const duration = activity.filters[5];
+
+    const filters = { topic, numOfKids, age, difficulty, place, duration };
+    const title = activity.title;
+    const materials = activity.materials;
+    const description = activity.description;
+    const type = 'saved';
+
+    const savedActivity = { filters, title, materials, description, type };
+
     fetch('http://localhost:3000/save-activity', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(activity),
+      body: JSON.stringify(savedActivity),
     }).catch((error) => {
       console.error('Error:', error);
     });
