@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { User } from '../../types/user';
+import { Link } from 'react-router-dom';
 import { registerPOST } from '../../services/auth';
+import './Register.css';
 
 const Register = () => {
   interface FormState {
@@ -43,56 +45,56 @@ const Register = () => {
   };
 
   return (
-    <>
+    <div className="register-container">
       <form onSubmit={handleSubmit}>
-        <div>
-          <div>
-            <input
-              type="text"
-              required={true}
-              placeholder="Name"
-              value={inputValues.username}
-              onChange={handleChange}
-              name="username"
-            />
-          </div>
+        <input
+          type="text"
+          required={true}
+          placeholder="Name"
+          value={inputValues.username}
+          onChange={handleChange}
+          name="username"
+          className="auth"
+        />
 
-          <div>
-            <input
-              type="text"
-              required={true}
-              placeholder="Email"
-              value={inputValues.email}
-              onChange={handleChange}
-              name="email"
-            />
-          </div>
+        <input
+          type="text"
+          required={true}
+          placeholder="Email"
+          value={inputValues.email}
+          onChange={handleChange}
+          name="email"
+          className="auth"
+        />
 
-          <div>
-            <input
-              type="password"
-              required={true}
-              placeholder="Password"
-              value={inputValues.password}
-              onChange={handleChange}
-              name="password"
-            />
-          </div>
+        <input
+          type="password"
+          required={true}
+          placeholder="Password"
+          value={inputValues.password}
+          onChange={handleChange}
+          name="password"
+          className="auth"
+        />
 
-          <div>
-            <input
-              type="password"
-              required={true}
-              placeholder="Confirm password"
-              value={inputValues.confirmPassword}
-              onChange={handleChange}
-              name="confirmPassword"
-            />
-          </div>
-        </div>
-        <input type="submit" value="SIGN UP" />
+        <input
+          type="password"
+          required={true}
+          placeholder="Confirm password"
+          value={inputValues.confirmPassword}
+          onChange={handleChange}
+          name="confirmPassword"
+          className="auth"
+        />
+        <input type="submit" value="SIGN UP" className="login-btn" />
       </form>
-    </>
+      <div className="signup-section">
+        <span>Don't have an account?</span>
+        <Link to="/login" className="signup-btn">
+          SIGN UP
+        </Link>
+      </div>
+    </div>
   );
 };
 export default Register;
