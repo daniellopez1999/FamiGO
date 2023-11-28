@@ -60,11 +60,15 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const googleLogin = async (req: Request, res: Response) => {
   try {
+    console.log('Google login request received');
     const { token } = req.body;
+    console.log('Token received:', token);
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
+
+    console.log('Token verified');
 
     const payload = ticket.getPayload();
 
@@ -72,7 +76,9 @@ export const googleLogin = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'Invalid token' });
     }
 
+    console.log('Checking user in database', payload.email);
     let user = await getUserByEmail(payload.email as string);
+    console.log('User from database', user);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -87,6 +93,7 @@ export const googleLogin = async (req: Request, res: Response) => {
 
     return res.status(200).json({ user: user, token: newSessionToken });
   } catch (error) {
+    console.error('Error in googleLogin:', error);
     return res.status(400);
   }
 };

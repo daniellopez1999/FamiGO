@@ -28,14 +28,16 @@ export const login = async (email: string, password: string) => {
   }
 };
 
-export const googleLogin = async (token: string) => {
+export const googleLogin = async (credential: string) => {
   try {
     const response = await fetch(`${url}/login/google`, {
       method: 'POST',
+      // mode: 'cors',
+      // credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ token: credential }),
     });
 
     if (!response.ok) {
