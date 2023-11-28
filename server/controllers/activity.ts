@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUserByUserName } from '../models/users';
+import { getUserById, getUserByUserName } from '../models/users';
 import { getActivitiesByID, getActivitiesFromUser } from '../models/activity';
 import { ActivityModel } from '../models/activity';
 
@@ -71,11 +71,23 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
     if (userFollowingIDs) {
       console.log('hola');
       console.log('Following IDs', userFollowingIDs);
+      //get post info of each user following
+      const arrayWithUsers: { [key: string]: any }[] = [];
+
+      async function iterateIDs(userIDs: string[]) {
+        for (const userID of userIDs) {
+          const User = await getUserById(userID);
+
+          if (User !== null) {
+            arrayWithUsers.push({ [userID]: User });
+          }
+        }
+      }
+
+      await iterateIDs(userFollowingIDs);
+      console.log(arrayWithUsers);
+      res.json({ arrayWithUsers });
+      //sort by createdAt
     }
-    res.sendStatus(200);
-  } catch (error) {
-    //get ids from following (cookie has userID)
-    //get post info of each user following
-    //sort by createdAt
-  }
+  } catch (error) {}
 };
