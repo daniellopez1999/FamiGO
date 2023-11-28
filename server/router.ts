@@ -15,7 +15,11 @@ import {
 import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
-import { getUserData, publishActivity } from './controllers/activity';
+import {
+  getUserData,
+  publishActivity,
+  saveActivity,
+} from './controllers/activity';
 import { generateActivity } from './controllers/generateActivity';
 
 const router = Router();
@@ -40,6 +44,8 @@ router.put(
 
 router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
 
+//Activities
+router.post('/save-activity', saveActivity);
 router.post('/publish-activity', isAuthenticated, publishActivity);
 
 const upload = multer();
@@ -48,4 +54,5 @@ router.delete('/image/:publicId', deleteFromCloudinary);
 
 router.post('/generator', generateActivity);
 router.get('/generator', generateActivity);
+
 export default router;
