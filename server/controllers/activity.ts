@@ -66,9 +66,8 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
   try {
     const username = req.cookies['username'];
     const user = await getUserByUserName(username);
-    console.log(user);
     const userFollowingIDs = user!.statistics!.following!;
-    //if following >0
+
     if (userFollowingIDs) {
       console.log('hola');
       console.log('Following IDs', userFollowingIDs);
@@ -102,10 +101,8 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
         return allPosts;
       }
 
-      // Llamada a la función y resultado
       const postsIDs = getAllPostsIDs(arrayWithUsers);
 
-      //
       const arrayToName: { [key: string]: any }[] = [];
 
       async function iterateActivities(activities: string[]) {
