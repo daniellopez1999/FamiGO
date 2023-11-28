@@ -15,7 +15,11 @@ import {
 import { getAllUsers } from './middlewares/users';
 import { isAuthenticated, isOwner } from './middlewares';
 
-import { getUserData, publishActivity } from './controllers/activity';
+import {
+  getPostsFromFeed,
+  getUserData,
+  publishActivity,
+} from './controllers/activity';
 
 const router = Router();
 
@@ -37,7 +41,11 @@ router.put(
   updatePassword
 );
 
+//get User Info (Posts and Stats)
 router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
+
+//get posts from feed
+router.get('/feed', isAuthenticated, getPostsFromFeed);
 
 router.post('/publish-activity', isAuthenticated, publishActivity);
 

@@ -60,3 +60,22 @@ export const getUserData = async (_req: Request, res: Response) => {
     return res.sendStatus(500);
   }
 };
+
+export const getPostsFromFeed = async (req: Request, res: Response) => {
+  try {
+    const username = req.cookies['username'];
+    const user = await getUserByUserName(username);
+    console.log(user);
+    const userFollowingIDs = user!.statistics!.following!;
+    //if following >0
+    if (userFollowingIDs) {
+      console.log('hola');
+      console.log('Following IDs', userFollowingIDs);
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    //get ids from following (cookie has userID)
+    //get post info of each user following
+    //sort by createdAt
+  }
+};
