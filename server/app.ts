@@ -16,6 +16,12 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+
+// app.use((req, _res, next) => {
+//   console.log(`Received request: ${req.method} ${req.path}`);
+//   next();
+// });
+
 app.use(router);
 
 export default app;

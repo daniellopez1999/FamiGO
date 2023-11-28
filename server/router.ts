@@ -7,6 +7,7 @@ import {
   updateUsername,
   updatePassword,
   getUserInfo,
+  googleLogin,
 } from './controllers/users';
 import {
   uploadToCloudinary,
@@ -23,6 +24,7 @@ const router = Router();
 //Users
 router.post('/register', register);
 router.post('/login', login);
+router.post('/login/google', googleLogin);
 router.get('/users', isAuthenticated, getAllUsers);
 router.put('/users/:id', isAuthenticated, isOwner, updateUserAvatar);
 router.put(

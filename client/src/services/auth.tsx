@@ -28,6 +28,30 @@ export const login = async (email: string, password: string) => {
   }
 };
 
+export const googleLogin = async (credential: string) => {
+  try {
+    const response = await fetch(`${url}/login/google`, {
+      method: 'POST',
+      // mode: 'cors',
+      // credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: credential }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Google login failed');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Google login error', error);
+    throw error;
+  }
+};
+
 export const registerPOST = async (
   username: string,
   email: string,
