@@ -1,0 +1,46 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #83a4d4;
+  position: relative;
+
+  & form {
+    text-align: center;
+  }
+
+  & .auth {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  & .login-btn {
+    width: 80%;
+    padding: 10px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0ad4e;
+    color: white;
+  }
+}
+
+.signup-btn {
+  text-decoration: none;
+  margin-left: 0.5rem;
+}
+
+.signup-section {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
