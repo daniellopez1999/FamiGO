@@ -1,10 +1,6 @@
 import { Request, Response } from 'express';
 import { getUserById, getUserByUserName } from '../models/users';
-import {
-  getActivities,
-  getActivitiesByID,
-  getActivitiesFromUser,
-} from '../models/activity';
+import { getActivitiesByID, getActivitiesFromUser } from '../models/activity';
 import { ActivityModel } from '../models/activity';
 import { UsersData } from '../types';
 
@@ -124,18 +120,20 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
 
         return createdAtB - createdAtA;
       });
-      console.log('+1 following');
-      res.json({ sortedArrayToName });
+      let limit = 20;
+
+      const slicedArrayToName = sortedArrayToName.slice(0, limit);
+
+      res.json({ slicedArrayToName });
     }
     //if not following any users goes to else
     else {
-      const activities = await getActivities();
-      console.log('no following');
+      let limit = 20; //will only get 20 posts
+      const randomActivities = await ActivityModel.aggregate([
+        { $sample: { size: limit } },
+      ]);
 
-      res.json({ activities }).status(200);
-      //get from activities table 20 random posts
-      //probably will need to get user info of each post
-      //no sorted needed
+      res.json({ randomActivities }).status(200);
     }
     return;
   } catch (error) {
