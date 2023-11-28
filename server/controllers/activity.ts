@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import { getUserById, getUserByUserName } from '../models/users';
-import { getActivitiesByID, getActivitiesFromUser } from '../models/activity';
+import {
+  getActivities,
+  getActivitiesByID,
+  getActivitiesFromUser,
+} from '../models/activity';
 import { ActivityModel } from '../models/activity';
 import { UsersData } from '../types';
 
@@ -13,8 +17,7 @@ export const publishActivity = async (req: Request, res: Response) => {
     activityBody.userInfo.username = user!.username;
 
     const activity = await new ActivityModel(activityBody).save();
-    console.log(user?.statistics?.posts);
-    console.log(activity);
+
     const activityID = await ActivityModel.findById(activity._id);
 
     if (user && activityID) {
@@ -68,7 +71,7 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
     const user = await getUserByUserName(username);
     const userFollowingIDs = user!.statistics!.following!;
 
-    if (userFollowingIDs) {
+    if (userFollowingIDs.length > 0) {
       //get post info of each user following
       const arrayWithUsers: { [key: string]: any }[] = [];
 
@@ -83,7 +86,6 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
       }
 
       await iterateIDs(userFollowingIDs);
-      console.log(arrayWithUsers);
 
       //arrayWithUsers contains all users following.
       //iteratee over each object over postsIDs
@@ -120,10 +122,20 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
         const createdAtA = new Date(Object.values(a)[0].createdAt).getTime();
         const createdAtB = new Date(Object.values(b)[0].createdAt).getTime();
 
-        return createdAtB - createdAtA; // Orden descendente
+        return createdAtB - createdAtA;
       });
-
+      console.log('+1 following');
       res.json({ sortedArrayToName });
+    }
+    //if not following any users goes to else
+    else {
+      const activities = await getActivities();
+      console.log('no following');
+
+      res.json({ activities }).status(200);
+      //get from activities table 20 random posts
+      //probably will need to get user info of each post
+      //no sorted needed
     }
     return;
   } catch (error) {
