@@ -1,22 +1,19 @@
-import React from 'react';
-import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { BaseSyntheticEvent } from 'react';
+import { Controller } from 'react-hook-form';
 import Select from 'react-select';
-
-interface IFormInput {
-  Topic: {};
-  KidsNumber: {};
-  AgeRange: {};
-  Difficulty: {};
-  Place: {};
-  Duration: {};
-}
 
 type Options = {
   value: String;
   label: String;
 };
+interface GenerateFormProps {
+  control: any;
+  onSubmit: (
+    e?: BaseSyntheticEvent<object, any, any> | undefined
+  ) => Promise<void>;
+}
 
-const GenerateForm: React.FC = () => {
+const GenerateForm: React.FC<GenerateFormProps> = ({ control, onSubmit }) => {
   const topicOptions = [
     { value: 'Nature', label: 'Nature' },
     { value: 'Art', label: 'Art' },
@@ -60,17 +57,6 @@ const GenerateForm: React.FC = () => {
     { value: '3h <', label: '3h <' },
   ];
 
-  const { control, handleSubmit } = useForm<IFormInput>({
-    defaultValues: {
-      Topic: '',
-      KidsNumber: '',
-      AgeRange: '',
-      Difficulty: '',
-      Place: '',
-      Duration: '',
-    },
-  });
-
   const handleSelect = (
     field: Object,
     options: Options[],
@@ -79,30 +65,8 @@ const GenerateForm: React.FC = () => {
     return <Select {...field} options={options} placeholder={placeholder} />;
   };
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    const apiEndpoint = 'http://localhost:3000/generator';
-    console.log('data', data);
-    fetch(apiEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        console.log('response', response);
-        return response.json();
-      })
-      .then((data) => {
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <br />
       <Controller
         name="Topic"
