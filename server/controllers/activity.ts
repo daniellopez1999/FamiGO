@@ -90,7 +90,7 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
 
       //arrayWithUsers contains all users following.
       //iteratee over each object over postsIDs
-      function getAllPosts(usersData: UsersData[]): string[] {
+      function getAllPostsIDs(usersData: UsersData[]): string[] {
         let allPosts: string[] = [];
 
         usersData.forEach((user) => {
@@ -103,9 +103,24 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
       }
 
       // Llamada a la función y resultado
-      const result = getAllPosts(arrayWithUsers);
+      const postsIDs = getAllPostsIDs(arrayWithUsers);
 
-      res.json({ result });
+      //
+      const arrayToName: { [key: string]: any }[] = [];
+
+      async function iterateActivities(activities: string[]) {
+        for (const activityId of activities) {
+          const activity = await getActivitiesByID(activityId);
+
+          if (activity !== null) {
+            arrayToName.push({ [activityId]: activity });
+          }
+        }
+      }
+
+      await iterateActivities(postsIDs);
+      res.json({ arrayToName });
+
       //sort by createdAt
     }
   } catch (error) {}
