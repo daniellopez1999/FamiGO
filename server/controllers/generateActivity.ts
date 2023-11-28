@@ -1,4 +1,4 @@
-// Use MOCK DATA:
+// Use MOCK DATA (Remember to also change the GeneratorPage.tsx FE):
 import openAIResponse from '../mocks/openAIGeneratedActivity.json';
 import { Request, Response } from 'express';
 
@@ -10,7 +10,7 @@ export const generateActivity = async (req: Request, res: Response) => {
   res.json({ openAIResponse });
 };
 
-//  Use OPENAI API:
+//  Use OPENAI API (Remember to also change the GeneratorPage.tsx FE):
 
 // import OpenAI from 'openai';
 // import { Request, Response } from 'express';
@@ -29,11 +29,11 @@ export const generateActivity = async (req: Request, res: Response) => {
 // export const generateActivity = async (req: Request, res: Response) => {
 //   const filtersBody = req.body;
 //   const Topic = filtersBody.Topic.value;
-// const KidsNumber = filtersBody.KidsNumber.value;
-// const AgeRange = filtersBody.AgeRange.value;
-// const Difficulty = filtersBody.Difficulty.value;
-// const Place = filtersBody.Place.value;
-// const Duration = filtersBody.Duration.value;
+//   const KidsNumber = filtersBody.KidsNumber.value;
+//   const AgeRange = filtersBody.AgeRange.value;
+//   const Difficulty = filtersBody.Difficulty.value;
+//   const Place = filtersBody.Place.value;
+//   const Duration = filtersBody.Duration.value;
 
 //   console.log('filtersBody', filtersBody);
 
@@ -56,10 +56,10 @@ export const generateActivity = async (req: Request, res: Response) => {
 //   Here's an explanation of each field of the response:
 
 //   Give me an activity structured in these parts:
-//   - filters: List all the filters passed.
-//   - title
-//   - materials: Everything that is needed for the activity.
-//   - description: A short description of the activity that has to be maximum 500 characters long.'`;
+//   - filters: Just copy the value of the filters in an array with the quotation marks. For example: ["2", "1h < 2h"].
+//   - title: Make sure it is in a string format.
+//   - materials: Everything that is needed for the activity listed as an array, not an object.
+//   - description: A short description of the activity that has to be maximum 500 characters long. Make sure it is in a string format.'`;
 
 //   try {
 //     const completion = await openai.chat.completions.create({
