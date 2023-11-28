@@ -120,11 +120,8 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
 
         return createdAtB - createdAtA;
       });
-      let limit = 20;
 
-      const slicedArrayToName = sortedArrayToName.slice(0, limit);
-
-      res.json({ slicedArrayToName });
+      res.json({ sortedArrayToName });
     }
     //if not following any users goes to else
     else {
