@@ -16,14 +16,14 @@ const activitySchema = new Schema({
     required: true,
   },
 
-  material: {
-    type: String,
+  materials: {
+    type: [String],
     required: true,
   },
 
   image: {
     type: String,
-    required: true,
+    required: false,
   },
 
   description: {
