@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { getUserById, getUserByUserName } from '../models/users';
 import { getActivitiesByID, getActivitiesFromUser } from '../models/activity';
 import { ActivityModel } from '../models/activity';
+import { UsersData } from '../types';
 
 export const publishActivity = async (req: Request, res: Response) => {
   try {
@@ -86,7 +87,25 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
 
       await iterateIDs(userFollowingIDs);
       console.log(arrayWithUsers);
-      res.json({ arrayWithUsers });
+
+      //arrayWithUsers contains all users following.
+      //iteratee over each object over postsIDs
+      function getAllPosts(usersData: UsersData[]): string[] {
+        let allPosts: string[] = [];
+
+        usersData.forEach((user) => {
+          const userId = Object.keys(user)[0];
+          const userPosts = user[userId].statistics.posts;
+          allPosts = allPosts.concat(userPosts);
+        });
+
+        return allPosts;
+      }
+
+      // Llamada a la función y resultado
+      const result = getAllPosts(arrayWithUsers);
+
+      res.json({ result });
       //sort by createdAt
     }
   } catch (error) {}
