@@ -5,6 +5,7 @@ import {
   getUserByEmail,
   getUserById,
   getUserByUserName,
+  UserModel,
 } from '../models/users';
 import { random, authentication } from '../helpers';
 
@@ -77,19 +78,37 @@ export const googleLogin = async (req: Request, res: Response) => {
     }
 
     console.log('Checking user in database', payload.email);
-    const user = await getUserByEmail(payload.email as string);
+    let user = await getUserByEmail(payload.email as string);
     console.log('User from database', user);
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      const salt = random();
+      const newUser = new UserModel({
+        email: payload.email,
+        // username: payload!.email!.split('@')[0],
+        username: payload.email,
+        authentication: {
+          salt: salt,
+          password: authentication(salt, 'defaultPassword'),
+        },
+        statistics: {
+          followers: [],
+          following: [],
+          posts: [],
+        },
+        avatar: 'default-avatar.jpg',
+        savedPosts: [],
+      });
+
+      user = await newUser.save();
     }
 
     const newSessionToken = authentication(
-      user.authentication!.salt!,
-      user._id.toString()
+      user!.authentication!.salt!,
+      user!._id.toString()
     );
-    user.authentication!.sessionToken = newSessionToken;
-    await user.save();
+    user!.authentication!.sessionToken = newSessionToken;
+    await user!.save();
 
     return res.status(200).json({ user: user, token: newSessionToken });
   } catch (error) {
