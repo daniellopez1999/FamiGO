@@ -4,17 +4,17 @@ import { getUserById } from '../models/users';
 import { UsersData } from '../types';
 
 export async function iterateIDs(userIDs: string[]) {
-  const arrayWithUsers: { [key: string]: any }[] = [];
+  const usersData: { [key: string]: any }[] = [];
 
   for (const userID of userIDs) {
     const User = await getUserById(userID);
 
-    if (User !== null) {
-      arrayWithUsers.push({ [userID]: User });
+    if (User) {
+      usersData.push({ [userID]: User });
     }
   }
 
-  return arrayWithUsers;
+  return usersData;
 }
 
 export function getAllPostsIDs(usersData: UsersData[]): string[] {
@@ -30,29 +30,29 @@ export function getAllPostsIDs(usersData: UsersData[]): string[] {
 }
 
 export async function iterateActivities(activities: string[]) {
-  const arrayToName: { [key: string]: any }[] = [];
+  const listOfActivities: { [key: string]: any }[] = [];
 
   for (const activityId of activities) {
     const activity = await getActivitiesByID(activityId);
 
-    if (activity !== null) {
-      arrayToName.push({ [activityId]: activity });
+    if (activity) {
+      listOfActivities.push({ [activityId]: activity });
     }
   }
 
-  return arrayToName;
+  return listOfActivities;
 }
 
 export async function iterateActivitiesFromUser(activities: string[]) {
-  const arrayToName: { [key: string]: any }[] = [];
+  const userActivities: { [key: string]: any }[] = [];
 
   for (const activityId of activities) {
     const activity = await getActivitiesByID(activityId);
 
-    if (activity !== null) {
-      arrayToName.push({ [activityId]: activity });
+    if (activity) {
+      userActivities.push({ [activityId]: activity });
     }
   }
 
-  return arrayToName;
+  return userActivities;
 }
