@@ -1,19 +1,7 @@
 import mongoose from 'mongoose';
 import { UserModel } from './users';
-//import { UserModel } from './users';
 
 const Schema = mongoose.Schema;
-
-const url = 'mongodb://127.0.0.1:27017/FamiGO';
-
-mongoose
-  .connect(url)
-  .then(() => {
-    console.log('Connected to the database using Mongoose');
-  })
-  .catch((err) => {
-    console.log('Error connecting to the database:', err);
-  });
 
 const activitySchema = new Schema({
   userInfo: {

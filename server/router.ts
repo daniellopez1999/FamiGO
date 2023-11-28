@@ -7,6 +7,7 @@ import {
   updateUsername,
   updatePassword,
   getUserInfo,
+  googleLogin,
 } from './controllers/users';
 import {
   uploadToCloudinary,
@@ -20,12 +21,14 @@ import {
   getUserData,
   publishActivity,
 } from './controllers/activity';
+import { generateActivity } from './controllers/generateActivity';
 
 const router = Router();
 
 //Users
 router.post('/register', register);
 router.post('/login', login);
+router.post('/login/google', googleLogin);
 router.get('/users', isAuthenticated, getAllUsers);
 router.put('/users/:id', isAuthenticated, isOwner, updateUserAvatar);
 router.put(
@@ -53,4 +56,6 @@ const upload = multer();
 router.post('/image', upload.any(), uploadToCloudinary);
 router.delete('/image/:publicId', deleteFromCloudinary);
 
+router.post('/generator', generateActivity);
+router.get('/generator', generateActivity);
 export default router;
