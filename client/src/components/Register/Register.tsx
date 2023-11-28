@@ -58,7 +58,7 @@ const Register = () => {
         />
 
         <input
-          type="text"
+          type="email"
           required={true}
           placeholder="Email"
           value={inputValues.email}
