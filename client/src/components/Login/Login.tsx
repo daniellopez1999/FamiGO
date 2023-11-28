@@ -54,10 +54,7 @@ const Login = () => {
             LOG IN
           </button>
         </form>
-        <GoogleLogin
-          onSuccess={handleGoogleLogin}
-          onError={() => console.error('Login Failed')}
-        />
+        <GoogleLogin onSuccess={handleGoogleLogin} />
         <div className="signup-section">
           <span>Don't have an account?</span>
           <Link to="/register" className="signup-btn">

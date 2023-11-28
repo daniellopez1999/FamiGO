@@ -77,7 +77,7 @@ export const googleLogin = async (req: Request, res: Response) => {
     }
 
     console.log('Checking user in database', payload.email);
-    let user = await getUserByEmail(payload.email as string);
+    const user = await getUserByEmail(payload.email as string);
     console.log('User from database', user);
 
     if (!user) {
