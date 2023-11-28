@@ -69,8 +69,6 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
     const userFollowingIDs = user!.statistics!.following!;
 
     if (userFollowingIDs) {
-      console.log('hola');
-      console.log('Following IDs', userFollowingIDs);
       //get post info of each user following
       const arrayWithUsers: { [key: string]: any }[] = [];
 
