@@ -5,33 +5,16 @@ import GenerateForm from '../components/GenerateForm/GenerateForm';
 import GeneratedActivity from '../components/GeneratedActivity/GeneratedActivity';
 
 export interface IFormInput {
-  openAIResponse: {
-    content: {
-      Topic: {};
-      KidsNumber: {};
-      AgeRange: {};
-      Difficulty: {};
-      Place: {};
-      Duration: {};
-    };
-  };
+  Topic: {};
+  KidsNumber: {};
+  AgeRange: {};
+  Difficulty: {};
+  Place: {};
+  Duration: {};
 }
 
 const GeneratorPage = () => {
-  const { control, handleSubmit } = useForm<IFormInput>({
-    defaultValues: {
-      openAIResponse: {
-        content: {
-          Topic: '',
-          KidsNumber: '',
-          AgeRange: '',
-          Difficulty: '',
-          Place: '',
-          Duration: '',
-        },
-      },
-    },
-  });
+  const { control, handleSubmit } = useForm<IFormInput>({});
 
   const [activity, setActivity] = useState();
 
@@ -49,6 +32,10 @@ const GeneratorPage = () => {
         return response.json();
       })
       .then((dataReceived) => {
+        console.log('dataReceived', dataReceived);
+        // If working with openAI, use:
+        // setActivity(dataReceived);
+        // If working with MOCK data, use:
         setActivity(dataReceived.openAIResponse.content);
       })
       .catch((error) => {
