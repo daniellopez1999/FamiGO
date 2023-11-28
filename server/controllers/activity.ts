@@ -114,11 +114,21 @@ export const getPostsFromFeed = async (req: Request, res: Response) => {
       }
 
       await iterateActivities(postsIDs);
-      res.json({ arrayToName });
 
-      //sort by createdAt
+      //Sort by createdAt
+      const sortedArrayToName = arrayToName.sort((a, b) => {
+        const createdAtA = new Date(Object.values(a)[0].createdAt).getTime();
+        const createdAtB = new Date(Object.values(b)[0].createdAt).getTime();
+
+        return createdAtB - createdAtA; // Orden descendente
+      });
+
+      res.json({ sortedArrayToName });
     }
-  } catch (error) {}
+    return;
+  } catch (error) {
+    return res.sendStatus(400);
+  }
 };
 
 export const saveActivity = async (req: Request, res: Response) => {
