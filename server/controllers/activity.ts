@@ -1,8 +1,13 @@
 import { Request, Response } from 'express';
-import { getUserById, getUserByUserName } from '../models/users';
-import { getActivitiesByID, getActivitiesFromUser } from '../models/activity';
+import { getUserByUserName } from '../models/users';
+import { getActivitiesFromUser } from '../models/activity';
 import { ActivityModel } from '../models/activity';
-import { UsersData } from '../types';
+import {
+  iterateIDs,
+  getAllPostsIDs,
+  iterateActivities,
+  iterateActivitiesFromUser,
+} from '../helpers/activity';
 
 export const publishActivity = async (req: Request, res: Response) => {
   try {
@@ -40,20 +45,10 @@ export const getUserData = async (_req: Request, res: Response) => {
 
     const activitiesFromUser = await getActivitiesFromUser(username);
 
-    const arrayToName: { [key: string]: any }[] = [];
-
-    async function iterateActivities(activities: string[]) {
-      for (const activityId of activities) {
-        const activity = await getActivitiesByID(activityId);
-
-        if (activity !== null) {
-          arrayToName.push({ [activityId]: activity });
-        }
-      }
-    }
-
-    await iterateActivities(activitiesFromUser!.statistics!.posts!);
-    res.json({ user: user, activities: arrayToName }).status(200);
+    const listOfActivities = await iterateActivitiesFromUser(
+      activitiesFromUser!.statistics!.posts!
+    );
+    res.json({ user: user, activities: listOfActivities }).status(200);
     return;
   } catch (error) {
     console.error(error);
@@ -61,60 +56,25 @@ export const getUserData = async (_req: Request, res: Response) => {
   }
 };
 
-export const getPostsFromFeed = async (req: Request, res: Response) => {
+export const getPostsForFeed = async (req: Request, res: Response) => {
   try {
     const username = req.cookies['username'];
     const user = await getUserByUserName(username);
-    const userFollowingIDs = user!.statistics!.following!;
+    const followingUserIDs = user!.statistics!.following!;
 
-    if (userFollowingIDs.length > 0) {
+    if (followingUserIDs.length > 0) {
       //get post info of each user following
-      const arrayWithUsers: { [key: string]: any }[] = [];
 
-      async function iterateIDs(userIDs: string[]) {
-        for (const userID of userIDs) {
-          const User = await getUserById(userID);
-
-          if (User !== null) {
-            arrayWithUsers.push({ [userID]: User });
-          }
-        }
-      }
-
-      await iterateIDs(userFollowingIDs);
+      const arrayWithUsers = await iterateIDs(followingUserIDs);
 
       //arrayWithUsers contains all users following.
       //iteratee over each object over postsIDs
-      function getAllPostsIDs(usersData: UsersData[]): string[] {
-        let allPosts: string[] = [];
-
-        usersData.forEach((user) => {
-          const userId = Object.keys(user)[0];
-          const userPosts = user[userId].statistics.posts;
-          allPosts = allPosts.concat(userPosts);
-        });
-
-        return allPosts;
-      }
-
       const postsIDs = getAllPostsIDs(arrayWithUsers);
 
-      const arrayToName: { [key: string]: any }[] = [];
-
-      async function iterateActivities(activities: string[]) {
-        for (const activityId of activities) {
-          const activity = await getActivitiesByID(activityId);
-
-          if (activity !== null) {
-            arrayToName.push({ [activityId]: activity });
-          }
-        }
-      }
-
-      await iterateActivities(postsIDs);
+      const arrayWithAllActivities = await iterateActivities(postsIDs);
 
       //Sort by createdAt
-      const sortedArrayToName = arrayToName.sort((a, b) => {
+      const sortedArrayToName = arrayWithAllActivities.sort((a, b) => {
         const createdAtA = new Date(Object.values(a)[0].createdAt).getTime();
         const createdAtB = new Date(Object.values(b)[0].createdAt).getTime();
 

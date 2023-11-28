@@ -20,7 +20,7 @@ import {
   getUserData,
   publishActivity,
   saveActivity,
-  getPostsFromFeed,
+  getPostsForFeed,
 } from './controllers/activity';
 import { generateActivity } from './controllers/generateActivity';
 
@@ -49,10 +49,7 @@ router.put(
 router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
 
 //get posts from feed
-router.get('/feed', isAuthenticated, getPostsFromFeed);
-
-//get posts from feed
-router.get('/feed', isAuthenticated, getPostsFromFeed);
+router.get('/feed', isAuthenticated, getPostsForFeed);
 
 //Activities
 router.post('/save-activity', saveActivity);
