@@ -46,6 +46,8 @@ router.put(
   updatePassword
 );
 
+router.get('/profile/:id', isAuthenticated, isOwner); // auth and owner
+
 router.get('/api/check-auth', isAuthenticated, cookiesOK);
 
 router.get('/profile/:id', isAuthenticated, isOwner); // auth and owner
