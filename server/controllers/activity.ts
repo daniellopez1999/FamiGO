@@ -13,20 +13,17 @@ import { ActivityWithUser } from '../types/activity';
 
 export const publishActivity = async (req: Request, res: Response) => {
   try {
-    const {
-      body: { activity },
-    } = req;
+    const { body } = req;
 
     const username = req.cookies['username'];
     const user = await getUserByUserName(username);
 
     const activityWithUser: ActivityWithUser = {
-      ...activity,
+      ...body,
       userInfo: {
         username,
       },
     };
-
     const newActivity = await createActivity(activityWithUser);
     const activityId = newActivity.id;
     console.log('activity id -->', activityId);
