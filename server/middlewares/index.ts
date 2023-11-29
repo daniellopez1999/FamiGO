@@ -39,7 +39,7 @@ export const isAuthenticated = async (
   try {
     const sessionToken = req.cookies['CookieFamiGO'];
     if (!sessionToken) {
-      res.sendStatus(403);
+      return res.sendStatus(403);
     }
     const existingUser = await getUserBySessionToken(sessionToken);
     if (!existingUser) {
@@ -50,4 +50,8 @@ export const isAuthenticated = async (
   } catch (error) {
     return res.sendStatus(400);
   }
+};
+
+export const cookiesOK = async (_req: Request, res: Response) => {
+  res.sendStatus(200);
 };

@@ -1,6 +1,6 @@
-import FeedItem from '../../components/FeedItem/FeedItem';
+import FeedItem from '../components/FeedItem/FeedItem';
 import React, { useState, useEffect } from 'react';
-import { checkAuthentication } from '../../services/auth';
+import { checkAuthentication } from '../services/auth';
 
 const FeedPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
