@@ -42,8 +42,12 @@ const PersonalInfo = () => {
           </div>
         </div>
         <div className="lower">
+<<<<<<< HEAD
           <p className="name">{userInfo?.user.username}</p>
           <div className="desc">{userInfo?.user.description}</div>
+=======
+          <p className="name">Jianing Cerveza</p>
+>>>>>>> 5174055 (style: basic style for EditProfile page)
           <Link to="/edit-profile">
             <button className="edit-btn">Edit</button>
           </Link>

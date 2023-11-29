@@ -10,7 +10,10 @@ import EditProfilePage from './pages/EditProfilePage';
 import NavOutlet from './components/NavOutlet';
 
 import './App.css';
+<<<<<<< HEAD
 import Activity from './pages/Activity/Activity';
+=======
+>>>>>>> 5174055 (style: basic style for EditProfile page)
 
 const App = () => {
   return (
@@ -18,7 +21,10 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+<<<<<<< HEAD
         <Route path="/" element={<FeedPage />} />
+=======
+>>>>>>> 5174055 (style: basic style for EditProfile page)
         <Route path="/edit-profile" element={<EditProfilePage />} />
         <Route element={<NavOutlet />}>
           <Route path="/feed" element={<FeedPage />} />
