@@ -1,11 +1,9 @@
-import Logo from '../../assets/logo.png';
 import './Collection.css';
 import { UserInfo } from '../../types/user';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUserInfo } from '../../services/users';
-
-const tempUrl = Logo;
+import { getActivity } from '../../services/activity';
 
 type Props = {
   type: string;
@@ -23,6 +21,12 @@ const Collection = ({ type }: Props) => {
     }
     getInfoFromUser();
   }, [username]);
+
+  const handleImageClick = async (activityId: string) => {
+    const activityData = await getActivity(activityId);
+    console.log(activityData);
+  };
+
   // todo: extract component for pre-view
   if (type === 'ai') {
     return (
@@ -47,9 +51,15 @@ const Collection = ({ type }: Props) => {
         const [activityId, activity] = Object.entries(activityObj)[0];
 
         return (
-          <div key={activityId} className="pre-view">
-            <img src={activity.image} alt={activity.title} />
-          </div>
+          <Link
+            key={activityId}
+            to={`http://localhost:3000/activity/${activityId}`}
+            onClick={() => handleImageClick(activityId)}
+          >
+            <div className="pre-view">
+              <img src={activity.image} alt={activity.title} />
+            </div>
+          </Link>
         );
       })}
     </div>

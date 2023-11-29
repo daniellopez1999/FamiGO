@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { getUserByUserName } from '../models/users';
-import { getActivitiesFromUser } from '../models/activity';
+import { getActivitiesByID, getActivitiesFromUser } from '../models/activity';
 import { ActivityModel, createActivity } from '../models/activity';
 import {
   iterateIDs,
@@ -39,6 +39,19 @@ export const publishActivity = async (req: Request, res: Response) => {
     }
   } catch (error) {
     res.status(400).send(error);
+  }
+};
+
+export const getActivity = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const activityInfo = await getActivitiesByID(id);
+    console.log(activityInfo);
+    return res.json({ activityInfo }).status(200);
+  } catch (error) {
+    console.error(error);
+    return res.sendStatus(500);
   }
 };
 

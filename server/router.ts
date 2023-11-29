@@ -21,6 +21,7 @@ import {
   publishActivity,
   saveActivity,
   getPostsForFeed,
+  getActivity,
 } from './controllers/activity';
 import { generateActivity } from './controllers/generateActivity';
 
@@ -56,7 +57,7 @@ router.get('/feed', isAuthenticated, getPostsForFeed);
 //Activities
 router.post('/save-activity', saveActivity);
 router.post('/publish-activity', isAuthenticated, publishActivity);
-
+router.get('/get-activity/:id', isAuthenticated, getActivity);
 const upload = multer();
 router.post('/image', upload.any(), uploadToCloudinary);
 router.delete('/image/:publicId', deleteFromCloudinary);
