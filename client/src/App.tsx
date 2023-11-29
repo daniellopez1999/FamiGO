@@ -9,6 +9,7 @@ import RegisterPage from './pages/RegisterPage';
 import NavOutlet from './components/NavOutlet';
 
 import './App.css';
+import Activity from './pages/Activity/Activity';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route element={<NavOutlet />}>
           <Route path="/" element={<FeedPage />} />
           <Route path="/profile/:username" element={<ProfilePage />} />
+          <Route path="/activity/:id" element={<Activity />} />
           <Route path="/generator" element={<GeneratorPage />} />
         </Route>
         <Route path="/publish-activity" element={<PublishIdeaPage />} />
