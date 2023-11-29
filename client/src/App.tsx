@@ -6,6 +6,7 @@ import PublishIdeaPage from './pages/PublishActivityPage';
 import GeneratorPage from './pages/GeneratorPage/GeneratorPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import EditProfilePage from './pages/EditProfilePage';
 import NavOutlet from './components/NavOutlet';
 
 import './App.css';
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<FeedPage />} />
+        <Route path="/edit-profile" element={<EditProfilePage />} />
         <Route element={<NavOutlet />}>
           <Route path="/feed" element={<FeedPage />} />
           <Route path="/profile" element={<ProfilePage />} />
