@@ -1,3 +1,8 @@
+import { useEffect } from 'react';
+
+import './GeneratedActivity.css';
+import SaveIcon from '../../assets/Save.svg';
+
 interface IActivity {
   activity: {
     filters: Array<String>;
@@ -8,6 +13,13 @@ interface IActivity {
 }
 
 const GeneratedActivity: React.FC<IActivity> = ({ activity }) => {
+  useEffect(() => {
+    if (activity) {
+      console.log(document.body.scrollHeight);
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  }, [activity]);
+
   const handleSaveClick = () => {
     const topic = activity.filters[0];
     const numOfKids = activity.filters[1];
@@ -45,22 +57,31 @@ const GeneratedActivity: React.FC<IActivity> = ({ activity }) => {
     });
   };
   return (
-    <div>
+    <div className="generated-activity-container">
       <h2>{activity.title}</h2>
-      <div>
+      <div className="filters-box">
         {activity.filters.map((filter, index) => (
-          <div key={index}># {filter}</div>
+          <div key={index}>
+            <span className="list">#</span>
+            {filter}
+          </div>
         ))}
       </div>
-      <div>
+      <div className="materials-p">
         {activity.materials.map((material, index) => (
-          <div key={index}>-{material}</div>
+          <div key={index}>
+            <span className="list">- </span>
+            {material}
+          </div>
         ))}
       </div>
       <p>{activity.description}</p>
-      <button className="save-button" onClick={handleSaveClick}>
-        Save
-      </button>
+      <div className="button-box">
+        <button className="button" onClick={handleSaveClick}>
+          <img src={SaveIcon} alt="SaveIcon" />
+          Save
+        </button>
+      </div>
     </div>
   );
 };
