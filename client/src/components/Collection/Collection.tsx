@@ -53,7 +53,7 @@ const Collection = ({ type }: Props) => {
         return (
           <Link
             key={activityId}
-            to={`http://localhost:3000/activity/${activityId}`}
+            to={`/activity/${activityId}`}
             onClick={() => handleImageClick(activityId)}
           >
             <div className="pre-view">
