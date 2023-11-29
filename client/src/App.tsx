@@ -19,8 +19,11 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<FeedPage />} />
         <Route element={<NavOutlet />}>
-          <Route path="/" element={<FeedPage />} />
+          <Route path="/feed" element={<FeedPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/" element={<FeedPage />} />
+          <Route path="/profile/:username" element={<ProfilePage />} />
+          <Route path="/activity/:id" element={<Activity />} />
           <Route path="/generator" element={<GeneratorPage />} />
         </Route>
         <Route path="/publish-activity" element={<PublishIdeaPage />} />
