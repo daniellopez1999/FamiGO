@@ -17,6 +17,7 @@ export interface UserInfo {
     email: string;
     avatar: string;
     savedPosts: string[];
+    savedAIPosts: string[];
     __v: number;
     description: string;
   };
