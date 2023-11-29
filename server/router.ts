@@ -14,7 +14,7 @@ import {
   deleteFromCloudinary,
 } from './controllers/cloudinary';
 import { getAllUsers } from './middlewares/users';
-import { isAuthenticated, isOwner } from './middlewares';
+import { cookiesOK, isAuthenticated, isOwner } from './middlewares';
 
 import {
   getUserData,
@@ -44,6 +44,8 @@ router.put(
   isOwner,
   updatePassword
 );
+
+router.get('/api/check-auth', isAuthenticated, cookiesOK);
 
 //get User Info (Posts and Stats)
 router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);

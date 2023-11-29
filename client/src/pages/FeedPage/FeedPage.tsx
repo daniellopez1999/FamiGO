@@ -1,13 +1,27 @@
 import FeedItem from '../../components/FeedItem/FeedItem';
-import './FeedPage.css';
+import React, { useState, useEffect } from 'react';
+import { checkAuthentication } from '../../services/auth';
 
 const FeedPage = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    checkAuthentication(setIsAuthenticated);
+  }, []);
+
   return (
-    <div className="feed-page">
-      Filter Placeholder
-      <FeedItem />
-      <FeedItem />
-      <FeedItem />
+    <div>
+      {isAuthenticated ? (
+        <div>
+          <p>User is authenticated.</p>
+          Filter Placeholder
+          <FeedItem />
+          <FeedItem />
+          <FeedItem />
+        </div>
+      ) : (
+        <p>User is not authenticated.</p>
+      )}
     </div>
   );
 };
