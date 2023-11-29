@@ -56,6 +56,10 @@ const userSchema = new Schema({
     type: [String],
     required: false,
   },
+  savedAIPosts: {
+    type: [String],
+    required: false,
+  },
 });
 
 //Model
