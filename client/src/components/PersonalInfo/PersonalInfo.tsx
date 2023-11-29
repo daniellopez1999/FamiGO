@@ -1,29 +1,48 @@
 import DataBox from '../DataBox/DataBox';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getUserInfo } from '../../services/users';
+import { UserInfo } from '../../types/user';
 
-import Logo from '../../assets/logo.png';
 import './PersonalInfo.css';
 
-const tempImg = Logo;
-
 const PersonalInfo = () => {
+  const { username } = useParams();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  useEffect(() => {
+    async function getInfoFromUser() {
+      const userData = await getUserInfo(username!);
+      setUserInfo(userData);
+    }
+    getInfoFromUser();
+  }, [username]);
+
   return (
     <div>
       <div className="personal-info">
         <div className="upper">
           <div className="avatar">
-            <img src={tempImg} alt="avatar" />
+            <img src={userInfo?.user.avatar} alt="avatar" />
           </div>
           <div className="statistics">
-            <DataBox type="Posts" number={123} />
-            <DataBox type="Followers" number={321} />
-            <DataBox type="Following" number={123} />
+            <DataBox
+              type="Posts"
+              number={userInfo?.user.statistics.posts.length ?? 0}
+            />
+            <DataBox
+              type="Followers"
+              number={userInfo?.user.statistics.followers.length ?? 0}
+            />
+            <DataBox
+              type="Following"
+              number={userInfo?.user.statistics.following.length ?? 0}
+            />
           </div>
         </div>
         <div className="lower">
-          <p className="name">Jianing Cerveza</p>
-          <div className="desc">
-            Here is my great collection with the family
-          </div>
+          <p className="name">{userInfo?.user.username}</p>
+          <div className="desc">{userInfo?.user.description}</div>
         </div>
       </div>
     </div>

@@ -4,3 +4,45 @@ export interface User {
   password: string;
   confirmPassword: string;
 }
+
+export interface UserInfo {
+  user: {
+    statistics: {
+      followers: string[];
+      following: string[];
+      posts: string[];
+    };
+    _id: string;
+    username: string;
+    email: string;
+    avatar: string;
+    savedPosts: string[];
+    __v: number;
+    description: string;
+  };
+  activities: {
+    [activityId: string]: {
+      userInfo: {
+        username: string;
+      };
+      filters: {
+        topic: string;
+        numOfKids: string;
+        age: string;
+        difficulty: string;
+        place: string;
+        duration: string;
+      };
+      materials: string[];
+      _id: string;
+      title: string;
+      material: string;
+      image: string;
+      description: string;
+      likes: string[];
+      type: string;
+      createdAt: string;
+      __v: number;
+    };
+  }[];
+}
