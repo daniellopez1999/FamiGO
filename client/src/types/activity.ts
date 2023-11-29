@@ -43,3 +43,29 @@ export interface PublishFormInput {
   // materials?: string[];
   description: string;
 }
+
+export interface ActivityObject {
+  activityInfo: {
+    userInfo: {
+      username: string;
+    };
+    filters: {
+      topic: string;
+      numOfKids: string;
+      age: string;
+      difficulty: string;
+      place: string;
+      duration: string;
+    };
+    materials: string[];
+    _id: string;
+    title: string;
+    material: string;
+    image: string;
+    description: string;
+    likes: any[]; // Puedes definir una interfaz específica para los likes si es necesario
+    type: string;
+    createdAt: string;
+    __v: number;
+  };
+}
