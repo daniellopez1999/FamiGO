@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route element={<NavOutlet />}>
           <Route path="/" element={<FeedPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/:username" element={<ProfilePage />} />
           <Route path="/generator" element={<GeneratorPage />} />
         </Route>
         <Route path="/publish-activity" element={<PublishIdeaPage />} />
