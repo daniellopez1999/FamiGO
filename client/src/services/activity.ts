@@ -32,3 +32,20 @@ export const publishActivity = async (info: Activity) => {
     return;
   }
 };
+
+export const getActivity = async (id: string) => {
+  try {
+    const response = await fetch(`http://localhost:3000/get-activity/${id}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) console.error('ERROR');
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

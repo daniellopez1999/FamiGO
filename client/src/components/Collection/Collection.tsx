@@ -1,13 +1,32 @@
-import Logo from '../../assets/logo.png';
 import './Collection.css';
-
-const tempUrl = Logo;
+import { UserInfo } from '../../types/user';
+import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getUserInfo } from '../../services/users';
+import { getActivity } from '../../services/activity';
 
 type Props = {
   type: string;
 };
 
 const Collection = ({ type }: Props) => {
+  const { username } = useParams();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  useEffect(() => {
+    async function getInfoFromUser() {
+      console.log(username);
+      const userData = await getUserInfo(username!);
+      setUserInfo(userData);
+    }
+    getInfoFromUser();
+  }, [username]);
+
+  const handleImageClick = async (activityId: string) => {
+    const activityData = await getActivity(activityId);
+    console.log(activityData);
+  };
+
   // todo: extract component for pre-view
   if (type === 'ai') {
     return (
@@ -28,18 +47,21 @@ const Collection = ({ type }: Props) => {
 
   return (
     <div className="collection">
-      <div className="pre-view">
-        <img src={tempUrl} alt="activity pre view" />
-      </div>
-      <div className="pre-view">
-        <img src={tempUrl} alt="activity pre view" />
-      </div>
-      <div className="pre-view">
-        <img src={tempUrl} alt="activity pre view" />
-      </div>
-      <div className="pre-view">
-        <img src={tempUrl} alt="activity pre view" />
-      </div>
+      {userInfo?.activities.map((activityObj) => {
+        const [activityId, activity] = Object.entries(activityObj)[0];
+
+        return (
+          <Link
+            key={activityId}
+            to={`/activity/${activityId}`}
+            onClick={() => handleImageClick(activityId)}
+          >
+            <div className="pre-view">
+              <img src={activity.image} alt={activity.title} />
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 };
