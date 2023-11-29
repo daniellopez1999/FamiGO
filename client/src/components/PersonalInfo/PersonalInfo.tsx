@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import DataBox from '../DataBox/DataBox';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -43,6 +44,9 @@ const PersonalInfo = () => {
         <div className="lower">
           <p className="name">{userInfo?.user.username}</p>
           <div className="desc">{userInfo?.user.description}</div>
+          <Link to="/edit-profile">
+            <button className="edit-btn">Edit</button>
+          </Link>
         </div>
       </div>
     </div>
