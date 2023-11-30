@@ -25,6 +25,7 @@ import {
   getPostsByFilter,
 } from './controllers/activity';
 import { generateActivity } from './controllers/generateActivity';
+import { saveActivityInProfile } from './controllers/activityDo';
 
 const router = Router();
 
@@ -68,5 +69,7 @@ router.delete('/image/:publicId', deleteFromCloudinary);
 
 router.post('/generator', generateActivity);
 router.get('/generator', generateActivity);
+
+router.post('/savePostInUser/:username/:id', saveActivityInProfile);
 
 export default router;
