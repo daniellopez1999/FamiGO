@@ -1,6 +1,7 @@
 const url = 'http://localhost:3000';
 
 export const getUserInfo = async (username: string) => {
+  console.log(`${url}/profile/${username}`);
   try {
     const response = await fetch(`${url}/profile/${username}`, {
       method: 'GET',
