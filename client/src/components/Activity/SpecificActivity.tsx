@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getActivity } from '../../services/activity';
+import { getActivity, saveActivityInProfile } from '../../services/activity';
 import { ActivityObject } from '../../types/activity';
 import { getUserInfo } from '../../services/users';
 import { UserInfo } from '../../types/user';
@@ -27,6 +27,12 @@ const SpecificActivity = () => {
     getInfoFromUser();
   }, [activityData]);
 
+  function saveActivity() {
+    const activityID = activityData!.activityInfo._id;
+    const username = activityData?.activityInfo.userInfo.username;
+    saveActivityInProfile(username!, activityID!);
+  }
+
   return (
     <div className="feed-item">
       <div className="info">
@@ -43,7 +49,9 @@ const SpecificActivity = () => {
         <div className="actions">
           <p>like</p>
           <p>comment</p>
-          <p>save</p>
+          <p>
+            <button onClick={() => saveActivity()}>save</button>
+          </p>
         </div>
       </div>
       <p>{activityData?.activityInfo.description}</p>

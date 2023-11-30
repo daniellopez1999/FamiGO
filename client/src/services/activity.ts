@@ -49,3 +49,25 @@ export const getActivity = async (id: string) => {
     console.error(error);
   }
 };
+
+export const saveActivityInProfile = async (
+  username: string,
+  activityID: string
+) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/savepost-in-user/${username}/${activityID}`,
+      {
+        method: 'POST',
+      }
+    );
+
+    if (!response.ok) console.error('ERROR');
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
