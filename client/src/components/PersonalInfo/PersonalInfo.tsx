@@ -44,7 +44,7 @@ const PersonalInfo = () => {
         <div className="lower">
           <p className="name">{userInfo?.user.username}</p>
           <div className="desc">{userInfo?.user.description}</div>
-          <Link to="/edit-profile">
+          <Link to="/edit-profile/:username">
             <button className="edit-btn">Edit</button>
           </Link>
         </div>
