@@ -52,10 +52,11 @@ const FeedPage = () => {
 
   return (
     <div className="feed-page">
-      Filter Placeholder
       <form onSubmit={handleSubmit(onSubmit)}>
         <FiltersSelect control={control} />
-        <button type="submit">Search</button>
+        <button className="button-filter-feed" type="submit">
+          Search
+        </button>
       </form>
       {hasFiltered &&
         filteredFeedItems.map((feedItem) => (
