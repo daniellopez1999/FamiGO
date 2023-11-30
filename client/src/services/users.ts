@@ -15,3 +15,25 @@ export const getUserInfo = async (username: string) => {
     console.error(error);
   }
 };
+
+export const updateUserInfo = async (
+  username: string,
+  updates: { newUsername?: string; avatar?: string; description?: string }
+) => {
+  try {
+    const response = await fetch(`${url}/profile/${username}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updates),
+    });
+
+    if (!response.ok) console.error('Failed to update user info');
+
+    const data = response.json();
+    return data;
+  } catch (error) {
+    console.error('Error in updateUserInfo', error);
+  }
+};
