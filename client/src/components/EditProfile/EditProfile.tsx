@@ -29,7 +29,7 @@ const EditProfile = () => {
           <textarea
             value={presentation}
             onChange={(e) => setPresentation(e.target.value)}
-            placeholder="Presentations"
+            placeholder="Presentation"
             className="presentation-textarea"
           ></textarea>
           <button type="submit" className="update-btn">
