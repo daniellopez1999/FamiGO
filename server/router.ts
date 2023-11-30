@@ -8,6 +8,7 @@ import {
   updatePassword,
   getUserInfo,
   googleLogin,
+  updateUserInfo,
 } from './controllers/users';
 import {
   uploadToCloudinary,
@@ -52,6 +53,7 @@ router.put(
   isOwner,
   updatePassword
 );
+router.put('/profile/username', isAuthenticated, isOwner, updateUserInfo);
 
 router.get('/api/check-auth', isAuthenticated, cookiesOK);
 
