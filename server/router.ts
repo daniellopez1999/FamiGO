@@ -20,6 +20,7 @@ import {
   isAuthenticated,
   isOwner,
   isAuthorized,
+  isOwnerEdit,
 } from './middlewares/index';
 
 import {
@@ -53,7 +54,7 @@ router.put(
   isOwner,
   updatePassword
 );
-router.put('/profile/:username', isAuthenticated, isOwner, updateUserInfo);
+router.put('/profile/:username', isAuthenticated, isOwnerEdit, updateUserInfo);
 
 router.get('/api/check-auth', isAuthenticated, cookiesOK);
 

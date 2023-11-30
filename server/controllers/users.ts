@@ -182,6 +182,7 @@ export const register = async (req: Request, res: Response) => {
 
 export const updateUserInfo = async (req: Request, res: Response) => {
   try {
+    console.log('AAAAA');
     const { username } = req.params;
     const { newUsername, avatar, description } = req.body;
 
@@ -196,7 +197,12 @@ export const updateUserInfo = async (req: Request, res: Response) => {
     if (description) user.description = description;
 
     await user.save();
-
+    let objj = {
+      newUsername: newUsername,
+      avatar: avatar,
+      description: description,
+    };
+    console.log(objj);
     return res.status(200);
   } catch (error) {
     return res.sendStatus(400);

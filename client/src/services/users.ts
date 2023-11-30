@@ -23,12 +23,14 @@ export const updateUserInfo = async (
   try {
     const response = await fetch(`${url}/profile/${username}`, {
       method: 'PUT',
+      mode: 'cors',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(updates),
     });
-
+    console.log(response);
     if (!response.ok) console.error('Failed to update user info');
 
     const data = response.json();
