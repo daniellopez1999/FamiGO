@@ -53,11 +53,11 @@ router.put(
   isOwner,
   updatePassword
 );
-router.put('/profile/username', isAuthenticated, isOwner, updateUserInfo);
+router.put('/profile/:username', isAuthenticated, isOwner, updateUserInfo);
 
 router.get('/api/check-auth', isAuthenticated, cookiesOK);
 
-router.get('/profile/:id/edit', isAuthenticated, isOwner); // auth and owner
+// router.get('/profile/:id/edit', isAuthenticated, isOwner); // auth and owner
 
 //get User Info (Posts and Stats)
 router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
