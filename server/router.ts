@@ -3,8 +3,8 @@ import multer from 'multer';
 import {
   login,
   register,
-  updateUserAvatar,
-  updateUsername,
+  // updateUserAvatar,
+  // updateUsername,
   updatePassword,
   getUserInfo,
   googleLogin,
@@ -39,13 +39,13 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/login/google', googleLogin);
 router.get('/users', isAuthenticated, getAllUsers);
-router.put('/users/:id', isAuthenticated, isOwner, updateUserAvatar);
-router.put(
-  '/users/user_username/:id',
-  isAuthenticated,
-  isOwner,
-  updateUsername
-);
+// router.put('/users/:id', isAuthenticated, isOwner, updateUserAvatar);
+// router.put(
+//   '/users/user_username/:id',
+//   isAuthenticated,
+//   isOwner,
+//   updateUsername
+// );
 router.put(
   '/users/user_password/:id',
   isAuthenticated,
