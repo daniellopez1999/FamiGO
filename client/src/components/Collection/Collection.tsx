@@ -57,7 +57,7 @@ const Collection = ({ type }: Props) => {
             onClick={() => handleImageClick(activityId)}
           >
             <div className="pre-view">
-              <img src={activity.image} alt={activity.title} />
+              <img className="img" src={activity.image} alt={activity.title} />
             </div>
           </Link>
         );

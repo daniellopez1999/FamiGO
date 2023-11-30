@@ -25,7 +25,7 @@ const SpecificActivity = () => {
       setUserInfo(userData);
     }
     getInfoFromUser();
-  }, []);
+  }, [activityData]);
 
   return (
     <div className="feed-item">

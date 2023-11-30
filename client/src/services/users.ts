@@ -1,7 +1,6 @@
 const url = 'http://localhost:3000';
 
 export const getUserInfo = async (username: string) => {
-  console.log(`${url}/profile/${username}`);
   try {
     const response = await fetch(`${url}/profile/${username}`, {
       method: 'GET',
@@ -11,7 +10,6 @@ export const getUserInfo = async (username: string) => {
     if (!response.ok) console.error('ERROR');
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
