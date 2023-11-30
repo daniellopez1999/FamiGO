@@ -16,6 +16,7 @@ const EditProfile = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('Before updating user info');
     if (currentUsername) {
       try {
         await updateUserInfo(currentUsername, {
@@ -23,9 +24,12 @@ const EditProfile = () => {
           description: presentation,
           avatar,
         });
-        navigate('/profile/${newUsername}');
+        console.log('After updating user info');
+        console.log(`Navigating to /profile/${newUsername}`);
+        navigate(`/profile/${newUsername}`);
       } catch (error) {
         console.error('Failed to update the profile', error);
+        return;
       }
     } else {
       console.error('Username is undefined');
