@@ -3,27 +3,24 @@ import { getUserByUserName } from '../models/users';
 
 export const saveActivityInProfile = async (req: Request, res: Response) => {
   try {
-    console.log('aa');
-    const savedActivityBody = req.params;
-    console.log(savedActivityBody);
-    const activityID = savedActivityBody.id;
-    const username = savedActivityBody.username;
-
+    console.log('a');
+    const { id, username } = req.params;
+    console.log(id, username);
     const user = await getUserByUserName(username);
 
-    console.log(activityID, username);
-    if (user && activityID) {
+    console.log(id, username);
+    if (user && id) {
       //check if exists in array
-      if (user.savedPosts?.includes(activityID)) {
-        const indexToDelete = user.savedPosts.indexOf(activityID);
+      if (user.savedPosts?.includes(id)) {
+        const indexToDelete = user.savedPosts.indexOf(id);
         user.savedPosts.splice(indexToDelete, 1);
         await user.save();
       } else {
         user.savedPosts ??= [];
-        user.savedPosts.push(activityID);
+        user.savedPosts.push(id);
 
         await user.save();
-        res.status(201);
+        res.status(201).end();
       }
     }
     return;

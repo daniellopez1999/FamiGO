@@ -50,10 +50,13 @@ export const getActivity = async (id: string) => {
   }
 };
 
-export const saveActivityInProfile = async (username: string, id: string) => {
+export const saveActivityInProfile = async (
+  username: string,
+  activityID: string
+) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/savePostInUser/${username}/${id}`,
+      `${BASE_URL}/savepost-in-user/${username}/${activityID}`,
       {
         method: 'POST',
       }
