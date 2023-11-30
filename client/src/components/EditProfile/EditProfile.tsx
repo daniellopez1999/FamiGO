@@ -1,32 +1,34 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { updateUserInfo } from '../../services/users';
 import Logo from '../../assets/logo.png';
 
 import './EditProfile.css';
 
-type EditProfileProps = {
-  username: string;
-};
-
-const EditProfile = ({ username: currentUsername }: EditProfileProps) => {
+const EditProfile = () => {
   const [newUsername, setNewUsername] = useState('');
   const [presentation, setPresentation] = useState('');
   const [avatar] = useState(Logo);
 
   const navigate = useNavigate();
 
+  const { username: currentUsername } = useParams<{ username?: string }>();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      await updateUserInfo(currentUsername, {
-        newUsername: newUsername,
-        description: presentation,
-        avatar,
-      });
-      navigate(`/profile/${newUsername}`);
-    } catch (error) {
-      console.error('Failed to update the profile', error);
+    if (currentUsername) {
+      try {
+        await updateUserInfo(currentUsername, {
+          newUsername: newUsername,
+          description: presentation,
+          avatar,
+        });
+        navigate('/profile/${newUsername}');
+      } catch (error) {
+        console.error('Failed to update the profile', error);
+      }
+    } else {
+      console.error('Username is undefined');
     }
   };
 
