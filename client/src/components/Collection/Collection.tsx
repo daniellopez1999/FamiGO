@@ -51,15 +51,14 @@ const Collection = ({ type }: Props) => {
         const [activityId, activity] = Object.entries(activityObj)[0];
 
         return (
-          <Link
-            key={activityId}
-            to={`/activity/${activityId}`}
-            onClick={() => handleImageClick(activityId)}
-          >
-            <div className="pre-view">
-              <img src={activity.image} alt={activity.title} />
-            </div>
-          </Link>
+          <div key={activityId} className="pre-view">
+            <Link
+              to={`/activity/${activityId}`}
+              onClick={() => handleImageClick(activityId)}
+            >
+              <img className="img" src={activity.image} alt={activity.title} />
+            </Link>
+          </div>
         );
       })}
     </div>
