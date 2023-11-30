@@ -136,6 +136,7 @@ export const getPostsForFeed = async (req: Request, res: Response) => {
     else {
       let limit = 20; //will only get 20 posts
       const activities = await ActivityModel.aggregate([
+        { $match: { type: 'published' } },
         { $sample: { size: limit } },
       ]);
 
