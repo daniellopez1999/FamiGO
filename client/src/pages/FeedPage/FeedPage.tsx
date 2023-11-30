@@ -20,11 +20,10 @@ export interface IFormInput {
 }
 
 const FeedPage = () => {
-  const [postsByFilter, setPostsByFilter] = useState();
+  const [feedItems, setFeedItems] = useState<FeedActivity[]>([]);
+  const [postsByFilter, setPostsByFilter] = useState<FeedActivity[]>([]);
 
   const { control, handleSubmit } = useForm<IFormInput>({});
-
-  const [feedItems, setFeedItems] = useState<FeedActivity[]>([]);
 
   const myNewPublish = getNewlyPublishedActivity();
 
@@ -56,7 +55,8 @@ const FeedPage = () => {
       .then((response) => response.json())
       .then((dataReceived) => {
         console.log('Data Received:', dataReceived);
-        setPostsByFilter(dataReceived);
+        const { activities } = dataReceived;
+        setPostsByFilter(activities);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -70,8 +70,13 @@ const FeedPage = () => {
         <FiltersSelect control={control} />
         <button type="submit">Search</button>
       </form>
+      {Boolean(postsByFilter.length) &&
+        postsByFilter.map((feedItem) => (
+          <FeedItem key={feedItem._id} activity={feedItem} />
+        ))}
       {myNewPublish && <FeedItem activity={myNewPublish} />}
       {!!feedItems.length &&
+        !postsByFilter.length &&
         feedItems.map((feedItem) => (
           <FeedItem key={feedItem._id} activity={feedItem} />
         ))}
