@@ -44,7 +44,6 @@ export const isOwnerEdit = async (
     const { username } = req.params;
     const currentUsername = get(req, 'identity.username');
 
-    console.log('owner ok');
     if (currentUsername === undefined) {
       return res.sendStatus(403);
     }
