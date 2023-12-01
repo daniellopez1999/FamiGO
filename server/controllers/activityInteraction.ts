@@ -40,6 +40,7 @@ export const likeActivity = async (req: Request, res: Response) => {
         const indexToDelete = activity.likes.indexOf(userID!);
         activity.likes.splice(indexToDelete, 1);
         await activity.save();
+        res.status(200).end();
       } else {
         activity.likes ??= [];
         activity.likes.push(userID!);
