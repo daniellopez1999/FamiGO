@@ -170,7 +170,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
       description: description,
     };
     console.log(updatedInfo);
-    return res.status(200);
+    return res.status(200).json({ updatedInfo });
   } catch (error) {
     return res.sendStatus(400);
   }

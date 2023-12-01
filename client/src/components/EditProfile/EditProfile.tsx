@@ -21,7 +21,7 @@ const EditProfile = () => {
         await updateUserInfo(currentUsername, {
           newUsername: newUsername,
           description: presentation,
-          avatar,
+          avatar: avatar,
         });
         navigate(`/profile/${newUsername}`);
       } catch (error) {
