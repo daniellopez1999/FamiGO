@@ -2,8 +2,8 @@ import React, { ChangeEvent, useState } from 'react';
 import { publishComment } from '../../services/activity';
 
 interface CommentProps {
-  myUsername?: string;
-  activityID?: string;
+  myUsername: string;
+  activityID: string;
 }
 
 const Comment: React.FC<CommentProps> = ({ myUsername, activityID }) => {
