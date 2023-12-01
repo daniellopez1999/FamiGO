@@ -29,9 +29,14 @@ const SpecificActivity = () => {
     async function getInfoFromUser() {
       const userData = await getUserInfo(username!);
       setUserInfo(userData);
-      await checkIfLike();
     }
     getInfoFromUser();
+
+    const checkLike = async () => {
+      const liked = await checkIfLike();
+      console.log(liked);
+    };
+    checkLike();
   }, [activityData]);
 
   function saveActivity() {
@@ -43,7 +48,7 @@ const SpecificActivity = () => {
   async function like() {
     const activityID = activityData!.activityInfo._id;
     const username = activityData?.activityInfo.userInfo.username;
-    saveLike(username!, activityID!);
+    await saveLike(username!, activityID!);
     const activity = await getActivity(id!);
     setActivityData(activity);
     await checkIfLike();
@@ -54,6 +59,8 @@ const SpecificActivity = () => {
     const username = activityData?.activityInfo.userInfo.username;
     const checkIfActivityHasLike = await getLikes(username!, activityID!);
     setIsLiked(checkIfActivityHasLike.value);
+    console.log(checkIfActivityHasLike.value);
+    return checkIfActivityHasLike.value;
   }
 
   return (
