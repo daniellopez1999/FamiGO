@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { publishComment } from '../../services/activity';
 
 interface CommentProps {

@@ -45,13 +45,11 @@ const SpecificActivity = () => {
 
   function saveActivity() {
     const activityID = activityData!.activityInfo._id;
-    console.log(myUsername);
     saveActivityInProfile(myUsername!, activityID!);
   }
 
   async function like() {
     const activityID = activityData!.activityInfo._id;
-    console.log(myUsername);
     await saveLike(myUsername!, activityID!);
     const activity = await getActivity(id!);
     setActivityData(activity);
@@ -66,9 +64,6 @@ const SpecificActivity = () => {
   }
 
   async function sendComment() {
-    const activityID = activityData!.activityInfo._id;
-    const text = 'prueba de texto';
-    console.log(activityID, myUsername, text);
     if (showComment) {
       setShowComment(false);
     } else {

@@ -83,7 +83,6 @@ export const createComment = async (req: Request, res: Response) => {
     //get username of user commenting, text and activity id
     //push text to activity.comments array
     const { activityID, username, text } = req.body;
-    console.log('ID: ', activityID, 'USERNAME: ', username, 'TEXT: ', text);
 
     const activity = await getActivitiesByID(activityID);
 
