@@ -3,8 +3,6 @@ import multer from 'multer';
 import {
   login,
   register,
-  // updateUserAvatar,
-  // updateUsername,
   updatePassword,
   getUserInfo,
   googleLogin,
