@@ -148,17 +148,29 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-export const updateUsername = async (req: Request, res: Response) => {
+export const updateUserInfo = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const { username } = req.body;
-    if (!username) {
-      return res.sendStatus(400);
+    const { username } = req.params;
+    const { newUsername, avatar, description } = req.body;
+
+    const user = await getUserByUserName(username);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
-    const user = await getUserById(id);
-    user!.username = username;
-    await user!.save();
-    return res.status(200).json(user).end();
+
+    if (newUsername) user.username = newUsername;
+    if (avatar) user.avatar = avatar;
+    if (description) user.description = description;
+
+    await user.save();
+    let updatedInfo = {
+      newUsername: newUsername,
+      avatar: avatar,
+      description: description,
+    };
+    console.log(updatedInfo);
+    return res.status(200);
   } catch (error) {
     return res.sendStatus(400);
   }
@@ -187,23 +199,7 @@ export const updatePassword = async (req: Request, res: Response) => {
 
     await user.save();
 
-    return res.status(200);
-  } catch (error) {
-    return res.sendStatus(400);
-  }
-};
-
-export const updateUserAvatar = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const { avatar } = req.body;
-
-    const user = await getUserById(id);
-
-    user!.avatar = avatar;
-    await user!.save();
-
-    return res.status(200).json(user).end();
+    return res.status(200).end();
   } catch (error) {
     return res.sendStatus(400);
   }

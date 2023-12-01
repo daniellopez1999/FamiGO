@@ -28,7 +28,33 @@ export const isOwner = async (
     if ((currentUserId as string).toString() !== id) {
       return res.sendStatus(403);
     }
+    next();
+    return;
+  } catch (error) {
+    return res.sendStatus(403);
+  }
+};
 
+export const isOwnerEdit = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { username } = req.params;
+    const currentUsername = get(req, 'identity.username');
+
+    if (currentUsername === undefined) {
+      return res.sendStatus(403);
+    }
+
+    if (!currentUsername) {
+      return res.sendStatus(403);
+    }
+
+    if ((currentUsername as string).toString() !== username) {
+      return res.sendStatus(403);
+    }
     next();
     return;
   } catch (error) {
@@ -51,6 +77,7 @@ export const isAuthenticated = async (
       return res.sendStatus(403);
     }
     merge(req, { identity: existingUser });
+    console.log('auth ok');
     return next();
   } catch (error) {
     return res.sendStatus(400);

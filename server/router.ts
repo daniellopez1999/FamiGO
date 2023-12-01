@@ -3,11 +3,10 @@ import multer from 'multer';
 import {
   login,
   register,
-  updateUserAvatar,
-  updateUsername,
   updatePassword,
   getUserInfo,
   googleLogin,
+  updateUserInfo,
 } from './controllers/users';
 import {
   uploadToCloudinary,
@@ -19,6 +18,7 @@ import {
   isAuthenticated,
   isOwner,
   isAuthorized,
+  isOwnerEdit,
 } from './middlewares/index';
 
 import {
@@ -39,23 +39,16 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/login/google', googleLogin);
 router.get('/users', isAuthenticated, getAllUsers);
-router.put('/users/:id', isAuthenticated, isOwner, updateUserAvatar);
-router.put(
-  '/users/user_username/:id',
-  isAuthenticated,
-  isOwner,
-  updateUsername
-);
+
 router.put(
   '/users/user_password/:id',
   isAuthenticated,
   isOwner,
   updatePassword
 );
+router.put('/profile/:username', isAuthenticated, isOwnerEdit, updateUserInfo);
 
 router.get('/api/check-auth', isAuthenticated, cookiesOK);
-
-router.get('/profile/:id/edit', isAuthenticated, isOwner); // auth and owner
 
 //get User Info (Posts and Stats)
 router.get('/profile/:id', isAuthenticated, getUserInfo, getUserData);
