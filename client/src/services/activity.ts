@@ -131,8 +131,6 @@ export const publishComment = async (
       body: JSON.stringify(commentObject),
     });
 
-    if (!response.ok) console.error('ERROR');
-
     const data = await response.json();
     console.log('data returned -->', data);
     return data;

@@ -92,7 +92,7 @@ export const createComment = async (req: Request, res: Response) => {
         username: username,
         text: text,
       };
-      activity.comments!.push(commentObject);
+      activity.comments.push(commentObject);
       await activity!.save();
       return res.status(200).json({ commentObject }).end();
     } else {

@@ -65,14 +65,6 @@ const SpecificActivity = () => {
     return checkIfActivityHasLike.value;
   }
 
-  function sendComment() {
-    if (showComment) {
-      setShowComment(false);
-    } else {
-      setShowComment(true);
-    }
-  }
-
   const showAllComments = async () => {
     if (showActivityComments) {
       setshowActivityComments(false);
@@ -102,7 +94,7 @@ const SpecificActivity = () => {
             </button>
           </p>
           <p>
-            <button onClick={() => sendComment()}>
+            <button onClick={() => setShowComment((prev) => !prev)}>
               {showComment ? 'Hide' : 'Comment'}
             </button>
           </p>
