@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import {
   getActivity,
   getLikes,
-  publishComment,
   saveActivityInProfile,
   saveLike,
 } from '../../services/activity';
@@ -11,6 +10,7 @@ import { ActivityObject } from '../../types/activity';
 import { getUserInfo } from '../../services/users';
 import { UserInfo } from '../../types/user';
 import { getUsername } from '../../redux/authSlice';
+import Comment from '../Comment/Comment';
 
 const SpecificActivity = () => {
   const myUsername = getUsername();
@@ -18,6 +18,7 @@ const SpecificActivity = () => {
   const [activityData, setActivityData] = useState<ActivityObject | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [isLiked, setIsLiked] = useState(false);
+  const [showComment, setShowComment] = useState(false);
 
   useEffect(() => {
     async function getActivityInfo() {
@@ -68,7 +69,11 @@ const SpecificActivity = () => {
     const activityID = activityData!.activityInfo._id;
     const text = 'prueba de texto';
     console.log(activityID, myUsername, text);
-    publishComment(myUsername!, activityID!, text!);
+    if (showComment) {
+      setShowComment(false);
+    } else {
+      setShowComment(true);
+    }
   }
 
   return (
@@ -92,7 +97,9 @@ const SpecificActivity = () => {
             </button>
           </p>
           <p>
-            <button onClick={() => sendComment()}>comment</button>
+            <button onClick={() => sendComment()}>
+              {showComment ? 'Hide' : 'Comment'}
+            </button>
           </p>
           <p>
             <button onClick={() => saveActivity()}>save</button>
@@ -100,6 +107,12 @@ const SpecificActivity = () => {
         </div>
       </div>
       <p>{activityData?.activityInfo.description}</p>
+      {showComment && (
+        <Comment
+          myUsername={myUsername}
+          activityID={activityData?.activityInfo._id}
+        />
+      )}
       <p>view all comments</p>
     </div>
   );
