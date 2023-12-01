@@ -30,7 +30,6 @@ export const updateUserInfo = async (
       },
       body: JSON.stringify(updates),
     });
-    console.log(response);
     if (!response.ok) {
       console.error('Failed to update user info');
     }
