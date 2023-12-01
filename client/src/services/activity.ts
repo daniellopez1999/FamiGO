@@ -108,3 +108,36 @@ export const getLikes = async (username: string, activityID: string) => {
     console.error(error);
   }
 };
+
+export const publishComment = async (
+  username: string,
+  activityID: string,
+  text: string
+) => {
+  const commentObject = {
+    username: username,
+    activityID: activityID,
+    text: text,
+  };
+  try {
+    const url = `${BASE_URL}/post-comment`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(commentObject),
+    });
+
+    if (!response.ok) console.error('ERROR');
+
+    const data = await response.json();
+    console.log('data returned -->', data);
+    return data;
+  } catch (error) {
+    console.log('publish activity errrr -->', error);
+    return;
+  }
+};
