@@ -106,15 +106,17 @@ const SpecificActivity = () => {
       <p>{activityData?.activityInfo.description}</p>
       {showComment && (
         <Comment
-          myUsername={myUsername}
-          activityID={activityData?.activityInfo._id}
+          myUsername={myUsername!}
+          activityID={activityData?.activityInfo._id!}
         />
       )}
       {showActivityComments && (
         <CommentList activityID={String(activityData?.activityInfo._id)} />
       )}
       <p>
-        <button onClick={() => showAllComments()}>view all comments</button>
+        <button onClick={() => setshowActivityComments((prev) => !prev)}>
+          view all comments
+        </button>
       </p>
     </div>
   );
