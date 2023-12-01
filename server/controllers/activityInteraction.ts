@@ -36,6 +36,7 @@ export const likeActivity = async (req: Request, res: Response) => {
     const user = await getUserByUserName(username);
     const activity = await getActivitiesByID(id);
     const userID = user?._id.toString();
+    console.log(username);
 
     if (user && activity) {
       if (activity.likes?.includes(userID!)) {
