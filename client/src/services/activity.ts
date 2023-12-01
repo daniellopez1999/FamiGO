@@ -131,13 +131,26 @@ export const publishComment = async (
       body: JSON.stringify(commentObject),
     });
 
-    if (!response.ok) console.error('ERROR');
-
     const data = await response.json();
     console.log('data returned -->', data);
     return data;
   } catch (error) {
     console.log('publish activity errrr -->', error);
     return;
+  }
+};
+
+export const getComments = async (activityID: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}/get-comments/${activityID}`, {
+      method: 'GET',
+    });
+
+    if (!response.ok) console.error('ERROR');
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
   }
 };

@@ -32,6 +32,7 @@ import { generateActivity } from './controllers/generateActivity';
 import {
   checkLike,
   createComment,
+  getComments,
   likeActivity,
   saveActivityInProfile,
 } from './controllers/activityInteraction';
@@ -78,5 +79,7 @@ router.post('/post-comment', createComment);
 
 // get plain user info
 router.get('/user/:username', isAuthenticated, getUserInfo);
+router.post('/post-comment', createComment);
+router.get('/get-comments/:activityID', getComments);
 
 export default router;
