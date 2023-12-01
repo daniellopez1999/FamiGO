@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   getActivity,
   getLikes,
+  publishComment,
   saveActivityInProfile,
   saveLike,
 } from '../../services/activity';
@@ -63,6 +64,13 @@ const SpecificActivity = () => {
     return checkIfActivityHasLike.value;
   }
 
+  async function sendComment() {
+    const activityID = activityData!.activityInfo._id;
+    const text = 'prueba de texto';
+    console.log(activityID, myUsername, text);
+    publishComment(myUsername!, activityID!, text!);
+  }
+
   return (
     <div className="feed-item">
       <div className="info">
@@ -83,7 +91,9 @@ const SpecificActivity = () => {
               {isLiked ? 'Unlike' : 'Like'}
             </button>
           </p>
-          <p>comment</p>
+          <p>
+            <button onClick={() => sendComment()}>comment</button>
+          </p>
           <p>
             <button onClick={() => saveActivity()}>save</button>
           </p>

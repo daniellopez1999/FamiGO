@@ -77,3 +77,16 @@ export const checkLike = async (req: Request, res: Response) => {
     return res.status(403).end();
   }
 };
+
+export const createComment = async (req: Request, res: Response) => {
+  try {
+    //get username of user commenting, text and activity id
+    //push text to activity.comments array
+    const { activityID, username, text } = req.body;
+    console.log('ID: ', activityID, 'USERNAME: ', username, 'TEXT: ', text);
+
+    return res.status(200).json({}).end();
+  } catch (error) {
+    return res.status(403).end();
+  }
+};
