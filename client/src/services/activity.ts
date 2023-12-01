@@ -90,3 +90,21 @@ export const saveLike = async (username: string, activityID: string) => {
     console.error(error);
   }
 };
+
+export const getLikes = async (username: string, activityID: string) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/check-like/${username}/${activityID}`,
+      {
+        method: 'GET',
+      }
+    );
+
+    if (!response.ok) console.error('ERROR');
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   getActivity,
+  getLikes,
   saveActivityInProfile,
   saveLike,
 } from '../../services/activity';
@@ -13,6 +14,7 @@ const SpecificActivity = () => {
   const { id } = useParams();
   const [activityData, setActivityData] = useState<ActivityObject | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     async function getActivityInfo() {
@@ -27,6 +29,7 @@ const SpecificActivity = () => {
     async function getInfoFromUser() {
       const userData = await getUserInfo(username!);
       setUserInfo(userData);
+      await checkIfLike();
     }
     getInfoFromUser();
   }, [activityData]);
@@ -37,10 +40,20 @@ const SpecificActivity = () => {
     saveActivityInProfile(username!, activityID!);
   }
 
-  function like() {
+  async function like() {
     const activityID = activityData!.activityInfo._id;
     const username = activityData?.activityInfo.userInfo.username;
     saveLike(username!, activityID!);
+    const activity = await getActivity(id!);
+    setActivityData(activity);
+    await checkIfLike();
+  }
+
+  async function checkIfLike() {
+    const activityID = activityData!.activityInfo._id;
+    const username = activityData?.activityInfo.userInfo.username;
+    const checkIfActivityHasLike = await getLikes(username!, activityID!);
+    setIsLiked(checkIfActivityHasLike.value);
   }
 
   return (
@@ -58,7 +71,10 @@ const SpecificActivity = () => {
         <p>{activityData?.activityInfo.likes.length} likes</p>
         <div className="actions">
           <p>
-            <button onClick={() => like()}>like</button>
+            <button onClick={() => like()}>
+              {' '}
+              {isLiked ? 'Unlike' : 'Like'}
+            </button>
           </p>
           <p>comment</p>
           <p>

@@ -7,7 +7,6 @@ export const saveActivityInProfile = async (req: Request, res: Response) => {
     const { id, username } = req.params;
     const user = await getUserByUserName(username);
 
-    console.log(id, username);
     if (user && id) {
       //check if exists in array
       if (user.savedPosts?.includes(id)) {
@@ -47,6 +46,26 @@ export const likeActivity = async (req: Request, res: Response) => {
 
         await activity.save();
         res.status(201).end();
+      }
+    }
+    return;
+  } catch (error) {
+    return res.status(403).end();
+  }
+};
+
+export const checkLike = async (req: Request, res: Response) => {
+  try {
+    const { id, username } = req.params;
+    const user = await getUserByUserName(username);
+    const activity = await getActivitiesByID(id);
+    const userID = user?._id.toString();
+
+    if (user && activity) {
+      if (activity.likes?.includes(userID!)) {
+        return res.status(200).json({ value: true }).end();
+      } else {
+        return res.status(200).json({ value: false }).end();
       }
     }
     return;

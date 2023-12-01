@@ -31,6 +31,7 @@ import {
 } from './controllers/activity';
 import { generateActivity } from './controllers/generateActivity';
 import {
+  checkLike,
   likeActivity,
   saveActivityInProfile,
 } from './controllers/activityInteraction';
@@ -73,5 +74,6 @@ router.get('/generator', generateActivity);
 
 router.post('/savepost-in-user/:username/:id', saveActivityInProfile);
 router.post('/save-like/:username/:id', likeActivity);
+router.get('/check-like/:username/:id', checkLike);
 
 export default router;
