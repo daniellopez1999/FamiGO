@@ -27,7 +27,6 @@ const CommentList: React.FC<CommentListProps> = ({ activityID }) => {
     fetchComments();
   }, [activityID]);
 
-  console.log(comments);
   return (
     <div>
       <h2>Comments:</h2>

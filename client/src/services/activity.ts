@@ -151,7 +151,6 @@ export const getComments = async (activityID: string) => {
     if (!response.ok) console.error('ERROR');
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);

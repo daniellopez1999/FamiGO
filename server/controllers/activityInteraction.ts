@@ -107,7 +107,6 @@ export const getComments = async (req: Request, res: Response) => {
   try {
     const { activityID } = req.params;
     const activity = await getActivitiesByID(activityID);
-    console.log(activity?.comments);
     const comments = activity ? activity.comments : [];
     return res.status(200).json({ comments }).end();
   } catch (error) {

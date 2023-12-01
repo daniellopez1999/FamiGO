@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   getActivity,
-  //getComments,
   getLikes,
   saveActivityInProfile,
   saveLike,
@@ -75,7 +74,6 @@ const SpecificActivity = () => {
   }
 
   const showAllComments = async () => {
-    //await getComments(activityData!.activityInfo._id!);
     if (showActivityComments) {
       setshowActivityComments(false);
     } else {
