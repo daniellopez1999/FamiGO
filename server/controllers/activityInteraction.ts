@@ -7,6 +7,8 @@ export const saveActivityInProfile = async (req: Request, res: Response) => {
     const { id, username } = req.params;
     const user = await getUserByUserName(username);
 
+    console.log('ID:', id, 'USER:', user);
+
     if (user && id) {
       //check if exists in array
       if (user.savedPosts?.includes(id)) {

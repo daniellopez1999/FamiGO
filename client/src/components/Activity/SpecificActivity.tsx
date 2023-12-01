@@ -9,8 +9,10 @@ import {
 import { ActivityObject } from '../../types/activity';
 import { getUserInfo } from '../../services/users';
 import { UserInfo } from '../../types/user';
+import { getUsername } from '../../redux/authSlice';
 
 const SpecificActivity = () => {
+  const myUsername = getUsername();
   const { id } = useParams();
   const [activityData, setActivityData] = useState<ActivityObject | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
@@ -34,15 +36,14 @@ const SpecificActivity = () => {
 
     const checkLike = async () => {
       const liked = await checkIfLike();
-      console.log(liked);
+      liked;
     };
     checkLike();
   }, [activityData]);
 
   function saveActivity() {
     const activityID = activityData!.activityInfo._id;
-    const username = activityData?.activityInfo.userInfo.username;
-    saveActivityInProfile(username!, activityID!);
+    saveActivityInProfile(myUsername!, activityID!);
   }
 
   async function like() {
@@ -59,7 +60,6 @@ const SpecificActivity = () => {
     const username = activityData?.activityInfo.userInfo.username;
     const checkIfActivityHasLike = await getLikes(username!, activityID!);
     setIsLiked(checkIfActivityHasLike.value);
-    console.log(checkIfActivityHasLike.value);
     return checkIfActivityHasLike.value;
   }
 
