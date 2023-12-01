@@ -67,16 +67,22 @@ const activitySchema = new Schema({
     default: Date.now,
     required: true,
   },
-  comments: {
-    username: {
-      type: String,
-      required: false,
+  comments: [
+    {
+      activityID: {
+        type: String,
+        required: false,
+      },
+      username: {
+        type: String,
+        required: false,
+      },
+      text: {
+        type: String,
+        required: false,
+      },
     },
-    text: {
-      type: String,
-      required: false,
-    },
-  },
+  ],
   type: {
     type: String,
     default: 'published',

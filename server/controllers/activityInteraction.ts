@@ -85,7 +85,20 @@ export const createComment = async (req: Request, res: Response) => {
     const { activityID, username, text } = req.body;
     console.log('ID: ', activityID, 'USERNAME: ', username, 'TEXT: ', text);
 
-    return res.status(200).json({}).end();
+    const activity = await getActivitiesByID(activityID);
+
+    if (activity && username && text) {
+      const commentObject = {
+        activityID: activityID,
+        username: username,
+        text: text,
+      };
+      activity.comments!.push(commentObject);
+      await activity!.save();
+      return res.status(200).json({ commentObject }).end();
+    } else {
+      return res.status(400).json({ error: 'Error' });
+    }
   } catch (error) {
     return res.status(403).end();
   }
