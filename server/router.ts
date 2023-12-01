@@ -30,7 +30,11 @@ import {
   getPostsByFilter,
 } from './controllers/activity';
 import { generateActivity } from './controllers/generateActivity';
-import { saveActivityInProfile } from './controllers/activityInteraction';
+import {
+  checkLike,
+  likeActivity,
+  saveActivityInProfile,
+} from './controllers/activityInteraction';
 
 const router = Router();
 
@@ -69,5 +73,7 @@ router.post('/generator', generateActivity);
 router.get('/generator', generateActivity);
 
 router.post('/savepost-in-user/:username/:id', saveActivityInProfile);
+router.post('/save-like/:username/:id', likeActivity);
+router.get('/check-like/:username/:id', checkLike);
 
 export default router;

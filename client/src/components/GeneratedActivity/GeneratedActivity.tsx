@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './GeneratedActivity.css';
 import Save from '../../assets/Save.svg';
 import New from '../../assets/New.svg';
+import { getUsername } from '../../redux/authSlice';
 
 interface IActivity {
   activity: {
@@ -18,6 +19,7 @@ interface IActivity {
 }
 
 const GeneratedActivity: React.FC<IActivity> = ({ activity, onSubmit }) => {
+  const username = getUsername();
   const [newClickCount, setNewClickCount] = useState(0);
 
   useEffect(() => {
@@ -95,7 +97,7 @@ const GeneratedActivity: React.FC<IActivity> = ({ activity, onSubmit }) => {
       </div>
       <p>{activity.description}</p>
       <div className="button-box">
-        <Link to="/profile" className="saveredirect-btn">
+        <Link to={`/profile/${username}`} className="saveredirect-btn">
           <button className="button" onClick={handleSaveClick}>
             <img src={Save} alt="SaveIcon" />
             Save

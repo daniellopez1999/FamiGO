@@ -28,7 +28,6 @@ export const publishActivity = async (req: Request, res: Response) => {
     };
     const newActivity = await createActivity(activityWithUser);
     const activityId = newActivity.id;
-    console.log('activity id -->', activityId);
 
     if (user && activityId) {
       user.statistics ??= {};
@@ -47,9 +46,7 @@ export const publishActivity = async (req: Request, res: Response) => {
 export const getActivity = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const activityInfo = await getActivitiesByID(id);
-    console.log(activityInfo);
     return res.json({ activityInfo }).status(200);
   } catch (error) {
     console.error(error);
@@ -72,6 +69,12 @@ export const getUserData = async (_req: Request, res: Response) => {
     const listOfSavedActivities = await iterateActivitiesFromUser(
       activitiesFromUser!.savedPosts!
     );
+
+    listOfActivities.sort((a, b) => {
+      const dateA = new Date(Object.values(a)[0].createdAt) as any;
+      const dateB = new Date(Object.values(b)[0].createdAt) as any;
+      return dateB - dateA;
+    });
 
     res
       .json({
@@ -165,7 +168,7 @@ interface FilterCriteria {
 export const getPostsByFilter = async (req: Request, res: Response) => {
   try {
     const filters: FilterCriteria = req.body;
-    const query: Record<string, any> = {};
+    let query: Record<string, any> = {};
 
     if (filters) {
       Object.entries(filters).forEach(([key, { value }]) => {

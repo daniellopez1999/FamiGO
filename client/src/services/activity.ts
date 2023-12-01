@@ -71,3 +71,40 @@ export const saveActivityInProfile = async (
     console.error(error);
   }
 };
+
+export const saveLike = async (username: string, activityID: string) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/save-like/${username}/${activityID}`,
+      {
+        method: 'POST',
+      }
+    );
+
+    if (!response.ok) console.error('ERROR');
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getLikes = async (username: string, activityID: string) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/check-like/${username}/${activityID}`,
+      {
+        method: 'GET',
+      }
+    );
+
+    if (!response.ok) console.error('ERROR');
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
