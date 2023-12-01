@@ -75,7 +75,7 @@ export const saveActivityInProfile = async (
 export const saveLike = async (username: string, activityID: string) => {
   try {
     const response = await fetch(
-      `${BASE_URL}/saveLike/${username}/${activityID}`,
+      `${BASE_URL}/save-like/${username}/${activityID}`,
       {
         method: 'POST',
       }

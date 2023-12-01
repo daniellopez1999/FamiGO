@@ -72,6 +72,6 @@ router.post('/generator', generateActivity);
 router.get('/generator', generateActivity);
 
 router.post('/savepost-in-user/:username/:id', saveActivityInProfile);
-router.post('/saveLike/:username/:id', likeActivity);
+router.post('/save-like/:username/:id', likeActivity);
 
 export default router;
