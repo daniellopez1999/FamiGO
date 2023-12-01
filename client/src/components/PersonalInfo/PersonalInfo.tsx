@@ -43,9 +43,9 @@ const PersonalInfo = () => {
         </div>
         <div className="lower">
           <p className="name">{userInfo?.user.username}</p>
-          <div className="desc">{userInfo?.user.description}</div>
+          <p className="desc">{userInfo?.user.description}</p>
           <Link to={`/edit-profile/${username}`}>
-            <button className="edit-btn">Edit</button>
+            <button className="edit-btn">Edit profile</button>
           </Link>
         </div>
       </div>

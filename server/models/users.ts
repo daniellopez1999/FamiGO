@@ -49,7 +49,7 @@ const userSchema = new Schema({
   },
   avatar: {
     type: String,
-    default: 'default-avatar.jpg',
+    default: 'https://cdn-icons-png.flaticon.com/512/2058/2058258.png',
     required: true,
   },
   savedPosts: {
