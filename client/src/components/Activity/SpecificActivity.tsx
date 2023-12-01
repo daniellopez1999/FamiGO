@@ -65,25 +65,6 @@ const SpecificActivity = () => {
     return checkIfActivityHasLike.value;
   }
 
-<<<<<<< HEAD
-=======
-  function sendComment() {
-    if (showComment) {
-      setShowComment(false);
-    } else {
-      setShowComment(true);
-    }
-  }
-
-  const showAllComments = async () => {
-    if (showActivityComments) {
-      setshowActivityComments(false);
-    } else {
-      setshowActivityComments(true);
-    }
-  };
-
->>>>>>> b185744 (fix: cleaned console logs)
   return (
     <div className="feed-item">
       <div className="info">

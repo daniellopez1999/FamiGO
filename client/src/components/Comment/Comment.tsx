@@ -15,7 +15,7 @@ const Comment: React.FC<CommentProps> = ({ myUsername, activityID }) => {
   };
 
   const submitComment = async () => {
-    publishComment(myUsername!, activityID!, commentText!);
+    publishComment(myUsername!, activityID!, commentText);
   };
 
   return (
