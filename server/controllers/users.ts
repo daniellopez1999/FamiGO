@@ -110,6 +110,18 @@ export const googleLogin = async (req: Request, res: Response) => {
     user!.authentication!.sessionToken = newSessionToken;
     await user!.save();
 
+    res.cookie('CookieFamiGO', user.authentication!.sessionToken, {
+      domain: 'localhost',
+      path: '/',
+      httpOnly: true,
+    });
+
+    res.cookie('username', user.username, {
+      domain: 'localhost',
+      path: '/',
+      httpOnly: true,
+    });
+
     return res.status(200).json({ user: user, token: newSessionToken });
   } catch (error) {
     console.error('Error in googleLogin:', error);

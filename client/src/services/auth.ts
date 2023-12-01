@@ -35,8 +35,8 @@ export const googleLogin = async (credential: string) => {
   try {
     const response = await fetch(`${url}/login/google`, {
       method: 'POST',
-      // mode: 'cors',
-      // credentials: 'include',
+      mode: 'cors',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
