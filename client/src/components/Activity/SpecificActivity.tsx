@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   getActivity,
+  //getComments,
   getLikes,
   saveActivityInProfile,
   saveLike,
@@ -11,6 +12,7 @@ import { getUserInfo } from '../../services/users';
 import { UserInfo } from '../../types/user';
 import { getUsername } from '../../redux/authSlice';
 import Comment from '../Comment/Comment';
+import CommentList from '../CommentList/CommentList';
 
 const SpecificActivity = () => {
   const myUsername = getUsername();
@@ -19,6 +21,7 @@ const SpecificActivity = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [isLiked, setIsLiked] = useState(false);
   const [showComment, setShowComment] = useState(false);
+  const [showActivityComments, setshowActivityComments] = useState(false);
 
   useEffect(() => {
     async function getActivityInfo() {
@@ -63,13 +66,22 @@ const SpecificActivity = () => {
     return checkIfActivityHasLike.value;
   }
 
-  async function sendComment() {
+  function sendComment() {
     if (showComment) {
       setShowComment(false);
     } else {
       setShowComment(true);
     }
   }
+
+  const showAllComments = async () => {
+    //await getComments(activityData!.activityInfo._id!);
+    if (showActivityComments) {
+      setshowActivityComments(false);
+    } else {
+      setshowActivityComments(true);
+    }
+  };
 
   return (
     <div className="feed-item">
@@ -108,7 +120,12 @@ const SpecificActivity = () => {
           activityID={activityData?.activityInfo._id}
         />
       )}
-      <p>view all comments</p>
+      {showActivityComments && (
+        <CommentList activityID={String(activityData?.activityInfo._id)} />
+      )}
+      <p>
+        <button onClick={() => showAllComments()}>view all comments</button>
+      </p>
     </div>
   );
 };

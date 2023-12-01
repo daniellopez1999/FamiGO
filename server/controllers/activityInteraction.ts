@@ -102,3 +102,15 @@ export const createComment = async (req: Request, res: Response) => {
     return res.status(403).end();
   }
 };
+
+export const getComments = async (req: Request, res: Response) => {
+  try {
+    const { activityID } = req.params;
+    const activity = await getActivitiesByID(activityID);
+    console.log(activity?.comments);
+    const comments = activity ? activity.comments : [];
+    return res.status(200).json({ comments }).end();
+  } catch (error) {
+    return res.status(403).end();
+  }
+};
