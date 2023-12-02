@@ -33,8 +33,6 @@ import {
   checkLike,
   createComment,
   getComments,
-  createComment,
-  getComments,
   likeActivity,
   saveActivityInProfile,
 } from './controllers/activityInteraction';
