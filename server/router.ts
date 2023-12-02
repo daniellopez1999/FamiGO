@@ -31,6 +31,8 @@ import {
 import { generateActivity } from './controllers/generateActivity';
 import {
   checkLike,
+  createComment,
+  getComments,
   likeActivity,
   saveActivityInProfile,
 } from './controllers/activityInteraction';
@@ -69,11 +71,14 @@ router.delete('/image/:publicId', deleteFromCloudinary);
 router.post('/generator', generateActivity);
 router.get('/generator', generateActivity);
 
+//Activity interactions
+//Activity interactions
 router.post('/savepost-in-user/:username/:id', saveActivityInProfile);
 router.post('/save-like/:username/:id', likeActivity);
 router.get('/check-like/:username/:id', checkLike);
-
 // get plain user info
 router.get('/user/:username', isAuthenticated, getUserInfo);
+router.post('/post-comment', createComment);
+router.get('/get-comments/:activityID', getComments);
 
 export default router;
