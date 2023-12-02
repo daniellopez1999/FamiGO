@@ -268,12 +268,14 @@ export const followAndUnfollow = async (req: Request, res: Response) => {
 export const checkFollowing = async (req: Request, res: Response) => {
   try {
     const { usernameFollowing, usernameToFollow } = req.params;
-    const mine = await getUserByUserName(usernameFollowing);
-    const their = await getUserByUserName(usernameToFollow);
+    const userFollowingData = await getUserByUserName(usernameFollowing);
+    const userToFollowData = await getUserByUserName(usernameToFollow);
 
-    const mineID = mine?._id.toString();
+    const userFollowingID = userFollowingData?._id.toString();
 
-    if (their?.statistics?.followers?.includes(mineID || '')) {
+    if (
+      userToFollowData?.statistics?.followers?.includes(userFollowingID || '')
+    ) {
       return res.status(200).json({ following: true });
     } else {
       return res.status(200).json({ following: false });
