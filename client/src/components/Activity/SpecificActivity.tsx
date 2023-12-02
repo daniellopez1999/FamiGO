@@ -65,14 +65,6 @@ const SpecificActivity = () => {
     return checkIfActivityHasLike.value;
   }
 
-  const showAllComments = async () => {
-    if (showActivityComments) {
-      setshowActivityComments(false);
-    } else {
-      setshowActivityComments(true);
-    }
-  };
-
   return (
     <div className="feed-item">
       <div className="info">
