@@ -12,6 +12,9 @@ import { UserInfo } from '../../types/user';
 import { getMyUsername } from '../../redux/userSlice';
 import Comment from '../Comment/Comment';
 import CommentList from '../CommentList/CommentList';
+import { getUsername } from '../../redux/authSlice';
+import Comment from '../Comment/Comment';
+import CommentList from '../CommentList/CommentList';
 
 const SpecificActivity = () => {
   const myUsername = getMyUsername();
@@ -19,6 +22,8 @@ const SpecificActivity = () => {
   const [activityData, setActivityData] = useState<ActivityObject | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [isLiked, setIsLiked] = useState(false);
+  const [showComment, setShowComment] = useState(false);
+  const [showActivityComments, setshowActivityComments] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [showActivityComments, setshowActivityComments] = useState(false);
 
@@ -91,11 +96,30 @@ const SpecificActivity = () => {
             </button>
           </p>
           <p>
+            <button onClick={() => setShowComment((prev) => !prev)}>
+              {showComment ? 'Hide' : 'Comment'}
+            </button>
+          </p>
+          <p>
             <button onClick={() => saveActivity()}>save</button>
           </p>
         </div>
       </div>
       <p>{activityData?.activityInfo.description}</p>
+      {showComment && (
+        <Comment
+          myUsername={myUsername!}
+          activityID={activityData?.activityInfo._id!}
+        />
+      )}
+      {showActivityComments && (
+        <CommentList activityID={String(activityData?.activityInfo._id)} />
+      )}
+      <p>
+        <button onClick={() => setshowActivityComments((prev) => !prev)}>
+          view all comments
+        </button>
+      </p>
       {showComment && (
         <Comment
           myUsername={myUsername!}
