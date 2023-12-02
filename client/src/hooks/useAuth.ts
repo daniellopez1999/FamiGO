@@ -2,7 +2,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../redux/hooks';
-import { login } from '../services/auth';
+import { login, googleLogin } from '../services/auth';
 import { getUserPlainInfo } from '../services/users';
 import { getUser, setUser } from '../redux/userSlice';
 
@@ -32,7 +32,22 @@ const useAuth = () => {
     }
   };
 
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = async (credential: string) => {
+    try {
+      const response = await googleLogin(credential);
+
+      if (response.ok) {
+        dispatch(setUser(user));
+        setCookie('app-username', user!.username);
+        return;
+      }
+
+      return;
+    } catch (error) {
+      console.log('google login error - useAuth', error);
+      throw new Error('google login fail');
+    }
+  };
 
   const handleRegister = () => {};
 
