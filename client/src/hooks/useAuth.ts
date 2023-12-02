@@ -34,18 +34,19 @@ const useAuth = () => {
 
   const handleGoogleLogin = async (credential: string) => {
     try {
-      const response = await googleLogin(credential);
-
-      if (response.ok) {
+      console.log('Sending Google token to server:', credential);
+      const { user } = await googleLogin(credential);
+      console.log('Response status:', user);
+      // console.log('token', token);
+      if (user) {
         dispatch(setUser(user));
-        setCookie('app-username', user!.username);
+        setCookie('app-username', user.username);
         return;
       }
-
       return;
     } catch (error) {
-      console.log('google login error - useAuth', error);
-      throw new Error('google login fail');
+      console.error('Google login error - useAuth -->', error);
+      throw error;
     }
   };
 
@@ -65,6 +66,10 @@ const useAuth = () => {
   const handleUserInfo = async () => {
     try {
       const name = cookies['app-username'];
+      if (!name) {
+        console.error('Username is undefined');
+        return;
+      }
       const res = await getUserPlainInfo(name);
 
       dispatch(setUser(res));

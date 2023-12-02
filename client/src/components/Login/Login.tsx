@@ -3,7 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 import useAuth from '../../hooks/useAuth';
-import { googleLogin } from '../../services/auth';
 import './Login.css';
 
 const Login = () => {
@@ -11,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
-  const { handleLogin } = useAuth();
+  const { handleLogin, handleGoogleLogin } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,13 +23,10 @@ const Login = () => {
       });
   };
 
-  const handleGoogleLogin = async (response: any) => {
+  const onGoogleSuccess = async (response: any) => {
     try {
-      // todo: use auth
-
-      const user = await googleLogin(response.credential);
+      await handleGoogleLogin(response.credential);
       navigate('/feed');
-      console.log('Logged in with Google', user);
     } catch (error) {
       console.error('Google login failed', error);
     }
@@ -63,7 +59,7 @@ const Login = () => {
             LOG IN
           </button>
         </form>
-        <GoogleLogin onSuccess={handleGoogleLogin} />
+        <GoogleLogin onSuccess={onGoogleSuccess} />
         <div className="signup-section">
           <span>Don't have an account?</span>
           <Link to="/register" className="signup-btn">
