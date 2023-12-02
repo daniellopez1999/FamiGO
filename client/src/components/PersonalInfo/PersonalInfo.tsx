@@ -4,12 +4,26 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUserInfo } from '../../services/users';
 import { UserInfo } from '../../types/user';
+import { followAndUnfollow } from '../../services/users';
+import { getMyUsername } from '../../redux/userSlice';
+import { checkFollowing } from '../../services/users';
 
 import './PersonalInfo.css';
 
 const PersonalInfo = () => {
+  const myUsername = getMyUsername();
+
   const { username } = useParams();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [isFollowing, setIsFollowing] = useState(false);
+
+  async function checkIfFollows() {
+    const following = await checkFollowing(
+      myUsername!,
+      userInfo?.user.username!
+    );
+    setIsFollowing(following.following);
+  }
 
   useEffect(() => {
     async function getInfoFromUser() {
@@ -18,6 +32,20 @@ const PersonalInfo = () => {
     }
     getInfoFromUser();
   }, [username]);
+
+  useEffect(() => {
+    checkIfFollows();
+  }, [myUsername, userInfo?.user.username]);
+
+  const follow = async () => {
+    console.log('follow');
+    const followData = await followAndUnfollow(
+      userInfo?.user.username!,
+      myUsername!
+    );
+    console.log(followData);
+    checkIfFollows();
+  };
 
   return (
     <div>
@@ -47,6 +75,9 @@ const PersonalInfo = () => {
           <Link to={`/edit-profile/${username}`}>
             <button className="edit-btn">Edit profile</button>
           </Link>
+          <button onClick={() => follow()}>
+            {isFollowing ? 'Unfollow' : 'Follow'}
+          </button>
         </div>
       </div>
     </div>
