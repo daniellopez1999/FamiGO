@@ -9,12 +9,12 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Todo: Send a request to server
-    // ? await sendPasswordResetEmail(email);
-    await sendPasswordResetEmail(email);
-
-    navigate('/reset-pasword');
+    try {
+      await sendPasswordResetEmail(email);
+      navigate('/reset-password');
+    } catch (error) {
+      console.error('Failed', error);
+    }
   };
 
   return (
