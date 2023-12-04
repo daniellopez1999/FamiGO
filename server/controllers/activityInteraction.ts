@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getUserByUserName } from '../models/users';
-import { getActivitiesByID } from '../models/activity';
+import { UserModel, getUserByUserName } from '../models/users';
+import { ActivityModel, getActivitiesByID } from '../models/activity';
 
 export const saveActivityInProfile = async (req: Request, res: Response) => {
   try {
@@ -109,5 +109,23 @@ export const getComments = async (req: Request, res: Response) => {
     return res.status(200).json({ comments }).end();
   } catch (error) {
     return res.status(403).end();
+  }
+};
+
+export const deleteActivtiy = async (req: Request, res: Response) => {
+  try {
+    const { username, id } = req.params;
+    await ActivityModel.findByIdAndDelete(id);
+    await UserModel.updateOne(
+      { username: username },
+      { $pull: { 'statistics.posts': id } }
+    );
+
+    return res.status(200).json({ DeletedActivity: id }).end();
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ Error: `Error, could not delete becuase: ${error}` })
+      .end();
   }
 };

@@ -39,6 +39,7 @@ import {
   getComments,
   likeActivity,
   saveActivityInProfile,
+  deleteActivtiy,
 } from './controllers/activityInteraction';
 
 const router = Router();
@@ -98,5 +99,7 @@ router.get(
   isAuthenticated,
   getUserCollectionByType
 );
+
+router.delete('/delete-activity/:username/:id', deleteActivtiy);
 
 export default router;
