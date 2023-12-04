@@ -83,6 +83,7 @@ export interface UserInfoUpdate {
   newUsername: string;
   description: string;
   avatar: string;
+  password?: string;
 }
 
 // collection in profile

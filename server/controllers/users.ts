@@ -155,7 +155,7 @@ export const register = async (req: Request, res: Response) => {
 export const updateUserInfo = async (req: Request, res: Response) => {
   try {
     const { username } = req.params;
-    const { newUsername, avatar, description } = req.body;
+    const { newUsername, avatar, description, password } = req.body;
 
     const user = await getUserByUserName(username);
 
@@ -166,6 +166,14 @@ export const updateUserInfo = async (req: Request, res: Response) => {
     if (newUsername) user.username = newUsername;
     if (avatar) user.avatar = avatar;
     if (description) user.description = description;
+    if (password) {
+      const salt = random();
+      user.authentication = {
+        salt: salt,
+        password: authentication(salt, password),
+      };
+      await user.save();
+    }
 
     await user.save();
     if (newUsername) {
