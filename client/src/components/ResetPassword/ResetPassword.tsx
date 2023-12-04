@@ -34,6 +34,7 @@ const ResetPassword = () => {
           placeholder="Confirm your password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
+        <button type="submit">Reset Password</button>
       </form>
     </div>
   );
