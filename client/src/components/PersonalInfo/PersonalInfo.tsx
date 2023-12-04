@@ -5,7 +5,11 @@ import { useAppDispatch } from '../../redux/hooks';
 import { getMyUsername, setUser } from '../../redux/userSlice';
 import { IUser } from '../../types/user';
 import DataBox from '../DataBox/DataBox';
-import { getUserPlainInfo, handleRelationship } from '../../services/users';
+import {
+  getUserPlainInfo,
+  handleRelationship,
+  logout,
+} from '../../services/users';
 
 import './PersonalInfo.css';
 
@@ -68,6 +72,9 @@ const PersonalInfo = () => {
     return <div className="personal-info-loading" />;
   }
 
+  async function userLogOut() {
+    await logout();
+  }
   return (
     <>
       {info && (
@@ -86,9 +93,16 @@ const PersonalInfo = () => {
             <p className="name">{username}</p>
             <p className="desc">{description}</p>
             {isMyProfile && (
-              <Link to={`/edit-profile/${username}`}>
-                <button className="edit-btn">Edit profile</button>
-              </Link>
+              <>
+                <Link to={`/edit-profile/${username}`}>
+                  <button className="edit-btn">Edit profile</button>
+                </Link>
+                <Link to={`/Login`}>
+                  <button onClick={() => userLogOut()} className="edit-btn">
+                    Log out
+                  </button>
+                </Link>
+              </>
             )}
             {!isMyProfile && (
               <button onClick={handleRelation}>{relation}</button>
