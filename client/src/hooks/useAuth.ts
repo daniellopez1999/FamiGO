@@ -2,7 +2,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../redux/hooks';
-import { login } from '../services/auth';
+import { login, googleLogin } from '../services/auth';
 import { getUserPlainInfo } from '../services/users';
 import { getUser, setUser } from '../redux/userSlice';
 
@@ -32,7 +32,20 @@ const useAuth = () => {
     }
   };
 
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = async (credential: string) => {
+    try {
+      const { user } = await googleLogin(credential);
+      if (user) {
+        dispatch(setUser(user));
+        setCookie('app-username', user.username);
+        return;
+      }
+      return;
+    } catch (error) {
+      console.error('Google login error - useAuth -->', error);
+      throw error;
+    }
+  };
 
   const handleRegister = () => {};
 
@@ -43,13 +56,16 @@ const useAuth = () => {
     } else {
       navigate('/feed');
     }
-
     return;
   };
 
   const handleUserInfo = async () => {
     try {
       const name = cookies['app-username'];
+      if (!name) {
+        console.error('Username is undefined');
+        return;
+      }
       const res = await getUserPlainInfo(name);
 
       dispatch(setUser(res));
@@ -68,6 +84,7 @@ const useAuth = () => {
       dispatch(setUser(res));
     } catch (error) {
       console.log('handle user info update use auth hook err -->', error);
+      throw error;
     }
   };
 

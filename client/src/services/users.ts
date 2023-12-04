@@ -23,12 +23,18 @@ export const getUserInfo = async (username: string) => {
 export const getUserPlainInfo = async (username: string) => {
   try {
     const url = `${BASE_URL}/user/${username}`;
+    console.log('URL:', url);
 
     // get the info of cookie user
     const res = await fetch(url, {
       method: 'GET',
+      mode: 'cors',
       credentials: 'include',
     });
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.status} ${res.statusText}`);
+    }
 
     const data = (await res.json()) as IUser;
     return data;

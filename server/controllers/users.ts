@@ -85,19 +85,11 @@ export const googleLogin = async (req: Request, res: Response) => {
       const salt = random();
       const newUser = new UserModel({
         email: payload.email,
-        // username: payload!.email!.split('@')[0],
-        username: payload.email,
+        username: payload!.email!.split('@')[0],
         authentication: {
           salt: salt,
           password: authentication(salt, 'defaultPassword'),
         },
-        statistics: {
-          followers: [],
-          following: [],
-          posts: [],
-        },
-        avatar: 'default-avatar.jpg',
-        savedPosts: [],
       });
 
       user = await newUser.save();
@@ -109,6 +101,18 @@ export const googleLogin = async (req: Request, res: Response) => {
     );
     user!.authentication!.sessionToken = newSessionToken;
     await user!.save();
+
+    res.cookie('CookieFamiGO', user.authentication!.sessionToken, {
+      domain: 'localhost',
+      path: '/',
+      httpOnly: true,
+    });
+
+    res.cookie('username', user.username, {
+      domain: 'localhost',
+      path: '/',
+      httpOnly: true,
+    });
 
     return res.status(200).json({ user: user, token: newSessionToken });
   } catch (error) {
