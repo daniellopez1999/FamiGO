@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import crypto from 'crypto';
+import sendResetEmail from '../utils/sendResetEmail';
 import { OAuth2Client } from 'google-auth-library';
 import {
   createUser,
@@ -365,4 +367,31 @@ export const logout = async (_req: Request, res: Response) => {
   } catch (error) {
     res.status(400).json({ ERROR: error });
   }
+};
+
+export const forgotPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = new Date(Date.now() + 3600000);
+
+    await user.save();
+
+    const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
+
+    await sendResetEmail(email, resetLink);
+
+    res.status(200).json({ message: 'Password reset email sent' });
+  } catch (error) {
+    console.error('Error password reset', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  return res.status(500).json({ error: 'Internal Server Error' });
 };
