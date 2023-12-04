@@ -329,3 +329,14 @@ export const toggleRelationship = async (req: Request, res: Response) => {
     throw error;
   }
 };
+
+export const logout = async (_req: Request, res: Response) => {
+  try {
+    res.clearCookie('CookieFamiGO');
+    res.clearCookie('app-username');
+    res.clearCookie('username');
+    res.status(200).end();
+  } catch (error) {
+    res.status(400).json({ ERROR: error });
+  }
+};

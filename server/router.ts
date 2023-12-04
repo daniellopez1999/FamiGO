@@ -10,6 +10,7 @@ import {
   // followAndUnfollow,
   // checkFollowing,
   toggleRelationship,
+  logout,
 } from './controllers/users';
 import {
   uploadToCloudinary,
@@ -101,5 +102,7 @@ router.get(
 );
 
 router.delete('/delete-activity/:username/:id', deleteActivtiy);
+
+router.get('/logout', logout);
 
 export default router;
