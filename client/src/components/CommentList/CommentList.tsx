@@ -19,7 +19,6 @@ const CommentList: React.FC<CommentListProps> = ({ activityID, refresh }) => {
 
   useEffect(() => {
     const fetchComments = async () => {
-      console.log(activityID);
       const response = await getComments(activityID);
       setComments(response.comments);
       setLoading(false);

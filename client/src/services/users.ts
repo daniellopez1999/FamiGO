@@ -46,7 +46,6 @@ export const getUserCollectionByType = async (
 export const getUserPlainInfo = async (username: string) => {
   try {
     const url = `${BASE_URL}/user/${username}`;
-    console.log('URL:', url);
 
     // get the info of cookie user
     const res = await fetch(url, {

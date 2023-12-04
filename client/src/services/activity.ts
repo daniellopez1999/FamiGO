@@ -24,11 +24,9 @@ export const publishActivity = async (info: Activity) => {
     }
 
     const data = await res.json();
-    console.log('data returned -->', data);
 
     return data;
   } catch (error) {
-    console.log('publish activity errrr -->', error);
     return;
   }
 };
@@ -43,7 +41,6 @@ export const getActivity = async (id: string) => {
     if (!response.ok) console.error('ERROR');
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -65,7 +62,6 @@ export const saveActivityInProfile = async (
     if (!response.ok) console.error('ERROR');
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -84,7 +80,6 @@ export const saveLike = async (username: string, activityID: string) => {
     if (!response.ok) console.error('ERROR');
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -132,10 +127,8 @@ export const publishComment = async (
     });
 
     const data = await response.json();
-    console.log('data returned -->', data);
     return data;
   } catch (error) {
-    console.log('publish activity errrr -->', error);
     return;
   }
 };
@@ -166,7 +159,6 @@ export const postGeneratedActivity = async (data: IFormInput): Promise<any> => {
       body: JSON.stringify(data),
     });
     const content = await response.json();
-    console.log('content returned', content);
     return content;
   } catch (error) {
     console.error('Error', error);
