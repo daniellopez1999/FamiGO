@@ -30,17 +30,20 @@ const SpecificActivity = () => {
 
   useEffect(() => {
     const username = activityData?.activityInfo.userInfo.username;
-    async function getInfoFromUser() {
-      const userData = await getUserInfo(username!);
-      setUserInfo(userData);
-    }
-    getInfoFromUser();
 
-    const checkLike = async () => {
-      const liked = await checkIfLike();
-      liked;
-    };
-    checkLike();
+    if (activityData) {
+      async function getInfoFromUser() {
+        const userData = await getUserInfo(username!);
+        setUserInfo(userData);
+      }
+      getInfoFromUser();
+
+      const checkLike = async () => {
+        const liked = await checkIfLike();
+        liked;
+      };
+      checkLike();
+    }
   }, [activityData]);
 
   async function checkIfLike() {
@@ -48,6 +51,7 @@ const SpecificActivity = () => {
     const checkIfActivityHasLike = await getLikes(myUsername!, activityID!);
     return checkIfActivityHasLike.value;
   }
+
   async function deletePost() {
     const activityID = activityData!.activityInfo._id;
     await deleteActivity(myUsername!, activityID!);

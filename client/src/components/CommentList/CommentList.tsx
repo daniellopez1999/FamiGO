@@ -15,24 +15,36 @@ interface CommentListProps {
 
 const CommentList: React.FC<CommentListProps> = ({ activityID, refresh }) => {
   const [comments, setComments] = useState<Comment[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchComments = async () => {
-      try {
-        const response = await getComments(activityID);
-        setComments(response.comments);
-      } catch (error) {
-        console.error('Error al obtener comentarios', error);
-      }
+      console.log(activityID);
+      const response = await getComments(activityID);
+      setComments(response.comments);
+      setLoading(false);
     };
 
-    fetchComments();
+    // Verificar si activityID está definido antes de realizar la operación
+    if (
+      activityID == undefined ||
+      activityID === null ||
+      activityID === 'undefined'
+    ) {
+    } else {
+      fetchComments();
+    }
   }, [activityID, refresh]);
+
+  // Si aún estamos cargando, puedes mostrar un mensaje de carga
+  if (loading) {
+    return <p>Loading comments...</p>;
+  }
 
   return (
     <div className="comment-list">
       <h2>Comments:</h2>
-      {comments ? (
+      {comments.length > 0 ? (
         comments.map((comment) => (
           <div key={comment._id}>
             <p>
