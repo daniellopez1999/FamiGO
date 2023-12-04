@@ -131,17 +131,13 @@ export const getUserData = async (req: Request, res: Response) => {
 export const saveActivity = async (req: Request, res: Response) => {
   try {
     const savedActivityBody = req.body;
-
-    const username = req.cookies['username'];
+    const username = savedActivityBody.userInfo.username;
     const user = await getUserByUserName(username);
-    savedActivityBody.userInfo.username = user!.username;
-
-    const activity = await new ActivityModel(savedActivityBody).save();
+    const activity = await createActivity(savedActivityBody);
     const activityID = activity.id;
     if (user && activityID) {
       user.savedAIPosts ??= [];
       user.savedAIPosts.push(activityID);
-
       await user.save();
       res.status(201).send(activity);
     }

@@ -1,22 +1,11 @@
 import { useEffect, useState } from 'react';
-import { BaseSyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { IActivity, ISavedActivity } from '../../types/activity';
+import { saveActivity } from '../../services/activity';
+import { getMyUsername } from '../../redux/userSlice';
 import './GeneratedActivity.css';
 import Save from '../../assets/Save.svg';
 import New from '../../assets/New.svg';
-import { getMyUsername } from '../../redux/userSlice';
-
-interface IActivity {
-  activity: {
-    filters: Array<String>;
-    title: String;
-    materials: Array<String>;
-    description: String;
-  };
-  onSubmit: (
-    e?: BaseSyntheticEvent<object, any, any> | undefined
-  ) => Promise<void>;
-}
 
 const GeneratedActivity: React.FC<IActivity> = ({ activity, onSubmit }) => {
   const username = getMyUsername();
@@ -24,7 +13,6 @@ const GeneratedActivity: React.FC<IActivity> = ({ activity, onSubmit }) => {
 
   useEffect(() => {
     if (activity) {
-      console.log(document.body.scrollHeight);
       window.scrollTo(0, document.body.scrollHeight);
     }
   }, [activity]);
@@ -42,7 +30,6 @@ const GeneratedActivity: React.FC<IActivity> = ({ activity, onSubmit }) => {
     const materials = activity.materials;
     const description = activity.description;
     const type = 'saved';
-    const username = '';
     const userInfo = { username };
 
     const savedActivity = {
@@ -54,15 +41,9 @@ const GeneratedActivity: React.FC<IActivity> = ({ activity, onSubmit }) => {
       userInfo,
     };
     console.log('savedActivity', savedActivity);
-    fetch('http://localhost:3000/save-activity', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(savedActivity),
-    }).catch((error) => {
-      console.error('Error:', error);
+
+    saveActivity(savedActivity as ISavedActivity).catch((error) => {
+      console.error('saveActivity AI failed:', error);
     });
   };
 
@@ -70,7 +51,6 @@ const GeneratedActivity: React.FC<IActivity> = ({ activity, onSubmit }) => {
     if (newClickCount < 3) {
       setNewClickCount(newClickCount + 1);
       onSubmit(e);
-      console.log('e', e);
     }
   };
 
