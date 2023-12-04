@@ -1,12 +1,12 @@
 import { UserLogin } from '../types/user';
 
-const url = 'http://localhost:3000';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const login = async (info: UserLogin) => {
   const { email, password } = info;
 
   try {
-    const response = await fetch(`${url}/login`, {
+    const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       mode: 'cors',
       credentials: 'include',
@@ -35,7 +35,7 @@ export const googleLogin = async (credential: string) => {
   const requestBody = { token: credential };
   try {
     console.log('Request body:', requestBody);
-    const response = await fetch(`${url}/login/google`, {
+    const response = await fetch(`${BASE_URL}/login/google`, {
       method: 'POST',
       mode: 'cors',
       credentials: 'include',
@@ -63,7 +63,7 @@ export const registerPOST = async (
   password: string
 ) => {
   try {
-    const response = await fetch(`${url}/register`, {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
