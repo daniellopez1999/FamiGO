@@ -50,7 +50,6 @@ export const googleLogin = async (credential: string) => {
     }
 
     const data = await response.json();
-    console.log('Received data:', data);
     return data;
   } catch (error) {
     console.error('Google login error', error);

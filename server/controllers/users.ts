@@ -86,18 +86,10 @@ export const googleLogin = async (req: Request, res: Response) => {
       const newUser = new UserModel({
         email: payload.email,
         username: payload!.email!.split('@')[0],
-        // username: payload.email,
         authentication: {
           salt: salt,
           password: authentication(salt, 'defaultPassword'),
         },
-        // statistics: {
-        //   followers: [],
-        //   following: [],
-        //   posts: [],
-        // },
-        // avatar: 'default-avatar.jpg',
-        // savedPosts: [],
       });
 
       user = await newUser.save();

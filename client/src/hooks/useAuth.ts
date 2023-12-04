@@ -34,10 +34,7 @@ const useAuth = () => {
 
   const handleGoogleLogin = async (credential: string) => {
     try {
-      console.log('Sending Google token to server:', credential);
       const { user } = await googleLogin(credential);
-      console.log('Response status:', user);
-      // console.log('token', token);
       if (user) {
         dispatch(setUser(user));
         setCookie('app-username', user.username);
@@ -59,7 +56,6 @@ const useAuth = () => {
     } else {
       navigate('/feed');
     }
-
     return;
   };
 
@@ -88,6 +84,7 @@ const useAuth = () => {
       dispatch(setUser(res));
     } catch (error) {
       console.log('handle user info update use auth hook err -->', error);
+      throw error;
     }
   };
 
