@@ -98,6 +98,8 @@ export const sendPasswordResetEmail = async (email: string) => {
   try {
     const response = await fetch(`${BASE_URL}/forgot-password`, {
       method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
       headers: {
         'Content-type': 'application/json',
       },
@@ -115,6 +117,8 @@ export const resetPassword = async (token: string, newPassword: string) => {
   try {
     const response = await fetch(`${BASE_URL}/reset-password`, {
       method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },

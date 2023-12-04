@@ -13,7 +13,7 @@ const ForgotPassword = () => {
       await sendPasswordResetEmail(email);
       navigate('/reset-password');
     } catch (error) {
-      console.error('Failed', error);
+      console.error('Send password reset mail failed', error);
     }
   };
 

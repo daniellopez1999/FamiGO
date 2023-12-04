@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import { resetPassword } from '../../services/auth';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,8 +17,21 @@ const ResetPassword = () => {
       return;
     }
 
-    // Todo: Send new password to server
-    navigate('/login');
+    // Parse token from URL
+    const searchParams = new URLSearchParams(location.search);
+    const token = searchParams.get('token');
+
+    if (!token) {
+      alert('Token is missing');
+      return;
+    }
+
+    try {
+      await resetPassword(token, password);
+      navigate('/login');
+    } catch (error) {
+      console.error('Reset password failed', error);
+    }
   };
 
   return (
