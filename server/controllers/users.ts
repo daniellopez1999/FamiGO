@@ -155,7 +155,7 @@ export const register = async (req: Request, res: Response) => {
 export const updateUserInfo = async (req: Request, res: Response) => {
   try {
     const { username } = req.params;
-    const { newUsername, avatar, description } = req.body;
+    const { newUsername, avatar, description, password } = req.body;
 
     const user = await getUserByUserName(username);
 
@@ -166,6 +166,12 @@ export const updateUserInfo = async (req: Request, res: Response) => {
     if (newUsername) user.username = newUsername;
     if (avatar) user.avatar = avatar;
     if (description) user.description = description;
+    if (password) {
+      const salt = random();
+      user.authentication!.salt! = salt;
+      user.authentication!.password! = authentication(salt, password);
+      await user.save();
+    }
 
     await user.save();
     if (newUsername) {
@@ -175,6 +181,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
         httpOnly: true,
       });
     }
+
     return res.status(200).json(user);
   } catch (error) {
     return res.sendStatus(400);
