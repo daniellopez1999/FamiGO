@@ -9,6 +9,8 @@ import './EditProfile.css';
 import { uploadFileToCloudinary } from '../../services/apiCloudinary';
 import { FileInfo } from '../../types/activity';
 
+import { toast as showHotToast } from 'react-hot-toast';
+
 const EditProfile = () => {
   const navigate = useNavigate();
   const { handleUserInfoUpdate } = useAuth();
@@ -25,13 +27,14 @@ const EditProfile = () => {
 
   const [localAvatar, setLocalAvatar] = useState<string | null>(null);
 
-  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      let didMatch = true;
+
       if (newPassword !== '' && newPassword === confirmNewPassword) {
         const updates: UserInfoUpdate = {
           newUsername,
@@ -41,6 +44,10 @@ const EditProfile = () => {
         };
         const res = await updateUserInfo(username, updates);
         await handleUserInfoUpdate(res);
+        toast('Password updated successfully', { icon: 'success' });
+      } else if (newPassword !== '' && newPassword !== confirmNewPassword) {
+        toast('Passwords do not match', { icon: 'error' });
+        didMatch = false;
       } else {
         const updates: UserInfoUpdate = {
           newUsername,
@@ -52,12 +59,17 @@ const EditProfile = () => {
       }
 
       if (newUsername) {
-        navigate(`/profile/${newUsername}`);
+        if (didMatch) {
+          navigate(`/profile/${newUsername}`);
+        }
       } else {
-        navigate(`/profile/${username}`);
+        if (didMatch) {
+          navigate(`/profile/${username}`);
+        }
       }
     } catch (error) {
       console.error('Failed to update the profile', error);
+      toast('Passwords do not match', { icon: 'error' });
     }
   };
 
@@ -116,24 +128,17 @@ const EditProfile = () => {
           ></textarea>
           <input
             type="password"
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            placeholder="Current Password"
-            className="password-input"
-          />
-          <input
-            type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             placeholder="New Password"
-            className="password-input"
+            className="username-input"
           />
           <input
             type="password"
             value={confirmNewPassword}
             onChange={(e) => setConfirmNewPassword(e.target.value)}
             placeholder="Confirm New Password"
-            className="password-input"
+            className="username-input"
           />
           <button type="submit" className="update-btn">
             Update
@@ -145,3 +150,6 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
+function toast(message: string, options: { icon: string }) {
+  showHotToast(message, { icon: options.icon });
+}
