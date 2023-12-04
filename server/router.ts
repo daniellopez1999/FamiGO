@@ -37,6 +37,7 @@ import {
   getComments,
   likeActivity,
   saveActivityInProfile,
+  deleteActivtiy,
 } from './controllers/activityInteraction';
 
 const router = Router();
@@ -88,5 +89,7 @@ router.get(
   '/profile/check-following/:usernameFollowing/:usernameToFollow',
   checkFollowing
 );
+
+router.delete('/delete-activity/:username/:id', deleteActivtiy);
 
 export default router;
