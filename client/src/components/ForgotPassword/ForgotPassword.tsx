@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { sendPasswordResetEmail } from '../../services/auth';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ const ForgotPassword = () => {
 
     // Todo: Send a request to server
     // ? await sendPasswordResetEmail(email);
+    await sendPasswordResetEmail(email);
 
     navigate('/reset-pasword');
   };
