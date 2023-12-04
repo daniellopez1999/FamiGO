@@ -168,10 +168,8 @@ export const updateUserInfo = async (req: Request, res: Response) => {
     if (description) user.description = description;
     if (password) {
       const salt = random();
-      user.authentication = {
-        salt: salt,
-        password: authentication(salt, password),
-      };
+      user.authentication!.salt! = salt;
+      user.authentication!.password! = authentication(salt, password);
       await user.save();
     }
 
@@ -183,6 +181,7 @@ export const updateUserInfo = async (req: Request, res: Response) => {
         httpOnly: true,
       });
     }
+
     return res.status(200).json(user);
   } catch (error) {
     return res.sendStatus(400);
