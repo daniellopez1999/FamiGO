@@ -1,6 +1,7 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { ConfirmToast } from 'react-confirm-toast';
 import { IUser } from '../../types/user';
 import { FeedActivity } from '../../types/feed';
 import { getUserPlainInfo } from '../../services/users';
@@ -11,12 +12,13 @@ import {
   saveLike,
 } from '../../services/activity';
 import { getMyUsername } from '../../redux/userSlice';
-
 import Comment from '../Comment/Comment';
 import CommentList from '../CommentList/CommentList';
 import FilterTag from '../FilterTag/FilterTag';
 import Spinner from '../Spinner/Spinner';
-
+import { FiHeart } from 'react-icons/fi';
+import { LuHeartOff } from 'react-icons/lu';
+import { MdDeleteForever } from 'react-icons/md';
 import './SpecificActivity.css';
 
 const SpecificActivity = () => {
@@ -27,15 +29,16 @@ const SpecificActivity = () => {
   const [user, setUser] = useState<IUser | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isLiked, setIsLiked] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [showActivityComments, setshowActivityComments] = useState(false);
   const [refreshComments, setRefreshComments] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
-
-  const { title, image, likes, description, userInfo } = activity || {};
+  const { title, image, likes, materials, description, userInfo } =
+    activity || {};
   const { username, avatar } = user || {};
-
   const isMyProfile = myUsername === username;
+  const location = useLocation();
+  const { type } = location.state || {};
 
   useEffect(() => {
     const getActivityInfo = async () => {
@@ -71,8 +74,8 @@ const SpecificActivity = () => {
 
     await toast.promise(deletePromise, {
       loading: 'deleting...',
-      success: <b>deleted!</b>,
-      error: <b>fail to delete...</b>,
+      success: <b>Deleted!</b>,
+      error: <b>Fail to delete...</b>,
     });
 
     setTimeout(() => {
@@ -90,6 +93,15 @@ const SpecificActivity = () => {
 
   const filterEntries = Object.entries(activity?.filters || {});
 
+  const handleConfirmDelete = async () => {
+    await deletePost();
+    console.log('Confirmed!');
+  };
+
+  const redirectToPublishPage = () => {
+    navigate('/publish-activity');
+  };
+
   if (isLoading) {
     return (
       <div className="specific-loading">
@@ -100,6 +112,7 @@ const SpecificActivity = () => {
 
   return (
     <div className="specific-item">
+      <br />
       <h2>{title}</h2>
       <br />
       <div className="info">
@@ -123,47 +136,78 @@ const SpecificActivity = () => {
           className={`button ${isLiked ? 'button-grey' : ''}`}
           onClick={like}
         >
-          {isLiked ? 'Unlike' : 'Like'}
+          {isLiked ? <LuHeartOff size={20} /> : <FiHeart size={20} />}
         </button>
+      </div>
+      <div className="materials-p">
+        <p>What do we need?</p>
+        {materials?.map((material, index) => (
+          <div key={index}>
+            <span className="list">- </span>
+            {material}
+          </div>
+        ))}
       </div>
       <p>{description}</p>
-      <div className="actions">
-        <p>
-          <button
-            className={`button ${showComment ? 'button-grey' : ''}`}
-            onClick={() => setShowComment((prev) => !prev)}
-          >
-            {showComment ? 'Hide' : 'Add a comment'}
-          </button>
-        </p>
-      </div>
-      {showComment && (
-        <Comment
-          myUsername={myUsername!}
-          activityID={id as string}
-          onCommentSubmitted={() => {
-            setShowComment(false);
-            setRefreshComments((prev) => prev + 1);
-          }}
-        />
-      )}
-      <div className="button-hide-all">
-        <button
-          className={`button ${showActivityComments ? '' : 'button-grey'}`}
-          onClick={() => setshowActivityComments((prev) => !prev)}
-        >
-          {showActivityComments ? 'Hide all comments' : 'Show all comments'}
-        </button>
-      </div>
-      {showActivityComments && (
-        <CommentList activityID={id as string} refresh={refreshComments} />
-      )}
-      {isMyProfile && (
-        <div className="delete">
-          <button className="button" onClick={() => deletePost()}>
-            Delete post
+      {type === 'ai' && (
+        <div className="publish-savedAI">
+          <button className="button" onClick={redirectToPublishPage}>
+            Publish
           </button>
         </div>
+      )}
+      {type !== 'ai' && (
+        <>
+          <div className="actions">
+            <p>
+              <button
+                className={`button ${showComment ? 'button-grey' : ''}`}
+                onClick={() => setShowComment((prev) => !prev)}
+              >
+                {showComment ? 'Hide' : 'Add a comment'}
+              </button>
+            </p>
+          </div>
+          {showComment && (
+            <Comment
+              myUsername={myUsername!}
+              activityID={id as string}
+              onCommentSubmitted={() => {
+                setShowComment(false);
+                setRefreshComments((prev) => prev + 1);
+              }}
+            />
+          )}
+          <div className="button-hide-all">
+            <button
+              className={`button ${showActivityComments ? '' : 'button-grey'}`}
+              onClick={() => setshowActivityComments((prev) => !prev)}
+            >
+              {showActivityComments ? 'Hide all comments' : 'Show all comments'}
+            </button>
+          </div>
+          {showActivityComments && (
+            <CommentList activityID={id as string} refresh={refreshComments} />
+          )}
+          <br />
+        </>
+      )}
+      {isMyProfile && (
+        <ConfirmToast
+          asModal={true}
+          customCancel={'No'}
+          customConfirm={'Yes'}
+          customFunction={handleConfirmDelete}
+          message={'Are you sure you want to delete?'}
+          showCloseIcon={false}
+          theme={'light'}
+        >
+          <div className="delete">
+            <button className="button">
+              <MdDeleteForever size={20} />
+            </button>
+          </div>
+        </ConfirmToast>
       )}
     </div>
   );
