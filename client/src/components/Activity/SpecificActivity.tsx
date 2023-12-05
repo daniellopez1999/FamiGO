@@ -2,6 +2,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ConfirmToast } from 'react-confirm-toast';
+import { useAppDispatch } from '../../redux/hooks';
 import { IUser } from '../../types/user';
 import { FeedActivity } from '../../types/feed';
 import { getUserPlainInfo } from '../../services/users';
@@ -13,6 +14,7 @@ import {
   saveLike,
 } from '../../services/activity';
 import { getMyUsername } from '../../redux/userSlice';
+import { setAIDraftPublish } from '../../redux/activitySlice';
 import Comment from '../Comment/Comment';
 import CommentList from '../CommentList/CommentList';
 import FilterTag from '../FilterTag/FilterTag';
@@ -24,6 +26,7 @@ import { MdOutlineSaveAlt } from 'react-icons/md';
 import './SpecificActivity.css';
 
 const SpecificActivity = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const myUsername = getMyUsername();
   const { id } = useParams();
@@ -108,6 +111,23 @@ const SpecificActivity = () => {
   const filterEntries = Object.entries(activity?.filters || {});
 
   const redirectToPublishPage = () => {
+    if (activity) {
+      const { filters, title, description, materials } = activity;
+      const OptionDefaultValues = Object.entries(filters).reduce(
+        (acc: Record<string, object>, [key, value]) => {
+          acc[key] = { label: value, value: value };
+          return acc;
+        },
+        {}
+      );
+      const AIActivity = {
+        title,
+        description,
+        ...OptionDefaultValues,
+        materials,
+      };
+      dispatch(setAIDraftPublish(AIActivity));
+    }
     navigate('/publish-activity');
   };
 
