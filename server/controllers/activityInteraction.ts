@@ -21,7 +21,7 @@ export const saveActivityInProfile = async (req: Request, res: Response) => {
         user.savedPosts.push(id);
 
         await user.save();
-        res.status(201).json({ saved: user }).end();
+        res.status(200).json({ saved: user }).end();
       }
     }
     return;
