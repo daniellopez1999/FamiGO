@@ -8,6 +8,7 @@ import { getUserPlainInfo } from '../../services/users';
 import {
   getActivity,
   getLikes,
+  saveActivityInProfile,
   deleteActivity,
   saveLike,
 } from '../../services/activity';
@@ -19,6 +20,7 @@ import Spinner from '../Spinner/Spinner';
 import { FiHeart } from 'react-icons/fi';
 import { LuHeartOff } from 'react-icons/lu';
 import { MdDeleteForever } from 'react-icons/md';
+import { MdOutlineSaveAlt } from 'react-icons/md';
 import './SpecificActivity.css';
 
 const SpecificActivity = () => {
@@ -30,6 +32,7 @@ const SpecificActivity = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [showActivityComments, setshowActivityComments] = useState(false);
   const [refreshComments, setRefreshComments] = useState(0);
@@ -69,6 +72,20 @@ const SpecificActivity = () => {
     setIsLiked(hasLiked);
   };
 
+  const like = async () => {
+    await saveLike(myUsername as string, id as string);
+    setIsLiked((prev) => !prev);
+
+    const activity = await getActivity(id!);
+    setActivity(activity);
+  };
+
+  const saveActivity = async () => {
+    const activityID = id;
+    await saveActivityInProfile(myUsername!, activityID!);
+    setIsSaved((prev) => !prev);
+  };
+
   const deletePost = async () => {
     const deletePromise = deleteActivity(myUsername as string, id as string);
 
@@ -83,20 +100,12 @@ const SpecificActivity = () => {
     }, 2000);
   };
 
-  const like = async () => {
-    await saveLike(myUsername as string, id as string);
-    setIsLiked((prev) => !prev);
-
-    const activity = await getActivity(id!);
-    setActivity(activity);
-  };
-
-  const filterEntries = Object.entries(activity?.filters || {});
-
   const handleConfirmDelete = async () => {
     await deletePost();
     console.log('Confirmed!');
   };
+
+  const filterEntries = Object.entries(activity?.filters || {});
 
   const redirectToPublishPage = () => {
     navigate('/publish-activity');
@@ -131,13 +140,22 @@ const SpecificActivity = () => {
       </div>
       <div className="status">
         <p>{likes?.length} likes</p>
-
-        <button
-          className={`button ${isLiked ? 'button-grey' : ''}`}
-          onClick={like}
-        >
-          {isLiked ? <LuHeartOff size={20} /> : <FiHeart size={20} />}
-        </button>
+        <div className="status-buttons">
+          <button
+            className={`button ${isLiked ? 'button-grey' : ''}`}
+            onClick={like}
+          >
+            {isLiked ? <LuHeartOff size={20} /> : <FiHeart size={20} />}
+          </button>
+          {!isMyProfile && (
+            <button
+              className={`button ${isSaved ? 'button-grey' : ''}`}
+              onClick={saveActivity}
+            >
+              <MdOutlineSaveAlt size={20} />
+            </button>
+          )}
+        </div>
       </div>
       <div className="materials-p">
         <p>What do we need?</p>

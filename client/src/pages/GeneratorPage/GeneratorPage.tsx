@@ -39,7 +39,7 @@ const GeneratorPage = () => {
     <div className="generator-page">
       <br />
       <br />
-      <h1>Generate an activity</h1>
+      <h1>Give me an idea!</h1>
       <GenerateForm control={control} onSubmit={handleSubmit(onSubmit)} />
       {loading && <p className="loading-text">Loading...</p>}
       {activity && (
