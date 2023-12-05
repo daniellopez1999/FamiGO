@@ -60,6 +60,9 @@ const Login = () => {
           </button>
         </form>
         <GoogleLogin onSuccess={onGoogleSuccess} />
+        <Link to="/forgot-password" className="forgot-password-link">
+          Forgot Password?
+        </Link>
         <div className="signup-section">
           <span>Don't have an account?</span>
           <Link to="/register" className="signup-btn">

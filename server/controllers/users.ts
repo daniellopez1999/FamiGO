@@ -1,4 +1,8 @@
 import { Request, Response } from 'express';
+// import { Document } from 'mongoose';
+import crypto from 'crypto';
+// import bcrypt from 'bcrypt';
+import sendResetEmail from '../utils/sendResetEmail';
 import { OAuth2Client } from 'google-auth-library';
 import {
   createUser,
@@ -364,5 +368,59 @@ export const logout = async (_req: Request, res: Response) => {
     res.status(200).end();
   } catch (error) {
     res.status(400).json({ ERROR: error });
+  }
+};
+
+export const forgotPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hour
+
+    await user.save();
+
+    const resetLink = `${process.env.BASE_URL}/reset-password?token=${resetToken}`;
+    await sendResetEmail(email, resetLink);
+
+    return res.status(200).json({ message: 'Password reset email sent' });
+  } catch (error) {
+    console.error('Error in forgotPassword:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const { token, newPassword } = req.body;
+    const user = await UserModel.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
+    const newSalt = random();
+
+    const hashedPassword = authentication(newSalt, newPassword);
+
+    user.authentication!.password = hashedPassword;
+    user.authentication!.salt = newSalt;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    return res.status(200).json({ message: 'Password successfully changed' });
+  } catch (error) {
+    console.error('Error in resetPassword:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };

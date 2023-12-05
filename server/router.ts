@@ -11,6 +11,8 @@ import {
   // checkFollowing,
   toggleRelationship,
   logout,
+  forgotPassword,
+  resetPassword,
 } from './controllers/users';
 import {
   uploadToCloudinary,
@@ -57,6 +59,9 @@ router.put(
   updatePassword
 );
 router.put('/profile/:username', isAuthenticated, isOwnerEdit, updateUserInfo);
+
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
 
 //get posts from feed
 router.get('/feed', isAuthenticated, isAuthorized, getPostsForFeed);

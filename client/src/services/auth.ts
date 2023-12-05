@@ -93,3 +93,40 @@ export const logout = async () => {
     throw error;
   }
 };
+
+export const sendPasswordResetEmail = async (email: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}/forgot-password`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Send password reset email failed', error);
+    throw error;
+  }
+};
+
+export const resetPassword = async (token: string, newPassword: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}/reset-password`, {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token, newPassword }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Reset password failed', error);
+    throw error;
+  }
+};
