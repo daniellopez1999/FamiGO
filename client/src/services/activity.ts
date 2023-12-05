@@ -24,7 +24,6 @@ export const publishActivity = async (info: Activity) => {
     }
 
     const data = await res.json();
-
     return data;
   } catch (error) {
     return;
