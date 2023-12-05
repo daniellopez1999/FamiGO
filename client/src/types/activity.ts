@@ -58,6 +58,10 @@ export interface DraftPublish extends PublishFormInput {
   materials: string[];
 }
 
+export interface AIDraftPublish extends PublishFormInput {
+  materials: string[];
+}
+
 export interface ActivityObject {
   activityInfo: {
     userInfo: {

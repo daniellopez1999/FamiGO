@@ -2,12 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { FeedActivity } from '../types/feed';
-import { DraftPublish } from '../types/activity';
+import { DraftPublish, AIDraftPublish } from '../types/activity';
 import { useAppSelector } from './hooks';
 
 type initialStateType = {
   newlyPublishedActivity: null | FeedActivity;
   draftPublish: null | DraftPublish;
+  AIdraftPublish: null | AIDraftPublish;
   collection: {
     [key: string]: null | FeedActivity[];
   };
@@ -16,6 +17,7 @@ type initialStateType = {
 const initialState: initialStateType = {
   newlyPublishedActivity: null,
   draftPublish: null,
+  AIdraftPublish: null,
   collection: {
     mine: null,
     others: null,
@@ -51,6 +53,14 @@ export const activitySlice = createSlice({
       return {
         ...state,
         draftPublish: null,
+        AIdraftPublish: null,
+      };
+    },
+
+    setAIDraftPublish: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        AIdraftPublish: action.payload,
       };
     },
 
@@ -85,6 +95,7 @@ export const {
   clearNewlyPublishedActivity,
   setDraftPublish,
   clearDraft,
+  setAIDraftPublish,
   setCollection,
   clearCollection,
 } = activitySlice.actions;
@@ -93,7 +104,8 @@ export const getNewlyPublishedActivity = () =>
   useAppSelector((state) => state.activity.newlyPublishedActivity);
 export const getDraftPublish = () =>
   useAppSelector((state) => state.activity.draftPublish);
-
+export const getAIDraftPublish = () =>
+  useAppSelector((state) => state.activity.AIdraftPublish);
 export const getCollection = (type: string) =>
   useAppSelector((state) => state.activity.collection[type]);
 
