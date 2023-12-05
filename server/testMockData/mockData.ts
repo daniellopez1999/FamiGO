@@ -34,6 +34,8 @@ const createActivityData = {
   },
 };
 
+const type = 'others';
+
 export default {
   credentials,
   activityID,
@@ -42,4 +44,5 @@ export default {
   profileData,
   cookie,
   createActivityData,
+  type,
 };

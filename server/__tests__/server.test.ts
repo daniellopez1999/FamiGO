@@ -78,6 +78,19 @@ describe('GET Activity / Profile', () => {
       throw error;
     }
   });
+
+  test('Get User By Collection Type', async () => {
+    try {
+      const response = await request(app)
+        .get(`/collection/${mock.username}/${mock.type}`)
+        .set('Cookie', mock.cookie)
+        .send();
+      expect(response.status).toBe(200);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  });
 });
 
 //If post is saved, unsave it, will return 201. If it's not saved it, save it, will return 200
