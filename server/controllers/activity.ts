@@ -143,7 +143,6 @@ export const getPostsForFeed = async (req: Request, res: Response) => {
       const result = activities.filter(
         (activity) => activity.userInfo?.username !== username
       );
-
       res.json({ activities: result }).status(200);
     }
     return;

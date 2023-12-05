@@ -7,29 +7,27 @@ const credentials = {
   password: 'lopez2',
 };
 
+var cookie = '';
+
 beforeAll(async () => {
   await connectDB();
+  //login and set cookie of login
+  try {
+    const response = await request(app).post('/login').send(credentials);
+    expect(response.status).toBe(200);
+
+    cookie = response.headers['set-cookie'];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 });
 
 afterAll(async () => {
   await disconnectDB();
 });
 
-describe('Login procedure test', () => {
-  let cookie: string;
-
-  test('Login', async () => {
-    try {
-      const response = await request(app).post('/login').send(credentials);
-      expect(response.status).toBe(200);
-
-      cookie = response.headers['set-cookie'];
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  });
-
+describe('Load Feed', () => {
   test('Feed', async () => {
     try {
       const response = await request(app)
