@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { Document } from 'mongoose';
+// import { Document } from 'mongoose';
 import crypto from 'crypto';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 import sendResetEmail from '../utils/sendResetEmail';
 import { OAuth2Client } from 'google-auth-library';
 import {
@@ -389,6 +389,8 @@ export const forgotPassword = async (req: Request, res: Response) => {
     const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
     await sendResetEmail(email, resetLink);
 
+    console.log('FORGOT BIEN');
+
     return res.status(200).json({ message: 'Password reset email sent' });
   } catch (error) {
     console.error('Error in forgotPassword:', error);
@@ -399,21 +401,20 @@ export const forgotPassword = async (req: Request, res: Response) => {
 export const resetPassword = async (req: Request, res: Response) => {
   try {
     const { token, newPassword } = req.body;
-    const user = (await UserModel.findOne({
+    const user = await UserModel.findOne({
       resetPasswordToken: token,
       resetPasswordExpires: { $gt: Date.now() },
-    })) as Document & {
-      password: string;
-      resetPasswordToken: string | undefined;
-      resetPasswordExpires: Date | undefined;
-    };
+    });
 
     if (!user) {
       return res.status(400).json({ message: 'Invalid or expired token' });
     }
+    const newSalt = random();
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    user['password'] = hashedPassword;
+    const hashedPassword = authentication(newSalt, newPassword);
+
+    user.authentication!.password = hashedPassword;
+    user.authentication!.salt = newSalt;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
 
