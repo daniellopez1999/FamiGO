@@ -45,17 +45,24 @@
 
   & .status {
     margin-top: 1%;
-    margin-right: 2%;
+    margin-right: 4%;
     padding: 0 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
-    & .button-grey {
-      background: rgb(217, 217, 217);
-      color: var(--darkgrey-color);
+    & .status-buttons {
+      display: flex;
+      & .button {
+        margin-left: 10%;
+      }
+      & .button-grey {
+        background: rgb(217, 217, 217);
+        color: var(--darkgrey-color);
+      }
     }
   }
+
   & .button {
     width: fit-content;
     height: 25px;
@@ -119,7 +126,7 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 1%;
-  margin-right: 6%;
+  margin-right: 7%;
 
   & .button {
     width: fit-content;

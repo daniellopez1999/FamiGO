@@ -60,10 +60,13 @@ export const saveActivityInProfile = async (
       `${BASE_URL}/savepost-in-user/${username}/${activityID}`,
       {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
     );
 
-    if (!response.ok) console.error('ERROR');
+    if (!response.ok) throw new Error('Error');
 
     const data = await response.json();
     return data;

@@ -4,7 +4,7 @@ import { ActivityModel, getActivitiesByID } from '../models/activity';
 
 export const saveActivityInProfile = async (req: Request, res: Response) => {
   try {
-    const { id, username } = req.params;
+    const { username, id } = req.params;
     const user = await getUserByUserName(username);
 
     console.log('ID:', id, 'USER:', user);
@@ -15,12 +15,13 @@ export const saveActivityInProfile = async (req: Request, res: Response) => {
         const indexToDelete = user.savedPosts.indexOf(id);
         user.savedPosts.splice(indexToDelete, 1);
         await user.save();
+        res.status(201).json({ saved: user }).end();
       } else {
         user.savedPosts ??= [];
         user.savedPosts.push(id);
 
         await user.save();
-        res.status(201).end();
+        res.status(201).json({ saved: user }).end();
       }
     }
     return;
