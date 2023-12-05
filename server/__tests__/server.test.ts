@@ -2,12 +2,6 @@ import app from '../app';
 import request from 'supertest';
 import { connectDB, disconnectDB } from '../dbConfig';
 
-// describe("Test app.ts", () => {
-//   test("Catch-all route", async () => {
-//     const res = await request(app).get("/");
-//     expect(res.body).toEqual({ message: "Allo! Catch-all route." });
-//   });
-// });
 const credentials = {
   email: 'dani2@gmail.com',
   password: 'lopez2',
@@ -21,20 +15,31 @@ afterAll(async () => {
   await disconnectDB();
 });
 
-describe('Server.ts tests', () => {
-  test('Math test', () => {
-    expect(2 + 2).toBe(4);
-  });
+describe('Login procedure test', () => {
+  let cookie: string;
 
-  test('Login test', async () => {
+  test('Login', async () => {
     try {
       const response = await request(app).post('/login').send(credentials);
       expect(response.status).toBe(200);
-      // Puedes agregar más expectativas según sea necesario
+
+      cookie = response.headers['set-cookie'];
     } catch (error) {
-      // Maneja el error aquí según tus necesidades
       console.error(error);
-      throw error; // Asegúrate de lanzar el error para que Jest lo detecte como una falla
+      throw error;
     }
-  }, 10000);
+  });
+
+  test('Feed', async () => {
+    try {
+      const response = await request(app)
+        .get('/feed')
+        .set('Cookie', cookie)
+        .send();
+      expect(response.status).toBe(200);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  });
 });
