@@ -11,31 +11,36 @@ import { random, authentication } from '../helpers';
 
 export const login = async (req: Request, res: Response) => {
   try {
+    console.log('1');
     const { email, password } = req.body;
-
+    console.log('2');
     if (!email || !password) {
       return res.sendStatus(400);
     }
+    console.log('2,5');
 
     const user = await getUserByEmail(email).select(
       '+authentication.salt +authentication.password'
     );
-
+    console.log('3');
     if (!user) {
       return res.sendStatus(400);
     }
+    console.log('4');
 
     const expectedHash = authentication(user.authentication!.salt!, password);
-
+    console.log('5');
     if (user.authentication!.password != expectedHash) {
       return res.sendStatus(403);
     }
+    console.log('6');
 
     const salt = random();
     user.authentication!.sessionToken = authentication(
       salt,
       user._id.toString()
     );
+    console.log('7');
 
     await user.save();
 
@@ -55,7 +60,6 @@ export const login = async (req: Request, res: Response) => {
       path: '/',
       httpOnly: true,
     });
-
     return res.status(200).json(user).end();
   } catch (error) {
     return res.status(400);
