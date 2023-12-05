@@ -1,7 +1,7 @@
 import app from '../app';
 import request from 'supertest';
 import { connectDB, disconnectDB } from '../dbConfig';
-import mock from '../testMockData/mockData';
+import mock from '../mocks/mockData';
 
 beforeAll(async () => {
   await connectDB();
