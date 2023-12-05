@@ -63,9 +63,6 @@ router.put('/profile/:username', isAuthenticated, isOwnerEdit, updateUserInfo);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
 
-//get User Info (Posts and Stats)
-router.get('/profile/:username', isAuthenticated, getUserData);
-
 //get posts from feed
 router.get('/feed', isAuthenticated, isAuthorized, getPostsForFeed);
 router.post('/feed', getPostsByFilter);

@@ -386,10 +386,8 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
     await user.save();
 
-    const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
+    const resetLink = `${process.env.BASE_URL}/reset-password?token=${resetToken}`;
     await sendResetEmail(email, resetLink);
-
-    console.log('FORGOT BIEN');
 
     return res.status(200).json({ message: 'Password reset email sent' });
   } catch (error) {

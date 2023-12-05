@@ -99,7 +99,6 @@ export const sendPasswordResetEmail = async (email: string) => {
     const response = await fetch(`${BASE_URL}/forgot-password`, {
       method: 'POST',
       mode: 'cors',
-      credentials: 'include',
       headers: {
         'Content-type': 'application/json',
       },

@@ -85,12 +85,12 @@ const useAuth = () => {
 
     if (!name && !publicPaths.includes(pathname)) {
       navigate('/login');
-      return;
+      return false;
     }
 
     if (name && pathname === '/') {
       navigate('/feed');
-      return;
+      return true;
     }
 
     return true;
