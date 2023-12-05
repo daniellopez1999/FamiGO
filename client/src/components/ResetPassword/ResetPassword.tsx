@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
 import { resetPassword } from '../../services/auth';
 
 const ResetPassword = () => {
@@ -13,7 +12,7 @@ const ResetPassword = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Password don't match");
+      alert("Passwords don't match");
       return;
     }
 
@@ -31,6 +30,7 @@ const ResetPassword = () => {
       navigate('/login');
     } catch (error) {
       console.error('Reset password failed', error);
+      alert('Failed to reset password. Please try again.');
     }
   };
 
