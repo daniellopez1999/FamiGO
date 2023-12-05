@@ -11,8 +11,9 @@ const CollectionPreview = ({ type, activity }: Props) => {
   const navigate = useNavigate();
   const { _id: activityId, image, title } = activity;
 
-  const handleClick = () => {
-    navigate(`/activity/${activityId}`);
+  const handleClick = (clickedType: string) => {
+    navigate(`/activity/${activityId}`, { state: { type: clickedType } });
+    console.log(`Type clicked: ${clickedType}`);
   };
 
   const genRandom = () => {
@@ -43,7 +44,11 @@ const CollectionPreview = ({ type, activity }: Props) => {
     );
 
   return (
-    <div onClick={handleClick} className={previewClasses} style={previewStyle}>
+    <div
+      onClick={() => handleClick(type)}
+      className={previewClasses}
+      style={previewStyle}
+    >
       {previewContent}
     </div>
   );
