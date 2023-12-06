@@ -31,16 +31,14 @@ const Followers: React.FC<FollowersProps> = ({ username }) => {
     getListOfFollowers();
   }, [username]);
 
-  console.log(followersList);
-
   return (
-    <div>
+    <div className="specific-item">
       {followersList.followers.map((follower) => (
-        <div key={follower.username}>
-          <div>
+        <div className="info" key={follower.username}>
+          <div className="avatar">
             <img src={follower.avatar} />
           </div>
-          <div>{follower.username}</div>
+          <p>{follower.username}</p>
         </div>
       ))}
     </div>
