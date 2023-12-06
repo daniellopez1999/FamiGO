@@ -140,7 +140,7 @@ export const getPostsForFeed = async (req: Request, res: Response) => {
       ]);
 
       activities.unshift(...randomActivities);
-      res.json({ activities });
+      res.json({ activities }).status(200);
     }
     //if not following any users goes to else
     else {
