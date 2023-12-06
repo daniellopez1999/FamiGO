@@ -13,6 +13,8 @@ import {
   logout,
   forgotPassword,
   resetPassword,
+  getFollowers,
+  getFollowing,
 } from './controllers/users';
 import {
   uploadToCloudinary,
@@ -105,5 +107,8 @@ router.get(
 router.delete('/delete-activity/:username/:id', deleteActivity);
 
 router.get('/logout', isAuthenticated, logout);
+
+router.get('/get-followers/:username', getFollowers);
+router.get('/get-following/:username', getFollowing);
 
 export default router;
