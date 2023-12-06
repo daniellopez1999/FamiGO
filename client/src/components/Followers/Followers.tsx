@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getFollowers } from '../../services/users';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaChevronLeft } from 'react-icons/fa6';
 
 interface Follower {
   username: string;
@@ -33,11 +34,12 @@ const Followers: React.FC<FollowersProps> = ({ username }) => {
     }
     getListOfFollowers();
   }, [username]);
+  const iconStyle = { width: '100%', height: '100%', color: 'white' };
 
   return (
     <div className="specific-item">
-      <button className="button" onClick={() => navigate(-1)}>
-        {'<-'}
+      <button className="btn-go-back-following" onClick={() => navigate(-1)}>
+        <FaChevronLeft className="iconStyle" />
       </button>
       {followersList.followers.map((follower) => (
         <div className="info" key={follower.username}>

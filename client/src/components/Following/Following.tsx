@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getFollowing } from '../../services/users';
 import { Link, useNavigate } from 'react-router-dom';
 import './Following.css';
+import { FaChevronLeft } from 'react-icons/fa6';
 
 interface Following {
   username: string;
@@ -36,9 +37,9 @@ const Following: React.FC<FollowingProps> = ({ username }) => {
   }, [username]);
 
   return (
-    <div className="specific-item">
-      <button className="button" onClick={() => navigate(-1)}>
-        {'<-'}
+    <div className="specific-item ">
+      <button className="btn-go-back-following" onClick={() => navigate(-1)}>
+        <FaChevronLeft className="iconStyle" />
       </button>
       {followingList.following.map((following) => (
         <div className="info" key={following.username}>
