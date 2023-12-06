@@ -1,0 +1,16 @@
+.btn-go-back-following {
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: none;
+  background: none;
+}
+
+.iconStyle {
+  width: 100%;
+  height: 100%;
+  color: var(--primary-color);
+}

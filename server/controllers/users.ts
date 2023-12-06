@@ -12,6 +12,7 @@ import {
   UserModel,
 } from '../models/users';
 import { random, authentication } from '../helpers';
+import { follow } from '../types/user';
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -421,6 +422,50 @@ export const resetPassword = async (req: Request, res: Response) => {
     return res.status(200).json({ message: 'Password successfully changed' });
   } catch (error) {
     console.error('Error in resetPassword:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getFollowers = async (req: Request, res: Response) => {
+  const { username } = req.params;
+  try {
+    const user = await getUserByUserName(username);
+    const followersList = user!.statistics?.followers;
+
+    const followers: follow[] = [];
+
+    for (const followerId of followersList!) {
+      const follower = await getUserById(followerId);
+      followers.push({
+        username: follower!.username,
+        avatar: follower!.avatar,
+      });
+    }
+
+    return res.status(200).json({ followers });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getFollowing = async (req: Request, res: Response) => {
+  const { username } = req.params;
+  try {
+    const user = await getUserByUserName(username);
+    const followingList = user!.statistics?.following;
+
+    const following: follow[] = [];
+
+    for (const followerId of followingList!) {
+      const follower = await getUserById(followerId);
+      following.push({
+        username: follower!.username,
+        avatar: follower!.avatar,
+      });
+    }
+
+    return res.status(200).json({ following });
+  } catch (error) {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };

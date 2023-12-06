@@ -24,3 +24,8 @@ export interface IUser {
   savedPosts: any[];
   statistics: UserStatistics;
 }
+
+export interface follow {
+  username: string;
+  avatar: string;
+}
