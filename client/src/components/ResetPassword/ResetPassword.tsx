@@ -57,7 +57,6 @@ const ResetPassword = ({ onGoBackClick }: Props) => {
         <button className="btn-go-back" onClick={handleClick}>
           <FaChevronLeft style={iconStyle} />
         </button>
-        <h2>Forgot password</h2>
       </div>
       <div className="resetPassword-container">
         <div className="reset-password">

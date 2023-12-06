@@ -43,7 +43,6 @@ const ForgotPassword = ({ onGoBackClick }: Props) => {
         <button className="btn-go-back" onClick={handleClick}>
           <FaChevronLeft style={iconStyle} />
         </button>
-        <h2>Login</h2>
       </div>
       <div className="forgotPassword-container">
         <div className="forgot-password">
