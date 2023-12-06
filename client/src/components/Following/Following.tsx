@@ -38,7 +38,9 @@ const Following: React.FC<FollowersProps> = ({ username }) => {
 
   return (
     <div className="specific-item">
-      <button onClick={() => history.back()}>{'<-'}</button>
+      <button className="button" onClick={() => history.back()}>
+        {'<-'}
+      </button>
       {followingList.following.map((following) => (
         <div className="info" key={following.username}>
           <Link to={`/profile/${following.username}`}>
