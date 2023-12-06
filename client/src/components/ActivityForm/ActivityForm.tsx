@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, useRef } from 'react';
 import { Controller, useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -44,6 +44,7 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
   const draft = getDraftPublish();
   const AIdraft = getAIDraftPublish();
 
+  const bottomRef = useRef<HTMLDivElement>(null);
   const [fileInfo, setFileInfo] = useState<FileInfo>({} as FileInfo);
   const [fileStatus, setFileStatus] = useState<null | string>(null);
 
@@ -82,6 +83,10 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
     }
   }, [showModal]);
 
+  const scrollToBottom = () => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setFileStatus('loading');
@@ -97,6 +102,7 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
 
     setFileInfo(info);
     setFileStatus(null);
+    scrollToBottom();
   };
 
   const handleFileDelete = async () => {
@@ -120,6 +126,7 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
   const handleAddMaterial = () => {
     setMaterials((prev) => [...prev, material]);
     setMaterial('');
+    scrollToBottom();
   };
 
   const handleDeleteMaterial = (index: number) => {
@@ -329,6 +336,7 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
           </div>
         </form>
       </div>
+      <div ref={bottomRef}></div>
     </>
   );
 };
