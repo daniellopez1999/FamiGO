@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useAppDispatch } from '../../redux/hooks';
 import { getMyUsername, setUser } from '../../redux/userSlice';
+import { ProfileContext } from '../../context/ProfileContext';
 import { IUser } from '../../types/user';
 import DataBox from '../DataBox/DataBox';
 import { getUserPlainInfo, handleRelationship } from '../../services/users';
@@ -10,12 +11,9 @@ import { getUserPlainInfo, handleRelationship } from '../../services/users';
 import './PersonalInfo.css';
 import React from 'react';
 
-type Props = {
-  isMyProfile: boolean;
-  currentProfile: string;
-};
+const PersonalInfo = () => {
+  const { isMyProfile, currentProfile } = useContext(ProfileContext);
 
-const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
   const dispatch = useAppDispatch();
   const myUsername = getMyUsername();
   const { user, handleLogout } = useAuth();
@@ -30,7 +28,7 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
     setIsLoading(true);
 
     const getInfo = async () => {
-      const info = await getUserPlainInfo(currentProfile as string);
+      const info = await getUserPlainInfo(currentProfile);
       setInfo(info);
       setIsLoading(false);
       return;
@@ -55,7 +53,7 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
   const handleRelation = async () => {
     try {
       const data = await handleRelationship(
-        currentProfile as string,
+        currentProfile,
         myUsername as string,
         relation
       );
