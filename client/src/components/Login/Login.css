@@ -29,6 +29,12 @@
     border-radius: 5px;
   }
 
+  & .forgot-password-link {
+    margin-right: 2rem;
+    font-size: small;
+    color: var(--primary-color);
+  }
+
   & .login-btn {
     width: 80%;
     padding: 15px;
