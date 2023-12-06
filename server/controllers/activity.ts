@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUserByUserName } from '../models/users';
+import { UserModel, getUserByUserName } from '../models/users';
 import { getActivitiesByID } from '../models/activity';
 import { ActivityModel, createActivity } from '../models/activity';
 import {
@@ -13,7 +13,7 @@ import { ActivityWithUser } from '../types/activity';
 export const publishActivity = async (req: Request, res: Response) => {
   try {
     const {
-      body: { activity },
+      body: { activity, info },
     } = req;
 
     const username = req.cookies['username'];
@@ -32,6 +32,15 @@ export const publishActivity = async (req: Request, res: Response) => {
       user.statistics ??= {};
       user.statistics.posts ??= [];
       user.statistics.posts.push(activityId);
+
+      if (info.type === 'ai') {
+        const userID = user._id.toString();
+        await UserModel.findByIdAndUpdate(
+          userID,
+          { $pull: { savedAIPosts: info.id } },
+          { new: true }
+        );
+      }
 
       await user.save();
 
@@ -82,7 +91,6 @@ export const getUserCollectionByType = async (req: Request, res: Response) => {
     res.status(200).send({ collection });
     return;
   } catch (error) {
-    console.log('get collection by type err -->', error);
     res.status(500).end();
     throw error;
   }
@@ -192,8 +200,6 @@ export const getPostsByFilter = async (req: Request, res: Response) => {
       });
     }
 
-    console.log('query -->', query);
-
     const limit = 20;
     const filteredActivities = await ActivityModel.find(query)
       .find({ type: 'published' })
@@ -202,7 +208,6 @@ export const getPostsByFilter = async (req: Request, res: Response) => {
     const result = filteredActivities.filter(
       (activity) => activity.userInfo?.username !== username
     );
-    console.log('filteredActivities -->', result);
 
     res.status(200).json({ activities: result });
   } catch (error) {
