@@ -10,11 +10,16 @@ const FollowList = () => {
 
   return (
     <div>
-      <Header title="Following" />
       {isFollowersPage ? (
-        <Followers username={username!} />
+        <>
+          <Header title="Followers" />
+          <Followers username={username!} />
+        </>
       ) : (
-        <Following username={username!} />
+        <>
+          <Header title="Following" />
+          <Following username={username!} />
+        </>
       )}
     </div>
   );
