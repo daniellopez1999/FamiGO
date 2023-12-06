@@ -36,14 +36,14 @@ const Followers: React.FC<FollowersProps> = ({ username }) => {
     <div className="specific-item">
       {followersList.followers.map((follower) => (
         <div className="info" key={follower.username}>
-          <Link to={`/profile/${follower.username}`}>
+          <Link to={`/profile/${follower.username}`} className="link-follow">
             <div className="avatar">
               <img
                 src={follower.avatar}
                 alt={`${follower.username}'s avatar`}
               />
             </div>
-            <p>{follower.username}</p>
+            <p className="follow-name">{follower.username}</p>
           </Link>
         </div>
       ))}
