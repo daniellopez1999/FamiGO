@@ -110,10 +110,10 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
             <p className="desc">{description}</p>
             {isMyProfile && (
               <>
-                <Link to={`/edit-profile/${username}`}>
+                <Link className="edit-btn" to={`/edit-profile/${username}`}>
                   <button className="edit-btn">Edit profile</button>
                 </Link>
-                <Link to={`/Login`}>
+                <Link className="edit-btn" to={`/Login`}>
                   <button onClick={() => onLogout()} className="edit-btn">
                     Log out
                   </button>
@@ -121,7 +121,16 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
               </>
             )}
             {!isMyProfile && (
-              <button onClick={handleRelation}>{relation}</button>
+              <div className="relation">
+                <button
+                  className={`button ${
+                    relation === 'unfollow' ? 'button-grey' : ''
+                  }`}
+                  onClick={handleRelation}
+                >
+                  {relation}
+                </button>
+              </div>
             )}
           </div>
         </div>
