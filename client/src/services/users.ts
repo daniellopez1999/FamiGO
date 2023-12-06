@@ -149,3 +149,35 @@ export const handleRelationship = async (
     throw error;
   }
 };
+
+export const getFollowers = async (username: string) => {
+  try {
+    const url = `${BASE_URL}/get-followers/${username}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error getting followers', error);
+    throw error;
+  }
+};
+
+export const getFollowing = async (username: string) => {
+  try {
+    const url = `${BASE_URL}/get-following/${username}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error getting followers', error);
+    throw error;
+  }
+};

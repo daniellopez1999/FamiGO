@@ -19,6 +19,7 @@ import NavOutlet from './components/NavOutlet';
 
 import './App.css';
 import Activity from './pages/Activity/ActivityPage';
+import FollowList from './pages/FollowList/FollowList';
 
 const App = () => {
   const { pathname } = useLocation();
@@ -50,6 +51,8 @@ const App = () => {
         </Route>
         <Route path="/publish-activity" element={<PublishIdeaPage />} />
         <Route path="/*" element={<NotFoundPage />} />
+        <Route path="/followers/:username" element={<FollowList />} />
+        <Route path="/following/:username" element={<FollowList />} />
       </Routes>
     </div>
   );
