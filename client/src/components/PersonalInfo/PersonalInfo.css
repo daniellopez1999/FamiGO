@@ -37,6 +37,7 @@
 
     & .name {
       font-weight: 600;
+      margin-left: 5%;
     }
 
     & .desc {
@@ -49,6 +50,19 @@
       text-decoration: underline;
       background-color: white;
       font-size: small;
+      width: fit-content;
+    }
+
+    & .relation {
+      display: flex;
+      & .button {
+        height: 15px;
+        width: 100%;
+      }
+      & .button-grey {
+        background: rgb(217, 217, 217);
+        color: var(--darkgrey-color);
+      }
     }
   }
 }
