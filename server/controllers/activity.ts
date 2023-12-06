@@ -120,8 +120,6 @@ export const getPostsForFeed = async (req: Request, res: Response) => {
       //iteratee over each object over postsIDs
       const postsIDs = getAllPostsIDs(followingUsersInfo);
 
-      console.log('wooow', postsIDs);
-
       const activities = await iterateActivities(postsIDs);
 
       //Sort by latest
