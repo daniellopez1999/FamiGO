@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { sendPasswordResetEmail } from '../../services/auth';
 
+import './ForgotPassword.css';
+
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -19,16 +21,21 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div>
-      <h1>Forgot Password</h1>
+    <div className="forgotPassword-container">
+      <div className="forgot-password">
+        <h2>Forgot Password</h2>
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
           value={email}
           placeholder="Enter your email"
           onChange={(e) => setEmail(e.target.value)}
+          className="email-input"
         />
-        <button type="submit">Continue</button>
+        <button type="submit" className="continue-btn">
+          Continue
+        </button>
       </form>
       {message && <p>{message}</p>}
     </div>
