@@ -34,11 +34,11 @@ const Following: React.FC<FollowingProps> = ({ username }) => {
   }, [username]);
 
   return (
-    <div className="specific-item ">
+    <div>
       {followingList.following.map((following) => (
-        <div className="info" key={following.username}>
+        <div className="follows" key={following.username}>
           <Link to={`/profile/${following.username}`} className="link-follow">
-            <div className="avatar">
+            <div className="picture">
               <img
                 src={following.avatar}
                 alt={`${following.username}'s avatar`}
