@@ -8,13 +8,17 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendResetEmail = async (email: string, resetLink: string) => {
+const sendResetEmail = async (
+  email: string,
+  username: string,
+  resetLink: string
+) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
     subject: 'Password Reset Link',
     text: `To reset your password, click on the following link: ${resetLink}`,
-    html: `<b>To reset your password, click on the following link ${resetLink}</b>`,
+    html: `<p>Hello ${username}!</p><p>To reset your password, please <a href="${resetLink}">click here</a>.</p>`,
   };
 
   try {

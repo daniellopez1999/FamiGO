@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronLeft } from 'react-icons/fa6';
 import { sendPasswordResetEmail } from '../../services/auth';
+import toast from 'react-hot-toast';
 
 import './ForgotPassword.css';
 
@@ -12,8 +13,6 @@ type Props = {
 
 const ForgotPassword = ({ onGoBackClick }: Props) => {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -30,10 +29,11 @@ const ForgotPassword = ({ onGoBackClick }: Props) => {
     e.preventDefault();
     try {
       await sendPasswordResetEmail(email);
-      setMessage('Reset password link has been sent');
+      toast('📩 Reset password link has been sent');
+      setEmail('');
     } catch (error) {
       console.error('Send password reset mail failed', error);
-      setMessage('Failed to send reset email. Please try again');
+      toast.error('Failed to send reset email. Please try again');
     }
   };
 
@@ -60,7 +60,6 @@ const ForgotPassword = ({ onGoBackClick }: Props) => {
             Continue
           </button>
         </form>
-        {message && <p>{message}</p>}
       </div>
     </>
   );
