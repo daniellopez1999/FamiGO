@@ -8,6 +8,7 @@ import DataBox from '../DataBox/DataBox';
 import { getUserPlainInfo, handleRelationship } from '../../services/users';
 
 import './PersonalInfo.css';
+import React from 'react';
 
 type Props = {
   isMyProfile: boolean;
@@ -91,11 +92,15 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
             <div className="statistics">
               {['posts', 'followers', 'following'].map((cat, index) => {
                 return (
-                  <DataBox
-                    key={index}
-                    type={cat}
-                    number={statistics[cat].length}
-                  />
+                  <React.Fragment key={index}>
+                    {cat === 'posts' ? (
+                      <DataBox type={cat} number={statistics[cat].length} />
+                    ) : (
+                      <Link to={`/${cat}/${username}`}>
+                        <DataBox type={cat} number={statistics[cat].length} />
+                      </Link>
+                    )}
+                  </React.Fragment>
                 );
               })}
             </div>
