@@ -119,6 +119,9 @@ export const getPostsForFeed = async (req: Request, res: Response) => {
 
       //iteratee over each object over postsIDs
       const postsIDs = getAllPostsIDs(followingUsersInfo);
+
+      console.log('wooow', postsIDs);
+
       const activities = await iterateActivities(postsIDs);
 
       //Sort by latest
@@ -126,6 +129,19 @@ export const getPostsForFeed = async (req: Request, res: Response) => {
         return b.createdAt - a.createdAt;
       });
 
+      const existingActivitiesIDs = activities.map((activity) => activity._id);
+      //Get 5 random activities to show first from users that you don't follow
+      const randomActivities = await ActivityModel.aggregate([
+        {
+          $match: {
+            type: 'published',
+            _id: { $nin: existingActivitiesIDs },
+          },
+        },
+        { $sample: { size: 5 } },
+      ]);
+
+      activities.unshift(...randomActivities);
       res.json({ activities });
     }
     //if not following any users goes to else
