@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getFollowing } from '../../services/users';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Following.css';
-import { FaChevronLeft } from 'react-icons/fa6';
 
 interface Following {
   username: string;
@@ -22,8 +21,6 @@ const Following: React.FC<FollowingProps> = ({ username }) => {
     following: [],
   });
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     async function getListOfFollowing() {
       try {
@@ -38,19 +35,16 @@ const Following: React.FC<FollowingProps> = ({ username }) => {
 
   return (
     <div className="specific-item ">
-      <button className="btn-go-back-following" onClick={() => navigate(-1)}>
-        <FaChevronLeft className="iconStyle" />
-      </button>
       {followingList.following.map((following) => (
         <div className="info" key={following.username}>
-          <Link to={`/profile/${following.username}`}>
+          <Link to={`/profile/${following.username}`} className="link-follow">
             <div className="avatar">
               <img
                 src={following.avatar}
                 alt={`${following.username}'s avatar`}
               />
             </div>
-            <p>{following.username}</p>
+            <p className="follow-name">{following.username}</p>
           </Link>
         </div>
       ))}
