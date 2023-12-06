@@ -30,7 +30,7 @@
   }
 
   & .forgot-password-link {
-    margin-right: 2rem;
+    margin-left: 2rem;
     font-size: small;
     color: var(--primary-color);
   }
