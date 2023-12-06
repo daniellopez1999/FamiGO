@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import Followers from './../../components/Followers/Followers';
 import Following from '../../components/Following/Following';
+import Header from '../../components/Header/Header';
 
 const FollowList = () => {
   const { username } = useParams();
@@ -9,6 +10,7 @@ const FollowList = () => {
 
   return (
     <div>
+      <Header title="Following" />
       {isFollowersPage ? (
         <Followers username={username!} />
       ) : (
