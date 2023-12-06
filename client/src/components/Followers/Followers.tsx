@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getFollowers } from '../../services/users';
-import { Link } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface Follower {
   username: string;
@@ -21,7 +20,7 @@ const Followers: React.FC<FollowersProps> = ({ username }) => {
     followers: [],
   });
 
-  const history = createBrowserHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getListOfFollowers() {
@@ -37,7 +36,7 @@ const Followers: React.FC<FollowersProps> = ({ username }) => {
 
   return (
     <div className="specific-item">
-      <button className="button" onClick={() => history.back()}>
+      <button className="button" onClick={() => navigate(-1)}>
         {'<-'}
       </button>
       {followersList.followers.map((follower) => (

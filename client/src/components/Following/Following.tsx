@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getFollowing } from '../../services/users';
-import { Link } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { Link, useNavigate } from 'react-router-dom';
 import './Following.css';
 
 interface Following {
@@ -13,16 +12,16 @@ interface FollowingList {
   following: Following[];
 }
 
-interface FollowersProps {
+interface FollowingProps {
   username: string;
 }
 
-const Following: React.FC<FollowersProps> = ({ username }) => {
+const Following: React.FC<FollowingProps> = ({ username }) => {
   const [followingList, setFollowingList] = useState<FollowingList>({
     following: [],
   });
 
-  const history = createBrowserHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getListOfFollowing() {
@@ -38,7 +37,7 @@ const Following: React.FC<FollowersProps> = ({ username }) => {
 
   return (
     <div className="specific-item">
-      <button className="button" onClick={() => history.back()}>
+      <button className="button" onClick={() => navigate(-1)}>
         {'<-'}
       </button>
       {followingList.following.map((following) => (
