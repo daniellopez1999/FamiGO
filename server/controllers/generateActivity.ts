@@ -28,26 +28,24 @@ export const generateActivity = async (req: Request, res: Response) => {
 // import { Request, Response } from 'express';
 
 // const openai = new OpenAI({
-//   apiKey: process.env.VITE_OPENAI_API_KEY,
+//   apiKey: process.env.OPENAI_API_KEY,
 // });
 
 // interface IResponseFromAPI {
 //   filters: Object;
-//   title: string
+//   title: string;
 //   materials: Array<string>;
-//   description: string
+//   description: string;
 // }
 
 // export const generateActivity = async (req: Request, res: Response) => {
 //   const filtersBody = req.body;
-//   const Topic = filtersBody.Topic.value;
-//   const KidsNumber = filtersBody.KidsNumber.value;
-//   const AgeRange = filtersBody.AgeRange.value;
-//   const Difficulty = filtersBody.Difficulty.value;
-//   const Place = filtersBody.Place.value;
-//   const Duration = filtersBody.Duration.value;
-
-//   console.log('filtersBody', filtersBody);
+//   const Topic = filtersBody.topic.value;
+//   const KidsNumber = filtersBody.numOfKids.value;
+//   const AgeRange = filtersBody.age.value;
+//   const Difficulty = filtersBody.difficulty.value;
+//   const Place = filtersBody.place.value;
+//   const Duration = filtersBody.duration.value;
 
 //   const requestToAPI = `'You are an assistant that design activities taking into account these filters:
 //   - the topic of the activity: ${Topic};

@@ -12,53 +12,54 @@
       "description": "In this activity, kids will explore their surroundings to gather nature items and use them to create a beautiful collage on a piece of cardboard. They can pick up leaves of different sizes, shapes and colors, flowers, twigs, etc. Once they've collected enough items, they can glue them onto the cardboard, producing a wonderful piece of art. This activity helps kids learn about colors, shapes, and the natural world around them. Remember, all the nature items should be collected safely and no living plants should be harmed."
     },
     {
-      "filters": ["Art", "2", "3 - 5", "Intermediate", "Inside", "1h < 2h"],
-      "title": "Miniature Clay Sculpture Workshop",
+      "filters": ["Nature", "3", "5 - 7", "Beginner", "Outside", "1h < 2h"],
+      "title": "Scavenger Hunt in nature",
+      "materials": ["Paper", "Pen", "Small bag"],
+      "description": "This is a nature-themed scavenger hunt. The children will receive a list of items they need to collect from nature using their small bags. The list can be written/drawn on the paper using the pen & can include leaves, small pebbles, feathers etc. This outdoor activity will educate them about nature while keeping them actively engaged."
+    },
+    {
+      "filters": ["Nature", "3", "5 - 7", "Intermediate", "Outside", "1h < 2h"],
+      "title": "Forest Scavenger Hunt",
       "materials": [
-        "Air dry clay",
-        "Acrylic paint",
-        "Paint brushes",
-        "Paper plates",
-        "Water",
-        "Toothpicks",
-        "Aprons"
+        "Scavenger hunt list",
+        "Pencil",
+        "Bag for collecting items"
       ],
-      "description": "In this workshop, children will create their own miniature clay sculptures. Each kid will start by selecting a favorite animal or object to represent. Then, they'll shape their sculpture out of clay, using toothpicks for delicate details. Once the clay has hardened, they can paint their creations. This engages kids in a fun hands-on experience that stimulates creativity, fine motor skills, and imagination. Always remember to supervise the kids during this activity as small materials will be used."
+      "description": "In this activity, little explorers will have a nature scavenger hunt in the forest. A list of items to find (including specific leaves, rocks, or maybe even little critters) will be given to each child. Their task will be to find and collect the items on their list. This activity not only develops observational and classification skills but also provides an opportunity to learn about local flora and fauna."
     },
     {
-      "filters": ["Sports", "3", "9 - 12", "Expert", "Outside", "2h < 3h"],
-      "title": "Advanced Soccer Training Challenge",
-      "materials": ["Soccer Ball", "Cones", "Goal Net"],
-      "description": "A fun and skill-building Advanced Soccer Training Challenge tailored for expert players with an age range of 9-12 years old. The activity lasts for 2 to 3 hours, taking place outdoors. It starts with a warm-up, followed by obstacle courses that focus on dribbling skills. After that, the kids will practice passing techniques, team strategies, and finally, they will engage in a competitive match. The goal is to rinse and repeat until perfection. This activity aims to improve their soccer skills, team working abilities, and build up endurance."
-    },
-    {
-      "filters": [
-        "Constructions",
-        "more than 3",
-        "3 - 5",
-        "Intermediate",
-        "Inside",
-        "1h < 2h"
-      ],
-      "title": "Build a Cardboard City",
-      "materials": ["Cardboard boxes", "Markers", "Scissors", "Tape"],
-      "description": "In 'Build a Cardboard City', each child gets to construct their own building using cardboard boxes, scissors, and tape. They can utilize the markers to decorate their building. Once each building is complete, arrange all the buildings together to form a city. This activity not only fosters creativity, but also promotes teamwork as children need to collaborate on the layout of the city."
-    },
-    {
-      "filters": ["Logic", "2", "7 - 9", "Expert", "Inside", "1h < 2h"],
-      "title": "Mastermind Logic Game",
+      "filters": ["Nature", "2", "7 - 9", "Beginner", "Outside", "1h < 2h"],
+      "title": "Nature Scavenger Hunt",
       "materials": [
-        "Mastermind game or a DIY replica (pegs and board)",
-        "Paper",
-        "Pencil"
+        "Printed nature scavenger list",
+        "Pencil",
+        "Bag for collections"
       ],
-      "description": "In this activity, children will play the Mastermind Logic Game. The goal is to decipher the hidden code. Player 1 creates a secret code with four pegs. They can use the same color multiple times or not at all. Player 2 must try to guess this code within a set number of turns. Each turn, Player 1 gives hints for the previous guess, indicating how many pegs are the correct color and in the correct position, and how many are the correct color but the wrong position. Player 2 must use logical deduction based on these clues to guess the secret code."
+      "description": "In this activity, the children will go on a nature scavenger hunt. They will have to find certain items in nature, such as a leaf, a stone, a feather, and more. This exercise encourages observation skills and offers them a fun exploration of the outdoors."
     },
     {
-      "filters": ["Linguistic", "1", "12 - 14", "Expert", "Inside", "1h < 2h"],
-      "title": "Crafting a Short Story",
-      "materials": ["Notebook", "Pen", "Dictionary", "Thesaurus"],
-      "description": "This activity will facilitate the kid to craft and write a compelling short story in two hours. They'll start by brainstorming ideas for their short story, including character creation, plot, and setting development. The use of dictionary and thesaurus is encouraged for a rich linguistic experience allowing them to practice expert level word usage and sentence formation. Review and draft rewrites will hone the kid's editing and proofreading skills leading to a polished short story."
+      "filters": ["Nature", "2", "3 - 5", "Beginner", "Outside", "1h < 2h"],
+      "title": "Nature Scavenger Hunt",
+      "materials": ["Paper", "Pencil", "Bag to gather items"],
+      "description": "A fun outdoor activity that helps kids appreciate the beauty of nature. There will be a list of common outdoor items that children have to find. The first child to find all the items wins. A parent or adult supervision is recommended."
+    },
+    {
+      "filters": ["Nature", "3", "7 - 9", "Intermediate", "Outside", "1h < 2h"],
+      "title": "Forest Scavenger Hunt",
+      "materials": ["Paper", "Pencil", "Printed pictures of wildlife"],
+      "description": "A scavenger hunt where kids will explore nature, learn about different plants, animals, and insect species. Each child receives a list of items or specific species to find. The winner is the one who ticks off most items from the list in the given timeframe. Always prioritize safety and respect for the wildlife."
+    },
+    {
+      "filters": ["Nature", "3", "5 - 7", "Beginner", "Outside", "1h < 2h"],
+      "title": "Treasure Hunt in Nature",
+      "materials": ["Paper", "Pencil", "Small prizes"],
+      "description": "This activity involves creating a treasure hunt for kids in a natural park or garden. Start by preparing a simple map with directions. The treasure spots will have small prizes. This activity helps kids to interpret the map, observe nature more closely, and develop their problem-solving skills."
+    },
+    {
+      "filters": ["Nature", "2", "5 - 7", "Beginner", "Outside", "< 1h"],
+      "title": "Backyard Scavenger Hunt",
+      "materials": ["Paper", "Pencil", "Ruler"],
+      "description": "This activity engages children to get closer to nature. A list of nature-based items will be prepared which would be easy to find in a backyard or a nearby park. The list can include items like leaf, favorite rock, etc. The kids have to go around and find these items and check-off the items found on the paper. This activity will help kids understand the different natural elements around them and learn in a fun way. Parental supervision may be required."
     },
     {
       "filters": [
@@ -82,6 +83,36 @@
       "description": "In the Ecosystem Exploration Challenge, children will be divided into teams and each team will be given a list of local flora and fauna to find, identify, and document in a natural environment. Using guide books, they will learn to identify different species, encouraging observation, clarity and patience. Teams will compete on who can identify and document the most species within a set time limit. Supervised by adults when required, it will be a fun, educational and challenging experience for the kids."
     },
     {
+      "filters": ["Nature", "1", "12 - 14", "Intermediate", "Outside", "3h <"],
+      "title": "Intermediate Wilderness Survival Skills",
+      "materials": [
+        "Backpack",
+        "Snacks",
+        "Water bottle",
+        "Notepad",
+        "Pen",
+        "Binoculars",
+        "Compass",
+        "Safety whistle",
+        "First aid kit"
+      ],
+      "description": "This activity is focused on stimulating one's ability to survive in nature. It includes learning about how to react in dangerous situations, the essential tools needed and their usage in nature, identifying natives plants and animals, orientation, and ways to call for help. Remember, safety is a priority, any dangerous action is strictly prohibited. Participant's awareness and respect for nature is crucial."
+    },
+    {
+      "filters": ["Art", "2", "3 - 5", "Intermediate", "Inside", "1h < 2h"],
+      "title": "Miniature Clay Sculpture Workshop",
+      "materials": [
+        "Air dry clay",
+        "Acrylic paint",
+        "Paint brushes",
+        "Paper plates",
+        "Water",
+        "Toothpicks",
+        "Aprons"
+      ],
+      "description": "In this workshop, children will create their own miniature clay sculptures. Each kid will start by selecting a favorite animal or object to represent. Then, they'll shape their sculpture out of clay, using toothpicks for delicate details. Once the clay has hardened, they can paint their creations. This engages kids in a fun hands-on experience that stimulates creativity, fine motor skills, and imagination. Always remember to supervise the kids during this activity as small materials will be used."
+    },
+    {
       "filters": ["Art", "3", "12 - 14", "Expert", "Inside", "1h < 2h"],
       "title": "DIY Modern Art Canvas",
       "materials": [
@@ -91,6 +122,106 @@
         "Painter’s tape"
       ],
       "description": "In this activity, kids will create a piece of modern art on a canvas. They begin by placing the painter's tape randomly on the canvas, creating a series of unique geometric shapes. Then, they fill in each of these shapes with different colors of acrylic paint, resulting in a vibrant, modern art piece. They can experiment with color combinations and textures while also learning about geometric forms in art. After the paint is completely dry, the painter's tape is carefully peeled off, revealing a stunning, one-of-a-kind artwork. This activity requires expert levels of concentration and creativity, making it perfect for kids aged 12 to 14."
+    },
+    {
+      "filters": ["Art", "1", "3 - 5", "Beginner", "Inside", "1h < 2h"],
+      "title": "Fun With Origami",
+      "materials": ["Origami paper", "Child-safe Scissors"],
+      "description": "This activity develops kids' skills in paper folding arts. The kid will start with simple designs like a boat or an airplane. As they grow comfortable with basic folds, they can move to more complex creations like animals or flowers. This activity develops their artistic knowledge and motor skills. Parental assistance may be needed if the child is new to this skill."
+    },
+
+    {
+      "filters": ["Art", "1", "7 - 9", "Beginner", "Inside", "< 1h"],
+      "title": "Self Portrait Art",
+      "materials": ["Pencil", "Eraser", "Sketch Pad", "Colored Pencils"],
+      "description": "This is an art activity where the child will draw a self-portrait. The child will use the mirror to study their facial features and then depict them on paper. First, they need to outline their face using a pencil and erase any mistakes. Once they're satisfied with the outline, they can fill it in with colored pencils. This activity will not only boost the child's artistic skills but will also improve their self-awareness."
+    },
+    {
+      "filters": ["Art", "3", "7 - 9", "Intermediate", "Inside", "1h < 2h"],
+      "title": "Clay Sculpture Creating",
+      "materials": [
+        "Clay",
+        "Sculpting tools",
+        "Water",
+        "Plastic table cover",
+        "Paint"
+      ],
+      "description": "In this activity, the children will get to express their creativity by fashioning clay into various shapes and designs. After shaping the clay, they get to paint their sculptures, aiding in honing fine motor skills and artistic expression. Adult supervision is required to guide them and keep the environment safe and clean."
+    },
+
+    {
+      "filters": ["Art", "1", "3 - 5", "Beginner", "Inside", "< 1h"],
+      "title": "Exploring Self-Portrait",
+      "materials": ["Mirror", "Crayons/Colours", "Paper"],
+      "description": "This beginners level activity can be completed indoors in less than an hour. The child should sit down with a mirror and explore how they look using crayons or colours to draw themselves on a paper. This will help to boost their creativity while teaching them about self-awareness and motor skills."
+    },
+    {
+      "filters": ["Art", "1", "5 - 7", "Beginner", "Inside", "< 1h"],
+      "title": "Creating a Paper Mosaic",
+      "materials": [
+        "Colored paper",
+        "Glue",
+        "Craft Scissors",
+        "White Cardboard"
+      ],
+      "description": "This activity involves creating a simple mosaic using colored paper. The child will cut out small squares or shapes from colored paper, then glue them onto a cardboard in a pattern or picture they like. It'll help them to develop their creativity and hand-eye coordination. Supervision is recommended while using scissors."
+    },
+    {
+      "filters": ["Art", "3", "5 - 7", "Intermediate", "Inside", "1h < 2h"],
+      "title": "Indoor Art Movement",
+      "materials": ["paints", "paintbrushes", "large sheets of paper", "music"],
+      "description": "This activity encourages children to express themselves through movement and art. Begin by setting up a safe, open space with large sheets of paper laid out on the floor. Give each child a paintbrush and have them dip it in their chosen paint. Turn on the music and encourage them to move to the music, letting their paintbrush flow across the paper. Remind them it's not about the final product, it's about how they feel while painting."
+    },
+    {
+      "filters": ["Art", "1", "7 - 9", "Beginner", "Inside", "< 1h"],
+      "title": "Monochromatic Portrait Painting",
+      "materials": [
+        "Canvas",
+        "Brushes",
+        "Paint (single color with shades)",
+        "Smock",
+        "Water",
+        "Palette",
+        "Paper Towels"
+      ],
+      "description": "The child will create a monochromatic portrait painting using only various shades of a single color. They will practice using different brushstroke techniques to achieve various textures and effects, shading, tone, and form. This activity is designed to enhance the child's understanding of color value, and exercising their creativity within a set limit, while also offering a calm indoor activity."
+    },
+    {
+      "filters": ["Art", "1", "5 - 7", "Intermediate", "Inside", "< 1h"],
+      "title": "Fun with Origami",
+      "materials": ["Origami Paper", "Origami Instruction booklets"],
+      "description": "An introduction to fold paper art commonly known as Origami. The goal of the activity is to fold the paper using the instruction booklets to create different shapes like birds, boats, etc. This activity enhances the child's motor skills and promotes concentration."
+    },
+    {
+      "filters": ["Sports", "3", "9 - 12", "Expert", "Outside", "2h < 3h"],
+      "title": "Advanced Soccer Training Challenge",
+      "materials": ["Soccer Ball", "Cones", "Goal Net"],
+      "description": "A fun and skill-building Advanced Soccer Training Challenge tailored for expert players with an age range of 9-12 years old. The activity lasts for 2 to 3 hours, taking place outdoors. It starts with a warm-up, followed by obstacle courses that focus on dribbling skills. After that, the kids will practice passing techniques, team strategies, and finally, they will engage in a competitive match. The goal is to rinse and repeat until perfection. This activity aims to improve their soccer skills, team working abilities, and build up endurance."
+    },
+    {
+      "filters": [
+        "Sports",
+        "more than 3",
+        "7 - 9",
+        "Intermediate",
+        "Outside",
+        "2h < 3h"
+      ],
+      "title": "Mini Olympics",
+      "materials": ["Sport's balls", "Cones", "Stopwatch"],
+      "description": "In this activity, children are divided into teams and compete in various mini sports events. The games can include activities like racing, ball games, jumping, etc. It is a fun and interactive way to encourage teamwork and sportsmanship among children while keeping fit and active."
+    },
+    {
+      "filters": ["Sports", "3", "5 - 7", "Intermediate", "Outside", "1h < 2h"],
+      "title": "Triple Tag Race",
+      "materials": ["Open space", "Three color bands or tags"],
+      "description": "In this game, kids will be split into three teams. Each team is given a unique color band or tag. The objective of the game is to grab as many bands from the other teams as possible and return them to their home base. The team with the most bands after a predetermined period of time wins. It encourages teamwork, strategic thinking, and physical exercise."
+    },
+    {
+      "filters": ["Sports", "3", "7 - 9", "Intermediate", "Outside", "1h < 2h"],
+      "title": "Mini-Olympics",
+      "materials": ["Cones", "Ball", "Jump rope", "Timer"],
+      "description": "This outdoor sports activity is perfect for three kids aged between 7 and 9 years old. The Mini-Olympics will include a series of fun challenges such as a relay race, skipping rope contest, and a timed dribbling competition. It will test speed, agility, and ball-handling skills in a friendly and competitive atmosphere. Make sure you have cones, a ball, a jump rope, and a timer ready!"
     },
     {
       "filters": [
@@ -104,6 +235,25 @@
       "title": "Indoor Basketball Shooting Competition",
       "materials": ["Basketball", "Basketball Hoop", "Scorecard", "Pen"],
       "description": "This activity is a basketball shooting competition. The player has to score as many points as possible within 2 hours. A basketball and hoop will be set for the player. A scorecard will be provided to keep track of the points they score. The player will not only enjoy the activity but also improve their shooting skills."
+    },
+    {
+      "filters": ["Sports", "2", "3 - 5", "Intermediate", "Outside", "< 1h"],
+      "title": "Soccer Dribble Race",
+      "materials": ["2 Soccer balls", "4 Cones"],
+      "description": "In this activity, each child will have a soccer ball. Set two starting cones and two finish line cones. The children will stand behind their starting cone with their soccer ball. They have to dribble the ball past the finish line cone. The child who dribbles the ball past the finish line cone first will be the winner. This game improves kids' ball control skills and also allows them to be competitive in a fun and safe environment."
+    },
+    {
+      "filters": [
+        "Constructions",
+        "more than 3",
+        "3 - 5",
+        "Intermediate",
+        "Inside",
+        "1h < 2h"
+      ],
+      "title": "Build a Cardboard City",
+      "materials": ["Cardboard boxes", "Markers", "Scissors", "Tape"],
+      "description": "In 'Build a Cardboard City', each child gets to construct their own building using cardboard boxes, scissors, and tape. They can utilize the markers to decorate their building. Once each building is complete, arrange all the buildings together to form a city. This activity not only fosters creativity, but also promotes teamwork as children need to collaborate on the layout of the city."
     },
     {
       "filters": [
@@ -123,10 +273,133 @@
       "description": "This activity encourages creativity and teamwork. The children will collaborate to build a castle using building blocks, based on their interpretation of the reference image. It can take between 1 - 2 hours, adding or removing details, also discussing about castles and their importance in history. Always remember to celebrate your completed masterpiece."
     },
     {
+      "filters": [
+        "Constructions",
+        "3",
+        "5 - 7",
+        "Intermediate",
+        "Inside",
+        "1h < 2h"
+      ],
+      "title": "Build a Cardboard Town",
+      "materials": ["Cardboard boxes", "Markers", "Scissors", "Glue"],
+      "description": "This activity encourages creative thought in children by enabling them to create their own cardboard town. Kids can use various materials including markers for decorations, scissors to cut out windows and doors, and glue to assemble pieces together. Cardboard boxes of different sizes can be used to create a range of buildings. It's a fun and engaging activity that also nurtures problem-solving skills as kids decide the layout of their town."
+    },
+    {
+      "filters": [
+        "Constructions",
+        "1",
+        "5 - 7",
+        "Intermediate",
+        "Inside",
+        "1h < 2h"
+      ],
+      "title": "Build a Cardboard City",
+      "materials": ["Cardboard", "Scissors", "Markers", "Glue"],
+      "description": "In this activity, the child will build their own cardboard city. Using cardboard, markers, glue, and scissors, they will design and construct a variety of buildings and structures. As they play, they will develop their motor skills, problem-solving abilities, and imagination. First, they will start by drawing out the designs of the buildings on the cardboard and cutting them out using the scissors. Then, they can color their buildings and finally, glue them together to form a city. This project could take between one to two hours and parents are encouraged to assist and supervise due to the use of scissors. Note: Always be careful when using scissors."
+    },
+    {
+      "filters": [
+        "Constructions",
+        "2",
+        "7 - 9",
+        "Expert",
+        "Outside",
+        "1h < 2h"
+      ],
+      "title": "Fortress Building Challenge",
+      "materials": [
+        "Small pebbles",
+        "Building blocks",
+        "Flag (DIY or purchased)"
+      ],
+      "description": "Two teams will have the task to build their own fortress using the materials provided. Understanding of basic construction and architectural principles will be involved to build stable structures. Expert difficulty means kids will design their fortresses themselves. The game will be over when each team sets their flag on the top of their fortress. This activity will also enhance cooperation and problem-solving skills."
+    },
+    {
+      "filters": [
+        "Constructions",
+        "2",
+        "9 - 12",
+        "Expert",
+        "Outside",
+        "2h < 3h"
+      ],
+      "title": "Expert Architect Challenge",
+      "materials": [
+        "Cardboard boxes",
+        "Tape",
+        "Child-safe Scissors",
+        "Markers",
+        "Rulers",
+        "Pencil",
+        "Paper for sketching"
+      ],
+      "description": "This is an outdoor activity that challenges kids to design and construct a miniature model of a house using cardboard boxes, scissors, and tape. They will first sketch their design with pencil, taking note of measurements to ensure accuracy when building. They must create a sturdy structure, paying keen attention to details and design features. This activity enhances creativity, problem solving, and spatial reasoning skills. Remember, safety first while handling scissors. Adult supervision is recommended."
+    },
+    {
+      "filters": ["Logic", "2", "7 - 9", "Expert", "Inside", "1h < 2h"],
+      "title": "Mastermind Logic Game",
+      "materials": [
+        "Mastermind game or a DIY replica (pegs and board)",
+        "Paper",
+        "Pencil"
+      ],
+      "description": "In this activity, children will play the Mastermind Logic Game. The goal is to decipher the hidden code. Player 1 creates a secret code with four pegs. They can use the same color multiple times or not at all. Player 2 must try to guess this code within a set number of turns. Each turn, Player 1 gives hints for the previous guess, indicating how many pegs are the correct color and in the correct position, and how many are the correct color but the wrong position. Player 2 must use logical deduction based on these clues to guess the secret code."
+    },
+    {
+      "filters": ["Logic", "2", "5 - 7", "Expert", "Inside", "1h < 2h"],
+      "title": "Masterminds' Mystery Game",
+      "materials": [
+        "A deck of 'memory cards' (pair of identical images)",
+        "Timer",
+        "Notebook and Pen"
+      ],
+      "description": "In this logic-enhancing activity, children are to test their memory and logic skills. The memory cards are shuffled and laid face down on a table. Each kid takes turns flipping two cards. If the cards match, they keep them and get another turn. If they don't, they turn them back over and the turn is passed to the other kid. The game continues until all pairs are found. The kids should remember the location of the cards to find the pairs, applying their logic. Additionally, they can note the position of the cards in the notebook. This game develops both their memory and analytical skills."
+    },
+    {
       "filters": ["Logic", "1", "0 - 3", "Beginner", "Inside", "< 1h"],
       "title": "Color Sorting Fun",
       "materials": ["Colorful Blocks", "Six Different Colored Bowls"],
       "description": "This activity involves sorting colorful blocks into their corresponding colored bowl. This is a great way to introduce logic skills to a child within this age range, as they will learn to identify colors and categorize based on this characteristic. This activity is very hands-on and will also help develop motor skills."
+    },
+    {
+      "filters": ["Logic", "3", "3 - 5", "Beginner", "Inside", "1h < 2h"],
+      "title": "Little Puzzlers Adventure",
+      "materials": [
+        "Simple jigsaw puzzles",
+        "Colorful stickers",
+        "Reward chart"
+      ],
+      "description": "In this activity, the kids will be using jigsaw puzzles to solve logic tasks. They will take turns to challenge each other with a puzzle. The kid who solves the puzzle fastest gets a colorful sticker as a reward. It encourages logical thinking skill and enhances their problem-solving ability. Make sure to assist and guide them throughout the activity. Don't forget to record their achievement on the reward chart!"
+    },
+    {
+      "filters": ["Logic", "more than 3", "9 - 12", "Expert", "Inside", "< 1h"],
+      "title": "Detective Riddle Race",
+      "materials": ["Cards with riddles", "Timer", "Paper", "Pencils"],
+      "description": "In 'Detective Riddle Race', kids will test their logical thinking and speed. Divide them into teams. Each team gets a card with a complex logic riddle and the team which solves it first, wins the round. The game consists of multiple rounds to give each team the chance to recover. The team with most round wins, wins the game. Make sure the riddles are suitable for expert kids aged 9-12. Supervise the game to ensure the rules are followed, and to mediate in case of disputes."
+    },
+    {
+      "filters": [
+        "Logic",
+        "more than 3",
+        "12 - 14",
+        "Expert",
+        "Outside",
+        "1h < 2h"
+      ],
+      "title": "Logical Treasure Hunt",
+      "materials": [
+        "A variety of objects to be utilized as 'treasure'",
+        "Paper and Pen for creating clues",
+        "Phone with a camera (optional)"
+      ],
+      "description": "The Logical Treasure Hunt is a challenging yet fun outdoor activity designed to test logical reasoning skills. The organizer should pre-arrange a treasure trail using logic-based clues leading to the next location. Clues can be based on logical puzzles or riddles that need to be solved in order to advance. Players will be divided into teams and the first team to find all the treasures by solving the clues fastest wins the competition. This activity not only promotes team work but also enhances individual logical thinking ability."
+    },
+    {
+      "filters": ["Linguistic", "1", "12 - 14", "Expert", "Inside", "1h < 2h"],
+      "title": "Crafting a Short Story",
+      "materials": ["Notebook", "Pen", "Dictionary", "Thesaurus"],
+      "description": "This activity will facilitate the kid to craft and write a compelling short story in two hours. They'll start by brainstorming ideas for their short story, including character creation, plot, and setting development. The use of dictionary and thesaurus is encouraged for a rich linguistic experience allowing them to practice expert level word usage and sentence formation. Review and draft rewrites will hone the kid's editing and proofreading skills leading to a polished short story."
     },
     {
       "filters": [
@@ -142,20 +415,44 @@
       "description": "In this game, kids perform a Scavenger Hunt where they have to find objects starting with specific letters or objects corresponding to specific words located around the park. They follow the clues found in the envelopes. The first one to find all objects wins. A good way to enhance their linguistic skills, vocabulary and understanding while enjoying a day outdoors."
     },
     {
-      "filters": ["Nature", "1", "12 - 14", "Intermediate", "Outside", "3h <"],
-      "title": "Intermediate Wilderness Survival Skills",
+      "filters": ["Linguistic", "2", "5 - 7", "Intermediate", "Inside", "< 1h"],
+      "title": "Spell & Tell Challenge",
+      "materials": ["Index cards", "Marker", "Small prizes (optional)"],
+      "description": "This activity encourages teamwork and language skills. On index cards, write down simple words suitable for 5 - 7 age group. Split the cards evenly among the kids and take turns. A kid picks a card, spell out the word, and uses it in a sentence. If the other kid thinks the spelling and sentence are correct, they can agree. If not, they can discuss. If a team spells and uses a word correctly, they get a point. The team with more points after an agreed number of rounds wins. Optional: small prizes for the winning team."
+    },
+    {
+      "filters": ["Linguistic", "1", "3 - 5", "Beginner", "Inside", "< 1h"],
+      "title": "Alphabet Hidden Objects Game",
       "materials": [
-        "Backpack",
-        "Snacks",
-        "Water bottle",
-        "Notepad",
-        "Pen",
-        "Binoculars",
-        "Compass",
-        "Safety whistle",
-        "First aid kit"
+        "26 Small objects or toys each representing a letter of the alphabet",
+        "A cloth to hide objects",
+        "Large Alphabet Chart"
       ],
-      "description": "This activity is focused on stimulating one's ability to survive in nature. It includes learning about how to react in dangerous situations, the essential tools needed and their usage in nature, identifying natives plants and animals, orientation, and ways to call for help. Remember, safety is a priority, any dangerous action is strictly prohibited. Participant's awareness and respect for nature is crucial."
+      "description": "This game is about identifying and recognizing different objects corresponding to the 26 letters of the alphabet. First, spread all the objects on the floor and cover them with the cloth. The child should then pick one object at a time, identify it and match it with the corresponding letter on the alphabet chart. This activity will help enhance the child's linguistic skill and alphabetic knowledge."
+    },
+    {
+      "filters": [
+        "Linguistic",
+        "more than 3",
+        "9 - 12",
+        "Expert",
+        "Outside",
+        "2h < 3h"
+      ],
+      "title": "Linguistic Scavenger Hunt",
+      "materials": [
+        "List of linguistic clues",
+        "Prizes",
+        "Clock or timer",
+        "Paper and pencils for each team"
+      ],
+      "description": "On the 'Linguistic Scavenger Hunt', teams are provided with a list of linguistic clues that they need to solve in order to find hidden objects in a predefined area. This game involves answering riddles and decoding language clues, improving children's language deduction and problem-solving skills. Each clue gets them closer to their prize. Set a timer for the activity to keep it within the 2-3 hours limit. Will they finish in time?"
+    },
+    {
+      "filters": ["Linguistic", "2", "9 - 12", "Expert", "Inside", "< 1h"],
+      "title": "Crossword Build-Up",
+      "materials": ["Pen", "Paper", "Dictionary"],
+      "description": "This is a team-based linguistic puzzle activity. First, one child will write down a fairly difficult word from the dictionary. The second child then has to find a new word starting with the last letter of the previously written word. The process continues back and forth with the objective to build a crossword in the process. The game ends when a player can't find a new word that fits. They must use different words each time. The main purpose is to increase vocabulary and understanding of word formation."
     }
   ]
 }
