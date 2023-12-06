@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getFollowing } from '../../services/users';
+import { Link } from 'react-router-dom';
+import './Following.css';
 
 interface Following {
   username: string;
@@ -35,10 +37,12 @@ const Followers: React.FC<FollowersProps> = ({ username }) => {
     <div className="specific-item">
       {followingList.following.map((following) => (
         <div className="info" key={following.username}>
-          <div className="avatar">
-            <img src={following.avatar} />
-          </div>
-          <p>{following.username}</p>
+          <Link to={`/profile/${following.username}`}>
+            <div className="avatar">
+              <img src={following.avatar} />
+            </div>
+            <p>{following.username}</p>
+          </Link>
         </div>
       ))}
     </div>
