@@ -1,17 +1,36 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaChevronLeft } from 'react-icons/fa6';
 import { sendPasswordResetEmail } from '../../services/auth';
 
-const ForgotPassword = () => {
+import './ForgotPassword.css';
+
+type Props = {
+  title: string;
+  onGoBackClick?: Function;
+};
+
+const ForgotPassword = ({ onGoBackClick }: Props) => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (onGoBackClick) {
+      onGoBackClick();
+    } else {
+      navigate('/login');
+    }
+  };
+
+  const iconStyle = { width: '100%', height: '100%', color: 'white' };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await sendPasswordResetEmail(email);
-      setMessage(
-        'If an account exists for this email, a reset link will be sent'
-      );
+      setMessage('Reset password link has been sent');
     } catch (error) {
       console.error('Send password reset mail failed', error);
       setMessage('Failed to send reset email. Please try again');
@@ -19,19 +38,31 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div>
-      <h1>Forgot Password</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          placeholder="Enter your email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button type="submit">Continue</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
+    <>
+      <div className="header">
+        <button className="btn-go-back" onClick={handleClick}>
+          <FaChevronLeft style={iconStyle} />
+        </button>
+      </div>
+      <div className="forgotPassword-container">
+        <div className="forgot-password">
+          <h2>Forgot Password</h2>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            value={email}
+            placeholder="Enter your email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="email-input"
+          />
+          <button type="submit" className="continue-btn">
+            Continue
+          </button>
+        </form>
+        {message && <p>{message}</p>}
+      </div>
+    </>
   );
 };
 

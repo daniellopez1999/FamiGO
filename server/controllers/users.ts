@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-// import { Document } from 'mongoose';
 import crypto from 'crypto';
-// import bcrypt from 'bcrypt';
 import sendResetEmail from '../utils/sendResetEmail';
 import { OAuth2Client } from 'google-auth-library';
 import {

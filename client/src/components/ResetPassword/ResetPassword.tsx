@@ -1,13 +1,30 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { FaChevronLeft } from 'react-icons/fa6';
 import { resetPassword } from '../../services/auth';
+import './ResetPassword.css';
 
-const ResetPassword = () => {
+type Props = {
+  title: string;
+  onGoBackClick?: Function;
+};
+
+const ResetPassword = ({ onGoBackClick }: Props) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleClick = () => {
+    if (onGoBackClick) {
+      onGoBackClick();
+    } else {
+      navigate('/forgot-password');
+    }
+  };
+
+  const iconStyle = { width: '100%', height: '100%', color: 'white' };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,24 +52,37 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <h1>New Password</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          value={password}
-          placeholder="Create new password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          value={confirmPassword}
-          placeholder="Confirm your password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <button type="submit">Reset Password</button>
-      </form>
-    </div>
+    <>
+      <div className="header">
+        <button className="btn-go-back" onClick={handleClick}>
+          <FaChevronLeft style={iconStyle} />
+        </button>
+      </div>
+      <div className="resetPassword-container">
+        <div className="reset-password">
+          <h2>New Password</h2>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            value={password}
+            placeholder="Create new password"
+            onChange={(e) => setPassword(e.target.value)}
+            className="reset-input"
+          />
+          <input
+            type="password"
+            value={confirmPassword}
+            placeholder="Confirm your password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="reset-input"
+          />
+          <button type="submit" className="reset-btn">
+            Reset Password
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
