@@ -8,6 +8,7 @@ import Collection from '../Collection/Collection';
 const PersonalCollection = () => {
   const { state } = useLocation();
   const [collectionType, setCollectionType] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (state) {
@@ -15,13 +16,17 @@ const PersonalCollection = () => {
     } else {
       setCollectionType('mine');
     }
+
+    setIsLoading(false);
   }, [state]);
 
   return (
-    <CollectionContext.Provider value={{ collectionType, setCollectionType }}>
-      <CollectionNav />
-      <Collection />
-    </CollectionContext.Provider>
+    !isLoading && (
+      <CollectionContext.Provider value={{ collectionType, setCollectionType }}>
+        <CollectionNav />
+        <Collection />
+      </CollectionContext.Provider>
+    )
   );
 };
 
