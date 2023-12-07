@@ -1,4 +1,4 @@
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ConfirmToast } from 'react-confirm-toast';
@@ -76,18 +76,18 @@ const SpecificActivity = () => {
         },
         {}
       );
-      
+
       const AIActivity = {
         title,
         description,
         ...OptionDefaultValues,
         materials,
       };
-      
+
       dispatch(setAIDraftPublish(AIActivity));
       dispatch(setAIId(id as string));
     }
-    
+
     navigate('/publish-activity');
   };
 
