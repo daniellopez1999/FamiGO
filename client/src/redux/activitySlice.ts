@@ -2,12 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { FeedActivity } from '../types/feed';
-import { DraftPublish } from '../types/activity';
+import { DraftPublish, AIDraftPublish } from '../types/activity';
 import { useAppSelector } from './hooks';
 
 type initialStateType = {
   newlyPublishedActivity: null | FeedActivity;
   draftPublish: null | DraftPublish;
+  AIdraftPublish: null | AIDraftPublish;
+  AIId: null | string;
   collection: {
     [key: string]: null | FeedActivity[];
   };
@@ -16,6 +18,8 @@ type initialStateType = {
 const initialState: initialStateType = {
   newlyPublishedActivity: null,
   draftPublish: null,
+  AIdraftPublish: null,
+  AIId: null,
   collection: {
     mine: null,
     others: null,
@@ -47,10 +51,26 @@ export const activitySlice = createSlice({
       };
     },
 
+    setAIDraftPublish: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        AIdraftPublish: action.payload,
+      };
+    },
+
+    setAIId: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        AIId: action.payload,
+      };
+    },
+
     clearDraft: (state) => {
       return {
         ...state,
         draftPublish: null,
+        AIdraftPublish: null,
+        AIId: null,
       };
     },
 
@@ -84,6 +104,8 @@ export const {
   setNewlyPublishedActivity,
   clearNewlyPublishedActivity,
   setDraftPublish,
+  setAIDraftPublish,
+  setAIId,
   clearDraft,
   setCollection,
   clearCollection,
@@ -93,7 +115,9 @@ export const getNewlyPublishedActivity = () =>
   useAppSelector((state) => state.activity.newlyPublishedActivity);
 export const getDraftPublish = () =>
   useAppSelector((state) => state.activity.draftPublish);
-
+export const getAIDraftPublish = () =>
+  useAppSelector((state) => state.activity.AIdraftPublish);
+export const getAIId = () => useAppSelector((state) => state.activity.AIId);
 export const getCollection = (type: string) =>
   useAppSelector((state) => state.activity.collection[type]);
 

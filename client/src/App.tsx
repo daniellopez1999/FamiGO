@@ -10,6 +10,8 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import PublishIdeaPage from './pages/PublishActivityPage';
 import GeneratorPage from './pages/GeneratorPage/GeneratorPage';
 import LoginPage from './pages/LoginPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 import RegisterPage from './pages/RegisterPage';
 import EditProfilePage from './pages/EditProfilePage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
@@ -17,6 +19,7 @@ import NavOutlet from './components/NavOutlet';
 
 import './App.css';
 import Activity from './pages/Activity/ActivityPage';
+import FollowList from './pages/FollowList/FollowList';
 
 const App = () => {
   const { pathname } = useLocation();
@@ -35,6 +38,8 @@ const App = () => {
       <Toaster position="top-center" />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/edit-profile/:username" element={<EditProfilePage />} />
@@ -46,6 +51,8 @@ const App = () => {
         </Route>
         <Route path="/publish-activity" element={<PublishIdeaPage />} />
         <Route path="/*" element={<NotFoundPage />} />
+        <Route path="/followers/:username" element={<FollowList />} />
+        <Route path="/following/:username" element={<FollowList />} />
       </Routes>
     </div>
   );

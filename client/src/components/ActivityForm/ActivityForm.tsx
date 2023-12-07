@@ -1,14 +1,15 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, useRef } from 'react';
 import { Controller, useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-
 import { useAppDispatch } from '../../redux/hooks';
 import {
   setNewlyPublishedActivity,
   setDraftPublish,
   clearDraft,
   getDraftPublish,
+  getAIDraftPublish,
+  getAIId,
 } from '../../redux/activitySlice';
 import {
   uploadFileToCloudinary,
@@ -17,7 +18,6 @@ import {
 import { publishActivity } from '../../services/activity';
 import FiltersSelect from '../FiltersSelect/FiltersSelect';
 import Modal from '../Modal/Modal';
-
 import {
   FileInfo,
   Activity,
@@ -25,8 +25,10 @@ import {
   FiltersWithOptions,
   PublishFormInput,
   DraftPublish,
+  PublishInfo,
 } from '../../types/activity';
 
+import { IoAddOutline } from 'react-icons/io5';
 import DeleteIcon from '../../assets/close-white.png';
 import Logo from '../../assets/logo.png';
 import './ActivityForm.css';
@@ -42,7 +44,10 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const draft = getDraftPublish();
+  const AIdraft = getAIDraftPublish();
+  const AIId = getAIId();
 
+  const bottomRef = useRef<HTMLDivElement>(null);
   const [fileInfo, setFileInfo] = useState<FileInfo>({} as FileInfo);
   const [fileStatus, setFileStatus] = useState<null | string>(null);
 
@@ -58,8 +63,18 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
   useEffect(() => {
     if (draft) {
       const { image, materials, ...defaultValues } = draft;
+      console.log('draft', draft);
 
       setFileInfo(image);
+      setMaterials(materials);
+      reset(defaultValues);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (AIdraft) {
+      const { materials, ...defaultValues } = AIdraft;
+      console.log('AIdraft', AIdraft);
       setMaterials(materials);
       reset(defaultValues);
     }
@@ -71,6 +86,10 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
     }
   }, [showModal]);
 
+  const scrollToBottom = () => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setFileStatus('loading');
@@ -80,12 +99,13 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
 
     const info = await toast.promise<FileInfo>(uploadPromise, {
       loading: 'uploading',
-      success: <b>uploaded!</b>,
-      error: <b>fail to upload...</b>,
+      success: <b>Uploaded!</b>,
+      error: <b>Failed to upload...</b>,
     });
 
     setFileInfo(info);
     setFileStatus(null);
+    scrollToBottom();
   };
 
   const handleFileDelete = async () => {
@@ -95,8 +115,8 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
 
     await toast.promise(deletePromise, {
       loading: 'deleting',
-      success: <b>deleted!</b>,
-      error: <b>fail to delete...</b>,
+      success: <b>Deleted!</b>,
+      error: <b>Failed to delete...</b>,
     });
 
     setFileInfo({} as FileInfo);
@@ -109,6 +129,7 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
   const handleAddMaterial = () => {
     setMaterials((prev) => [...prev, material]);
     setMaterial('');
+    scrollToBottom();
   };
 
   const handleDeleteMaterial = (index: number) => {
@@ -160,9 +181,15 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
     return filtersCopy;
   };
 
-  const handlePublish = async (info: Activity) => {
+  const handlePublish = async (activity: Activity) => {
     try {
-      const publishedActivity = await publishActivity(info);
+      // ai
+      const info: PublishInfo = {
+        type: AIId ? 'ai' : 'normal',
+        id: AIId || null,
+      };
+
+      const publishedActivity = await publishActivity(activity, info);
 
       dispatch(setNewlyPublishedActivity(publishedActivity));
       toast.success('Your activity is now published!');
@@ -187,7 +214,6 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
         handleSaveDraft(info);
         return;
       }
-
       // publish
       const readyToPublish = handleCheckPublish(data);
       if (!readyToPublish) {
@@ -209,7 +235,7 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
       console.log('send to backend -->', info);
 
       await handlePublish(info);
-
+      dispatch(clearDraft());
       return;
     } catch (error) {
       console.log('submit err -->', error);
@@ -259,7 +285,7 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
           </div>
           <div className="file-input-container">
             <input type="file" onChange={handleFileChange} />
-            <label>upload a image</label>
+            <label>Upload a image</label>
           </div>
         </div>
 
@@ -276,18 +302,20 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
             </div>
             <div className="material-container">
               <p>Materials</p>
-              <input
-                type="text"
-                value={material}
-                onChange={(e) => setMaterial(e.target.value)}
-              />
-              <button
-                className="buttonAdd"
-                type="button"
-                onClick={handleAddMaterial}
-              >
-                add
-              </button>
+              <div className="material-box">
+                <input
+                  type="text"
+                  value={material}
+                  onChange={(e) => setMaterial(e.target.value)}
+                />
+                <button
+                  className="buttonAdd"
+                  type="button"
+                  onClick={handleAddMaterial}
+                >
+                  <IoAddOutline size={20} />
+                </button>
+              </div>
               <div>
                 {!!materials.length &&
                   materials.map((material, index) => (
@@ -311,12 +339,13 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
 
             <div className="button-box">
               <button className="button" type="submit">
-                publish
+                Publish
               </button>
             </div>
           </div>
         </form>
       </div>
+      <div ref={bottomRef}></div>
     </>
   );
 };

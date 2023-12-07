@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import crypto from 'crypto';
+import sendResetEmail from '../utils/sendResetEmail';
 import { OAuth2Client } from 'google-auth-library';
 import {
   createUser,
@@ -8,27 +10,22 @@ import {
   UserModel,
 } from '../models/users';
 import { random, authentication } from '../helpers';
+import { follow } from '../types/user';
 
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.sendStatus(400);
-    }
-
     const user = await getUserByEmail(email).select(
       '+authentication.salt +authentication.password'
     );
-
     if (!user) {
-      return res.sendStatus(400);
+      return res.status(400).send({ message: 'User does not exist' });
     }
 
     const expectedHash = authentication(user.authentication!.salt!, password);
-
     if (user.authentication!.password != expectedHash) {
-      return res.sendStatus(403);
+      return res.status(403).send({ message: 'Incorrect password' });
     }
 
     const salt = random();
@@ -55,7 +52,6 @@ export const login = async (req: Request, res: Response) => {
       path: '/',
       httpOnly: true,
     });
-
     return res.status(200).json(user).end();
   } catch (error) {
     return res.status(400);
@@ -134,15 +130,11 @@ export const register = async (req: Request, res: Response) => {
   try {
     const { email, password, username } = req.body;
 
-    if (!email || !password || !username) {
-      return res.sendStatus(400);
-    }
-
     const existingUserEmail = await getUserByEmail(email);
     const existingUserName = await getUserByUserName(username);
 
     if (existingUserEmail || existingUserName) {
-      return res.sendStatus(400);
+      return res.status(400).send({ message: 'User already exist' });
     }
 
     const salt = random();
@@ -244,69 +236,6 @@ export const getUserInfo = async (req: Request, res: Response) => {
   }
 };
 
-export const followAndUnfollow = async (req: Request, res: Response) => {
-  try {
-    const { usernameToFollow, usernameFollowing } = req.body;
-
-    const userToFollow = await getUserByUserName(usernameToFollow);
-    const userFollowing = await getUserByUserName(usernameFollowing);
-
-    const userToFollowID = userToFollow?._id?.toString();
-    const userFollowingID = userFollowing?._id?.toString();
-
-    console.log(userToFollowID, userFollowingID);
-
-    if (userToFollow?.statistics?.followers?.includes(userFollowingID || '')) {
-      await UserModel.findOneAndUpdate(
-        { username: usernameFollowing },
-        { $pull: { 'statistics.following': userToFollowID } },
-        { new: true }
-      );
-
-      await UserModel.findOneAndUpdate(
-        { username: usernameToFollow },
-        { $pull: { 'statistics.followers': userFollowingID } },
-        { new: true }
-      );
-    } else {
-      await UserModel.findOneAndUpdate(
-        { username: usernameFollowing },
-        { $push: { 'statistics.following': userToFollowID } },
-        { new: true }
-      );
-      await UserModel.findOneAndUpdate(
-        { username: usernameToFollow },
-        { $push: { 'statistics.followers': userFollowingID } },
-        { new: true }
-      );
-    }
-
-    return res.status(200).json({ userToFollow, userFollowing });
-  } catch (error) {
-    return res.status(500).json({ error: 'Internal server error.' });
-  }
-};
-
-export const checkFollowing = async (req: Request, res: Response) => {
-  try {
-    const { usernameFollowing, usernameToFollow } = req.params;
-    const userFollowingData = await getUserByUserName(usernameFollowing);
-    const userToFollowData = await getUserByUserName(usernameToFollow);
-
-    const userFollowingID = userFollowingData?._id.toString();
-
-    if (
-      userToFollowData?.statistics?.followers?.includes(userFollowingID || '')
-    ) {
-      return res.status(200).json({ following: true });
-    } else {
-      return res.status(200).json({ following: false });
-    }
-  } catch (error) {
-    return res.status(403).end();
-  }
-};
-
 export const toggleRelationship = async (req: Request, res: Response) => {
   try {
     const { username, relationship } = req.params;
@@ -368,5 +297,103 @@ export const logout = async (_req: Request, res: Response) => {
     res.status(200).end();
   } catch (error) {
     res.status(400).json({ ERROR: error });
+  }
+};
+
+export const forgotPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hour
+
+    await user.save();
+
+    const resetLink = `${process.env.BASE_URL}/reset-password?token=${resetToken}`;
+    await sendResetEmail(email, user.username, resetLink);
+
+    return res.status(200).json({ message: 'Password reset email sent' });
+  } catch (error) {
+    console.error('Error in forgotPassword:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const { token, newPassword } = req.body;
+    const user = await UserModel.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
+    const newSalt = random();
+
+    const hashedPassword = authentication(newSalt, newPassword);
+
+    user.authentication!.password = hashedPassword;
+    user.authentication!.salt = newSalt;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    return res.status(200).json({ message: 'Password successfully changed' });
+  } catch (error) {
+    console.error('Error in resetPassword:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getFollowers = async (req: Request, res: Response) => {
+  const { username } = req.params;
+  try {
+    const user = await getUserByUserName(username);
+    const followersList = user!.statistics?.followers;
+
+    const followers: follow[] = [];
+
+    for (const followerId of followersList!) {
+      const follower = await getUserById(followerId);
+      followers.push({
+        username: follower!.username,
+        avatar: follower!.avatar,
+      });
+    }
+
+    return res.status(200).json({ followers });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getFollowing = async (req: Request, res: Response) => {
+  const { username } = req.params;
+  try {
+    const user = await getUserByUserName(username);
+    const followingList = user!.statistics?.following;
+
+    const following: follow[] = [];
+
+    for (const followerId of followingList!) {
+      const follower = await getUserById(followerId);
+      following.push({
+        username: follower!.username,
+        avatar: follower!.avatar,
+      });
+    }
+
+    return res.status(200).json({ following });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };

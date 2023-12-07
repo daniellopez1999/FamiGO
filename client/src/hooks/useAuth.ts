@@ -18,7 +18,6 @@ const useAuth = () => {
     try {
       const user = (await login(info)) as IUser;
 
-      // save user info in redux
       if (user) {
         dispatch(setUser(user));
         setCookie('app-username', user.username);
@@ -27,8 +26,7 @@ const useAuth = () => {
 
       return;
     } catch (error) {
-      console.log('login error - useAuth -->', error);
-      throw new Error('login fail');
+      throw error;
     }
   };
 
@@ -59,8 +57,7 @@ const useAuth = () => {
 
       return;
     } catch (error) {
-      console.log('login error - useAuth -->', error);
-      throw new Error('register fail');
+      throw error;
     }
   };
 
@@ -75,13 +72,22 @@ const useAuth = () => {
 
   const handleAuthCheck = (pathname: string) => {
     const name = cookies['app-username'];
-    if (!name) {
+
+    const publicPaths = [
+      '/login',
+      '/register',
+      '/forgot-password',
+      '/reset-password',
+    ];
+
+    if (!name && !publicPaths.includes(pathname)) {
       navigate('/login');
       return false;
-    } else if (pathname === '/') {
+    }
+
+    if (name && pathname === '/') {
       navigate('/feed');
-    } else {
-      navigate(pathname);
+      return true;
     }
 
     return true;

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUserByUserName } from '../models/users';
+import { UserModel, getUserByUserName } from '../models/users';
 import { getActivitiesByID } from '../models/activity';
 import { ActivityModel, createActivity } from '../models/activity';
 import {
@@ -13,7 +13,7 @@ import { ActivityWithUser } from '../types/activity';
 export const publishActivity = async (req: Request, res: Response) => {
   try {
     const {
-      body: { activity },
+      body: { activity, info },
     } = req;
 
     const username = req.cookies['username'];
@@ -32,6 +32,15 @@ export const publishActivity = async (req: Request, res: Response) => {
       user.statistics ??= {};
       user.statistics.posts ??= [];
       user.statistics.posts.push(activityId);
+
+      if (info.type === 'ai') {
+        const userID = user._id.toString();
+        await UserModel.findByIdAndUpdate(
+          userID,
+          { $pull: { savedAIPosts: info.id } },
+          { new: true }
+        );
+      }
 
       await user.save();
 
@@ -82,7 +91,6 @@ export const getUserCollectionByType = async (req: Request, res: Response) => {
     res.status(200).send({ collection });
     return;
   } catch (error) {
-    console.log('get collection by type err -->', error);
     res.status(500).end();
     throw error;
   }
@@ -119,6 +127,7 @@ export const getPostsForFeed = async (req: Request, res: Response) => {
 
       //iteratee over each object over postsIDs
       const postsIDs = getAllPostsIDs(followingUsersInfo);
+
       const activities = await iterateActivities(postsIDs);
 
       //Sort by latest
@@ -126,7 +135,21 @@ export const getPostsForFeed = async (req: Request, res: Response) => {
         return b.createdAt - a.createdAt;
       });
 
-      res.json({ activities });
+      const existingActivitiesIDs = activities.map((activity) => activity._id);
+      //Get 5 random activities to show first from users that you don't follow
+      const randomActivities = await ActivityModel.aggregate([
+        {
+          $match: {
+            type: 'published',
+            _id: { $nin: existingActivitiesIDs },
+            'userInfo.username': { $ne: username },
+          },
+        },
+        { $sample: { size: 5 } },
+      ]);
+
+      activities.unshift(...randomActivities);
+      res.json({ activities }).status(200);
     }
     //if not following any users goes to else
     else {
@@ -143,7 +166,6 @@ export const getPostsForFeed = async (req: Request, res: Response) => {
       const result = activities.filter(
         (activity) => activity.userInfo?.username !== username
       );
-
       res.json({ activities: result }).status(200);
     }
     return;
@@ -179,8 +201,6 @@ export const getPostsByFilter = async (req: Request, res: Response) => {
       });
     }
 
-    console.log('query -->', query);
-
     const limit = 20;
     const filteredActivities = await ActivityModel.find(query)
       .find({ type: 'published' })
@@ -189,7 +209,6 @@ export const getPostsByFilter = async (req: Request, res: Response) => {
     const result = filteredActivities.filter(
       (activity) => activity.userInfo?.username !== username
     );
-    console.log('filteredActivities -->', result);
 
     res.status(200).json({ activities: result });
   } catch (error) {

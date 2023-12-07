@@ -7,10 +7,12 @@ import {
   getUserInfo,
   googleLogin,
   updateUserInfo,
-  // followAndUnfollow,
-  // checkFollowing,
   toggleRelationship,
   logout,
+  forgotPassword,
+  resetPassword,
+  getFollowers,
+  getFollowing,
 } from './controllers/users';
 import {
   uploadToCloudinary,
@@ -58,6 +60,9 @@ router.put(
 );
 router.put('/profile/:username', isAuthenticated, isOwnerEdit, updateUserInfo);
 
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
+
 //get posts from feed
 router.get('/feed', isAuthenticated, isAuthorized, getPostsForFeed);
 router.post('/feed', getPostsByFilter);
@@ -66,6 +71,8 @@ router.post('/feed', getPostsByFilter);
 router.post('/save-activity', saveActivity);
 router.post('/publish-activity', isAuthenticated, publishActivity);
 router.get('/get-activity/:id', isAuthenticated, getActivity);
+
+// cloudinary
 const upload = multer();
 router.post('/image', upload.any(), uploadToCloudinary);
 router.delete('/image/:publicId', deleteFromCloudinary);
@@ -73,23 +80,17 @@ router.delete('/image/:publicId', deleteFromCloudinary);
 router.post('/generator', generateActivity);
 router.get('/generator', generateActivity);
 
-//Activity interactions
-//Activity interactions
+// interactions
 router.post('/savepost-in-user/:username/:id', saveActivityInProfile);
 router.post('/save-like/:username/:id', likeActivity);
 router.get('/check-like/:username/:id', checkLike);
+
 // get plain user info
 router.get('/user/:username', isAuthenticated, getUserInfo);
 router.post('/post-comment', createComment);
 router.get('/get-comments/:activityID', getComments);
 
 router.post('/user/:username/:relationship', toggleRelationship);
-
-// router.post('/profile/follow', followAndUnfollow);
-// router.get(
-//   '/profile/check-following/:usernameFollowing/:usernameToFollow',
-//   checkFollowing
-// );
 
 router.get(
   '/collection/:username/:type',
@@ -100,5 +101,8 @@ router.get(
 router.delete('/delete-activity/:username/:id', deleteActivity);
 
 router.get('/logout', isAuthenticated, logout);
+
+router.get('/get-followers/:username', getFollowers);
+router.get('/get-following/:username', getFollowing);
 
 export default router;

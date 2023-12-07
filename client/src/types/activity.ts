@@ -58,6 +58,10 @@ export interface DraftPublish extends PublishFormInput {
   materials: string[];
 }
 
+export interface AIDraftPublish extends PublishFormInput {
+  materials: string[];
+}
+
 export interface ActivityObject {
   activityInfo: {
     userInfo: {
@@ -122,4 +126,9 @@ export interface ISavedActivity {
   userInfo: {
     username: string;
   };
+}
+
+export interface PublishInfo {
+  id: null | string;
+  type: 'ai' | 'normal';
 }

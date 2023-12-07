@@ -1,25 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { CollectionContext } from '../../context/CollectionContext';
 
 import CollectionNav from '../CollectionNav/CollectionNav';
 import Collection from '../Collection/Collection';
 
-type Props = {
-  isMyProfile: boolean;
-  currentProfile: string;
-};
+const PersonalCollection = () => {
+  const { state } = useLocation();
+  const [collectionType, setCollectionType] = useState<string>('');
 
-const PersonalCollection = ({ isMyProfile, currentProfile }: Props) => {
-  const [collectionType, setCollectionType] = useState('mine');
-
-  const handleNavClick = (type: string) => {
-    setCollectionType(type);
-  };
+  useEffect(() => {
+    if (state) {
+      setCollectionType(state.type);
+    } else {
+      setCollectionType('mine');
+    }
+  }, [state]);
 
   return (
-    <>
-      <CollectionNav onNavClick={handleNavClick} showAllNavs={isMyProfile} />
-      <Collection type={collectionType} currentProfile={currentProfile} />
-    </>
+    <CollectionContext.Provider value={{ collectionType, setCollectionType }}>
+      <CollectionNav />
+      <Collection />
+    </CollectionContext.Provider>
   );
 };
 

@@ -1,20 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useAppDispatch } from '../../redux/hooks';
 import { getMyUsername, setUser } from '../../redux/userSlice';
+import { ProfileContext } from '../../context/ProfileContext';
 import { IUser } from '../../types/user';
 import DataBox from '../DataBox/DataBox';
 import { getUserPlainInfo, handleRelationship } from '../../services/users';
 
 import './PersonalInfo.css';
+import React from 'react';
 
-type Props = {
-  isMyProfile: boolean;
-  currentProfile: string;
-};
+const PersonalInfo = () => {
+  const { isMyProfile, currentProfile } = useContext(ProfileContext);
 
-const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
   const dispatch = useAppDispatch();
   const myUsername = getMyUsername();
   const { user, handleLogout } = useAuth();
@@ -29,7 +28,7 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
     setIsLoading(true);
 
     const getInfo = async () => {
-      const info = await getUserPlainInfo(currentProfile as string);
+      const info = await getUserPlainInfo(currentProfile);
       setInfo(info);
       setIsLoading(false);
       return;
@@ -54,7 +53,7 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
   const handleRelation = async () => {
     try {
       const data = await handleRelationship(
-        currentProfile as string,
+        currentProfile,
         myUsername as string,
         relation
       );
@@ -91,11 +90,15 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
             <div className="statistics">
               {['posts', 'followers', 'following'].map((cat, index) => {
                 return (
-                  <DataBox
-                    key={index}
-                    type={cat}
-                    number={statistics[cat].length}
-                  />
+                  <React.Fragment key={index}>
+                    {cat === 'posts' ? (
+                      <DataBox type={cat} number={statistics[cat].length} />
+                    ) : (
+                      <Link to={`/${cat}/${username}`}>
+                        <DataBox type={cat} number={statistics[cat].length} />
+                      </Link>
+                    )}
+                  </React.Fragment>
                 );
               })}
             </div>
@@ -105,10 +108,10 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
             <p className="desc">{description}</p>
             {isMyProfile && (
               <>
-                <Link to={`/edit-profile/${username}`}>
+                <Link className="edit-btn" to={`/edit-profile/${username}`}>
                   <button className="edit-btn">Edit profile</button>
                 </Link>
-                <Link to={`/Login`}>
+                <Link className="edit-btn" to={`/Login`}>
                   <button onClick={() => onLogout()} className="edit-btn">
                     Log out
                   </button>
@@ -116,7 +119,16 @@ const PersonalInfo = ({ isMyProfile, currentProfile }: Props) => {
               </>
             )}
             {!isMyProfile && (
-              <button onClick={handleRelation}>{relation}</button>
+              <div className="relation">
+                <button
+                  className={`button ${
+                    relation === 'unfollow' ? 'button-grey' : ''
+                  }`}
+                  onClick={handleRelation}
+                >
+                  {relation}
+                </button>
+              </div>
             )}
           </div>
         </div>

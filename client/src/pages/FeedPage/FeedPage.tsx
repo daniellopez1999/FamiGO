@@ -28,7 +28,7 @@ const FeedPage = () => {
   );
   const [hasFilters, setHasFilters] = useState<Boolean>(false);
   const [showFilters, setShowFilters] = useState(false);
-  const { control, handleSubmit } = useForm<IFormInput>({});
+  const { control, handleSubmit, reset } = useForm<IFormInput>({});
 
   const myNewPublish = getNewlyPublishedActivity();
   const myUsername = getMyUsername();
@@ -45,6 +45,13 @@ const FeedPage = () => {
 
   const toggleFilters = () => {
     setShowFilters(!showFilters);
+    setShowFilters(true);
+  };
+
+  const clearFilters = () => {
+    reset({});
+    setHasFilters(false);
+    setShowFilters(true);
   };
 
   const navigate = useNavigate();
@@ -92,16 +99,26 @@ const FeedPage = () => {
       {hasFilters &&
         (hasFilteredItems ? (
           filteredFeedItems.map((feedItem) => (
-            <FeedItem key={feedItem._id} activity={feedItem} />
+            <FeedItem key={feedItem._id} activity={feedItem} isFeed />
           ))
         ) : (
-          <p>no item, try another filter combination</p>
+          <div className="no-filter-result">
+            <p>
+              No item found...
+              <br /> Try another filter combination.
+            </p>
+            <button className="btn-clear" onClick={clearFilters}>
+              Clear filters
+            </button>
+          </div>
         ))}
-      {myNewPublish && <FeedItem activity={myNewPublish} />}
+      {myNewPublish && !hasFilters && (
+        <FeedItem activity={myNewPublish} isFeed />
+      )}
       {hasFeed &&
         !hasFilters &&
         feedItems.map((feedItem) => (
-          <FeedItem key={feedItem._id} activity={feedItem} />
+          <FeedItem key={feedItem._id} activity={feedItem} isFeed />
         ))}
     </div>
   );
