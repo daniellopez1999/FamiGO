@@ -27,6 +27,11 @@ export const userSlice = createSlice({
       };
     },
 
+    addMyPost: (state, action: PayloadAction<any>) => {
+      const id = action.payload;
+      state.user?.statistics.posts.push(id);
+    },
+
     addSavedPost: (state, action: PayloadAction<any>) => {
       const id = action.payload;
       const curr = state.savedPosts as string[];
@@ -53,7 +58,8 @@ export const userSlice = createSlice({
 });
 
 // action
-export const { setUser, addSavedPost, removeSavedPost } = userSlice.actions;
+export const { setUser, addMyPost, addSavedPost, removeSavedPost } =
+  userSlice.actions;
 
 // selector
 export const getUser = () => useAppSelector((state) => state.user.user);

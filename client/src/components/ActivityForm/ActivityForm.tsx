@@ -3,6 +3,7 @@ import { Controller, useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAppDispatch } from '../../redux/hooks';
+import { addMyPost } from '../../redux/userSlice';
 import {
   setNewlyPublishedActivity,
   setDraftPublish,
@@ -191,7 +192,9 @@ const ActivityForm = ({ showModal, setShowModal }: Props) => {
 
       const publishedActivity = await publishActivity(activity, info);
 
+      // todo： use hook
       dispatch(setNewlyPublishedActivity(publishedActivity));
+      dispatch(addMyPost(publishedActivity._id));
       toast.success('Your activity is now published!');
       setTimeout(() => {
         navigate('/feed');
