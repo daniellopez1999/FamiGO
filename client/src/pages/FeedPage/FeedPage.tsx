@@ -44,8 +44,7 @@ const FeedPage = () => {
   };
 
   const toggleFilters = () => {
-    setShowFilters(!showFilters);
-    setShowFilters(true);
+    setShowFilters((prev) => !prev);
   };
 
   const clearFilters = () => {
