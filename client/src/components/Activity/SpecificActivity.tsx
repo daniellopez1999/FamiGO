@@ -1,7 +1,8 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ConfirmToast } from 'react-confirm-toast';
+
 import { useAppDispatch } from '../../redux/hooks';
 import { getMyUsername } from '../../redux/userSlice';
 import {
@@ -75,15 +76,18 @@ const SpecificActivity = () => {
         },
         {}
       );
+      
       const AIActivity = {
         title,
         description,
         ...OptionDefaultValues,
         materials,
       };
+      
       dispatch(setAIDraftPublish(AIActivity));
       dispatch(setAIId(id as string));
     }
+    
     navigate('/publish-activity');
   };
 
@@ -97,6 +101,7 @@ const SpecificActivity = () => {
 
   return (
     <div className="specific-item">
+      <br />
       <h2>{title}</h2>
       {activity && <FeedItem activity={activity!} isFeed={false} isAI={isAI} />}
 
