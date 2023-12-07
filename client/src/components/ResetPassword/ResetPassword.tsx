@@ -5,7 +5,6 @@ import { resetPassword } from '../../services/auth';
 import './ResetPassword.css';
 
 type Props = {
-  title: string;
   onGoBackClick?: Function;
 };
 

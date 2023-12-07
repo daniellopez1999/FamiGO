@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 import './ForgotPassword.css';
 
 type Props = {
-  title: string;
   onGoBackClick?: Function;
 };
 
