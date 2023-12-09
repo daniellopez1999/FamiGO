@@ -2,6 +2,9 @@
 
 ## Getting started
 
+## Description
+FamiGO, a social application designed for parents to connect, share, and discover memorable activities with their children.  
+
 **1. Configure environment variables**
 
 - Create a `.env` file in client folder and server folder
